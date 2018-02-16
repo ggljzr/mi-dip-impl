@@ -20,6 +20,9 @@ def index():
 @mod_main.route('/garage/<id>')
 def show_garage(id):
     garage = Model.get_garage_by_id(id)
+    if garage == None:
+        return render_template('404.html')
+
     return render_template('main/garage_view.html', garage=garage)
 
 #vytvoreni garaze v uzivatelskym rozhrani
