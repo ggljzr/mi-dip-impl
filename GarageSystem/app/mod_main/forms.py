@@ -1,6 +1,7 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
+from wtforms.validators import NumberRange
 
-class GarageForm(Form):
+class GarageForm(FlaskForm):
     tag = StringField('Označení')
-    period = IntegerField('Perioda')
+    period = IntegerField('Perioda', validators=[NumberRange(1, 999)])
