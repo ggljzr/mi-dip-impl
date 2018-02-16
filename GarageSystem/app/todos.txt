@@ -1,0 +1,5 @@
+* predelat to flashovani ty error message v tim controlleru (podle ty error message z validatoru)
+* generovat api klic
+* nastavovat vostatni parametry ty garaze (posledni hlaseni), ale to bude na zacatku asi proste none dokavad se nakej system nevozve, tak to je nak upravit v tim view
+* nastylovat to
+* udelat auth modul

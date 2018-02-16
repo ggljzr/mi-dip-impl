@@ -26,6 +26,10 @@ def show_garage(id):
     if garage == None:
         return render_template('404.html')
 
+    #taky celej ten form by to chtelo predelat
+    #aby to pracovalo nak vic univerzalne
+    #treba kdyby bylo potreba pridavat editovatelny
+    #polozky
     garage_form = GarageForm()
 
     if request.method == 'POST':
@@ -35,6 +39,8 @@ def show_garage(id):
             Model.update_garage(id, new_tag, new_period)
             flash('Garáž upravena')
         else:
+            #tady pro to flashovani pouzit tu error message u toho
+            #validatoru (viz http://flask.pocoo.org/docs/0.12/patterns/wtforms/)
             flash('Chybně vyplněné údaje', 'error')
     
     return render_template('main/garage_view.html', garage=garage, form=garage_form)
