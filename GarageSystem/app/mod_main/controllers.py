@@ -14,6 +14,7 @@ def index():
     garages = Garage.query.all()
     return render_template('main/index.html', garages=garages)
 
+#vytvoreni garaze v uzivatelskym rozhrani
 @mod_main.route('/create_garage', methods=['GET'])
 def create_garage():
     #tady pro vytvareni novejch instanci a tak
