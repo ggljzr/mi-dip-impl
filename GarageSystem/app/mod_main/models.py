@@ -32,15 +32,10 @@ class Garage(Base):
 
 
 class Model:
+    def add_garage():
+        new_garage = Garage()
+        db.session.add(new_garage)
+        db.session.commit()
 
-    def __init__(self, app):
-        pass
-
-    def add_garage(self):
-        pass
-
-    def add_event(self, garage):
-        pass
-
-    def delete_garage(self):
-        pass
+    def get_all_garages():
+        return Garage.query.all()
