@@ -28,7 +28,7 @@ class Garage(Base):
         self.state = 0
 
     def __repr__(self):
-        return 'Garage[{}]: {} last report: {}'.format(self.id, self.tag, self.last_report)
+        return 'Garage[{}]: {}'.format(self.id, self.tag)
 
 
 class Model:
@@ -39,3 +39,6 @@ class Model:
 
     def get_all_garages():
         return Garage.query.all()
+
+    def get_garage_by_id(id):
+        return Garage.query.get(id)

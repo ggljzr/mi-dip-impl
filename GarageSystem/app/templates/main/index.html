@@ -1,6 +1,5 @@
 <h1>Main index</h1>
 
 {% for g in garages %}
-    {{ g }}
-    <br>
+    {{ g | garage_display }}
 {% endfor %}
