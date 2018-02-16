@@ -20,7 +20,7 @@ def index():
     garages = Model.get_all_garages()
     return render_template('main/index.html', garages=garages)
 
-@mod_main.route('/garage/<id>')
+@mod_main.route('/garage/<id>', methods=['GET', 'POST'])
 def show_garage(id):
     garage = Model.get_garage_by_id(id)
     if garage == None:
@@ -28,15 +28,16 @@ def show_garage(id):
 
     garage_form = GarageForm()
 
+    if garage_form.validate_on_submit():
+        new_tag = garage_form.tag.data
+        new_period = garage_form.period.data
+        Model.update_garage(id, new_tag, new_period)
+        return redirect('/')
+
     return render_template('main/garage_view.html', garage=garage, form=garage_form)
 
 #vytvoreni garaze v uzivatelskym rozhrani
 @mod_main.route('/create_garage', methods=['GET'])
 def create_garage():
     Model.add_garage()
-    return redirect(url_for('main.index'))
-
-@mod_main.route('/edit_garage/<id>', methods=['POST'])
-def edit_garage(id):
-    Model.update_garage(id, request.form)
     return redirect('/')

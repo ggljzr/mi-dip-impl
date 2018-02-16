@@ -1,6 +1,6 @@
 <h1>Garáž {{ garage.id }}</h1>
 
-<form method="POST" action="/edit_garage/{{ garage.id }}">
+<form method="POST" action="/garage/{{ garage.id }}">
     {{ form.csrf_token }}
     {{ form.tag.label }} {{ form.tag(value=garage.tag) }}
     <br>
