@@ -2,9 +2,6 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 from jinja2 import Markup
 
-#mozna to udelat tak ze ten model nebude
-#v zadnym modulu a pak budu mit moduly jako
-#api nebo main_page ktery ho budou pouzivat
 from app.mod_main.models import Model
 
 mod_main = Blueprint('main', __name__)
@@ -28,7 +25,12 @@ def show_garage(id):
 #vytvoreni garaze v uzivatelskym rozhrani
 @mod_main.route('/create_garage', methods=['GET'])
 def create_garage():
-    #tady pro vytvareni novejch instanci a tak
-    #asi pouzit fasadu v modelu
     Model.add_garage()
     return redirect(url_for('main.index'))
+
+#editace tagu pres form v garage_view
+@mod_main.route('/set_garage_tag/<id>', methods=['POST'])
+def set_garage_tag(id):
+    new_tag = request.form['tag']
+    Model.set_garage_tag(id, new_tag)
+    return redirect('/garage/{}'.format(id))

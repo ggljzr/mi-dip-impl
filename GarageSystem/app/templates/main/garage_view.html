@@ -1,6 +1,9 @@
 <h1>Garáž {{ garage.id }}</h1>
 
-Označení: {{ garage.tag }}
+<form action='/set_garage_tag/{{ garage.id }}' method='post'>
+Označení: <input type="text" name="tag" value="{{ garage.tag }}">
+<input type="submit" value="Upravit">
+</form>
 <br>
 API klíč: {{ garage.api_key }}
 <br>
