@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 from jinja2 import Markup
 
@@ -28,12 +28,15 @@ def show_garage(id):
 
     garage_form = GarageForm()
 
-    if garage_form.validate_on_submit():
-        new_tag = garage_form.tag.data
-        new_period = garage_form.period.data
-        Model.update_garage(id, new_tag, new_period)
-        return redirect('/')
-
+    if request.method == 'POST':
+        if garage_form.validate_on_submit():
+            new_tag = garage_form.tag.data
+            new_period = garage_form.period.data
+            Model.update_garage(id, new_tag, new_period)
+            flash('Garáž upravena')
+        else:
+            flash('Chybně vyplněné údaje', 'error')
+    
     return render_template('main/garage_view.html', garage=garage, form=garage_form)
 
 #vytvoreni garaze v uzivatelskym rozhrani
