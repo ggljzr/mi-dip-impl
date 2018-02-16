@@ -43,7 +43,8 @@ class Model:
     def get_garage_by_id(id):
         return Garage.query.get(id)
 
-    def set_garage_tag(id, tag):
+    def update_garage(id, data):
         garage = Garage.query.get(id)
-        garage.tag = tag
+        garage.tag = data['tag']
+        garage.period = data['period']
         db.session.commit()
