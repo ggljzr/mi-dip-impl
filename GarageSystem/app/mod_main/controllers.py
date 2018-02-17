@@ -37,11 +37,6 @@ def show_garage(id):
         if garage_form.validate_on_submit():
             Model.update_garage(id, request.form.to_dict())
             flash('Garáž upravena')
-        #ten else tady vubec nebude
-        else:
-            #tady pro to flashovani pouzit tu error message u toho
-            #validatoru (viz http://flask.pocoo.org/docs/0.12/patterns/wtforms/)
-            flash('Chybně vyplněné údaje', 'error')
     
     return render_template('main/garage_view.html', garage=garage, form=garage_form)
 
