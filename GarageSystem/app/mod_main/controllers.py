@@ -12,7 +12,7 @@ mod_main = Blueprint('main', __name__)
 @mod_main.app_template_filter('garage_display')
 def garage_display(garage):
     gid = garage.id
-    string = '<a href="/garage/{}">Garage[{}]: {}<a/><br>'.format(gid, gid, garage.tag)
+    string = '<a href="/garage/{}">Garáž[{}]: {}<a/><br>'.format(gid, gid, garage.tag)
     return Markup(string)
 
 @mod_main.route('/', methods=['GET'])
@@ -26,7 +26,6 @@ def show_garage(id):
     if garage == None:
         return render_template('404.html')
 
-    #zatim pomoci builderu
     garage_form = GarageFormBuilder.build_form(garage)
 
     if request.method == 'POST':
@@ -36,9 +35,7 @@ def show_garage(id):
         #puvodni garaze
         garage_form = GarageForm(request.form)
         if garage_form.validate_on_submit():
-            new_tag = garage_form.tag.data
-            new_period = garage_form.period.data
-            Model.update_garage(id, new_tag, new_period)
+            Model.update_garage(id, request.form.to_dict())
             flash('Garáž upravena')
         #ten else tady vubec nebude
         else:
