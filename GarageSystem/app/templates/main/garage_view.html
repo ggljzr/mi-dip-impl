@@ -13,9 +13,9 @@
 
 <form method="POST" action="/garage/{{ garage.id }}">
     {{ form.csrf_token }}
-    {{ form.tag.label }} {{ form.tag(value=garage.tag) }}
+    {{ form.tag.label }} {{ form.tag }}
     <br>
-    {{ form.period.label }} {{ form.period(value=garage.period) }}
+    {{ form.period.label }} {{ form.period }}
     <br>
     <input type="submit" value="Potvrdit">
 </form>

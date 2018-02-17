@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from jinja2 import Markup
 
 from app.mod_main.models import Model
-from app.mod_main.forms import GarageForm
+from app.mod_main.forms import GarageFormBuilder, GarageForm
 
 mod_main = Blueprint('main', __name__)
 
@@ -26,18 +26,21 @@ def show_garage(id):
     if garage == None:
         return render_template('404.html')
 
-    #taky celej ten form by to chtelo predelat
-    #aby to pracovalo nak vic univerzalne
-    #treba kdyby bylo potreba pridavat editovatelny
-    #polozky
-    garage_form = GarageForm()
+    #zatim pomoci builderu
+    garage_form = GarageFormBuilder.build_form(garage)
 
     if request.method == 'POST':
+        #kdyz se postuje novej formular
+        #tak chci vzit ten z toho postu
+        #a ne ten vygenerovanej builderem z ty
+        #puvodni garaze
+        garage_form = GarageForm(request.form)
         if garage_form.validate_on_submit():
             new_tag = garage_form.tag.data
             new_period = garage_form.period.data
             Model.update_garage(id, new_tag, new_period)
             flash('Garáž upravena')
+        #ten else tady vubec nebude
         else:
             #tady pro to flashovani pouzit tu error message u toho
             #validatoru (viz http://flask.pocoo.org/docs/0.12/patterns/wtforms/)
