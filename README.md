@@ -1,2 +1,2 @@
 # mi-dip-impl
-Implementation part of mi-dip
+Implementační část mojí [diplomky](https://github.com/ggljzr/mi-dip).
