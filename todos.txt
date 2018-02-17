@@ -3,4 +3,4 @@
 * nastavovat vostatni parametry ty garaze (posledni hlaseni), ale to bude na zacatku asi proste none dokavad se nakej system nevozve, tak to je nak upravit v tim view
 * napsat prvni testy
 * nastylovat to
-* udelat auth modul
+* predelat ten filtr garaze na neco normalniho
