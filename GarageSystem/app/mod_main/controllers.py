@@ -42,7 +42,7 @@ def show_garage(id):
             Model.update_garage(id, request.form.to_dict())
             flash('Garáž upravena')
 
-    return render_template('main/garage_view.html', garage=garage, form=garage_form)
+    return render_template('main/show_garage.html', garage=garage, form=garage_form)
 
 
 @mod_main.route('/create_garage', methods=['GET'])
