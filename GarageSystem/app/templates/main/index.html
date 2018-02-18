@@ -1,7 +1,7 @@
 <h1>Main index</h1>
 
-{% for g in garages %}
-    {{ g | garage_display }}
+{% for garage in garages %}
+    <a href="/garage/{{ garage.id }}">Garáž[{{ garage.id }}]: {{ garage.tag}}<a/><br>
 {% endfor %}
 
 <br>

@@ -7,14 +7,6 @@ from .forms import GarageFormBuilder, GarageForm
 
 mod_main = Blueprint('main', __name__)
 
-@mod_main.app_template_filter('garage_display')
-def garage_display(garage):
-    gid = garage.id
-    string = '<a href="/garage/{}">Garáž[{}]: {}<a/><br>'.format(
-        gid, gid, garage.tag)
-    return Markup(string)
-
-
 @mod_main.route('/', methods=['GET'])
 def index():
     if not session.get('logged_in'):
