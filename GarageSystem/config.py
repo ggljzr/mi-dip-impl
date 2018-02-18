@@ -13,3 +13,5 @@ CSRF_ENABLED = True
 
 CSRF_SECRET_KEY = os.urandom(16)
 SECRET_KEY = os.urandom(16)
+
+USER_CONFIG_PATH = os.path.join(BASE_DIR, 'user_config.ini')
