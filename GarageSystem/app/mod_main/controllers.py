@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 
 from jinja2 import Markup
 
-from app.mod_main.models import Model
-from app.mod_main.forms import GarageFormBuilder, GarageForm
+from .models import Model
+from .forms import GarageFormBuilder, GarageForm
 from app.mod_auth.forms import LoginForm
 
 mod_main = Blueprint('main', __name__)
