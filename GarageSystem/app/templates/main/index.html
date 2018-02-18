@@ -1,11 +1,29 @@
-<h1>Main index</h1>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
 
-{% for garage in garages %}
-    <a href="/garage/{{ garage.id }}">Garáž[{{ garage.id }}]: {{ garage.tag}}<a/><br>
-{% endfor %}
+<body>
+<h1>Správa garáží</h1>
 
-<br>
+<div class=main_container>
+    <div class=menu_box>
+        <h2>Menu</h2>
+        <ul class=menu_list>
+            <li><a href='/create_garage'>Nová garáž</a></li>
+            <li><a href='/change_password'>Změna hesla</a></li>
+            <li><a href='/logout'>Odhlásit</a></li>
+        </ul>
+    </div>
 
-<a href='/create_garage'>Nová garáž</a>
-<a href='/change_password'>Změna hesla</a>
-<a href='/logout'>Odhlásit</a>
+    <div class=garage_box>
+    <h2>Garáže</h2>
+    {% for garage in garages %}
+        <ul class=garage_list>
+            <li class_garage>
+            <a href="/garage/{{ garage.id }}">Garáž[{{ garage.id }}]: {{ garage.tag}}</a>
+            </li>
+        </ul>
+    {% endfor %}
+    </div>
+</div>
+
+
+</body>

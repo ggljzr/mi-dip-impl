@@ -26,7 +26,7 @@
   <ul class=form_fields>
   {% for field in form %}
     {% if field != form.csrf_token %}
-    <li class=form_field>{{ render_field(field) }}
+    <li class=form_field>{{ render_field(field) }}</li>
     {% endif %}
   {% endfor %}
   </ul>

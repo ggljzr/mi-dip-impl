@@ -1,0 +1,54 @@
+body            { font-family: sans-serif; background: #eee; text-align: center}
+a, h1, h2       { color: #377ba8; }
+h1, h2          { font-family: 'Georgia', serif; margin: 0; }
+h1              { border-bottom: 2px solid #eee; }
+h2              { font-size: 1.2em; }
+
+.flashes, .garage_list, .menu_list {
+    list-style: none;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.garage_list {
+
+}
+
+.flash_message  { 
+    background: #cee5F5; 
+    padding: 0.5em;
+}
+
+.flash_error { 
+    background: #f0d6d6; 
+    padding: 0.5em;
+}
+
+.form_field {
+    padding: 5px;
+}
+
+.login_box{
+    margin: 20px auto;
+    width: 300px;
+    background-color: #ccc;
+    padding: 20px;
+}
+
+.menu_box {
+    background-color: #ccc;
+    padding: 10px;
+}
+
+.garage_box {
+    padding: 10px;
+    padding-left: 50px;
+    text-align: left;
+}
+
+.main_container{
+    display: grid;
+    padding: 20px;
+    padding-top: 30px;
+    grid-template-columns: 180px auto;
+}
