@@ -43,4 +43,5 @@ def create_garage():
         return redirect('/login')
 
     Model.add_garage()
+    flash('Vytvořena nová garáž')
     return redirect('/')
