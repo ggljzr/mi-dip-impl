@@ -5,9 +5,6 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
-#tady asi instanciovat pripadne fasadu modelu
-#to db by teoreticky mohla bejt jeho clenska
-#promenna
 
 @app.errorhandler(404)
 def not_found(error):
