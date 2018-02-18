@@ -36,10 +36,7 @@ def show_garage(id):
     garage_form = GarageFormBuilder.build_form(garage)
 
     if request.method == 'POST':
-        # kdyz se postuje novej formular
-        # tak chci vzit ten z toho postu
-        # a ne ten vygenerovanej builderem z ty
-        # puvodni garaze
+        #load form from user when they submitting new settings
         garage_form = GarageForm(request.form)
         if garage_form.validate_on_submit():
             Model.update_garage(id, request.form.to_dict())
