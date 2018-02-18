@@ -8,7 +8,6 @@ mod_auth = Blueprint('auth', __name__)
 
 @mod_auth.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'POST':
         pw_man = PasswordManager()
         if pw_man.check_password(request.form['password']):
@@ -32,3 +31,15 @@ def logout():
 def change_password():
     if not session.get('logged_in'):
         return redirect('/login')
+
+    pw_man = PasswordManager()
+    form = ChangePasswordForm(request.form)
+
+    if request.method == 'POST' and form.validate_on_submit():
+        if pw_man.check_password(request.form['old_password']):
+            pw_man.save_password(request.form['new_password'])
+            flash('Heslo úspěšně změněno')
+        else:
+            flash('Neplatné staré heslo', 'error')
+
+    return render_template('auth/change_password.html', form=form)
