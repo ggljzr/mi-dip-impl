@@ -27,7 +27,7 @@ def index():
 @mod_main.route('/garage/<id>', methods=['GET', 'POST'])
 def show_garage(id):
     if not session.get('logged_in'):
-        return redirect('/')
+        return redirect('/login')
 
     garage = Model.get_garage_by_id(id)
     if garage == None:
@@ -51,7 +51,7 @@ def show_garage(id):
 @mod_main.route('/create_garage', methods=['GET'])
 def create_garage():
     if not session.get('logged_in'):
-        return redirect('/')
+        return redirect('/login')
 
     Model.add_garage()
     return redirect('/')

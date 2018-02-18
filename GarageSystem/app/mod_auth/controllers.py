@@ -25,10 +25,10 @@ def login():
 def logout():
     session['logged_in'] = False
     flash('Odhlášení proběhlo úspěšně')
-    return redirect('/')
+    return redirect('/login')
 
 
 @mod_auth.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     if not session.get('logged_in'):
-        return redirect('/')
+        return redirect('/login')
