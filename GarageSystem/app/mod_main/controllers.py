@@ -4,7 +4,6 @@ from jinja2 import Markup
 
 from .models import Model
 from .forms import GarageFormBuilder, GarageForm
-from app.mod_auth.forms import LoginForm
 
 mod_main = Blueprint('main', __name__)
 
@@ -19,8 +18,7 @@ def garage_display(garage):
 @mod_main.route('/', methods=['GET'])
 def index():
     if not session.get('logged_in'):
-        form = LoginForm()
-        return render_template('auth/login.html', form=form)
+        return redirect('/login')
 
     garages = Model.get_all_garages()
     return render_template('main/index.html', garages=garages)
