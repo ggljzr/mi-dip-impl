@@ -32,10 +32,10 @@ def change_password():
     if not session.get('logged_in'):
         return redirect('/login')
 
-    pw_man = PasswordManager()
     form = ChangePasswordForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
+        pw_man = PasswordManager()
         if pw_man.check_password(request.form['old_password']):
             pw_man.save_password(request.form['new_password'])
             flash('Heslo úspěšně změněno')
