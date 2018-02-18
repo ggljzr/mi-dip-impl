@@ -4,3 +4,4 @@
 * napsat prvni testy
 * nastylovat to
 * predelat ten filtr garaze na neco normalniho
+* udelat makro render_form na vsechny formy (viz change_password.html a garage_view.html)
