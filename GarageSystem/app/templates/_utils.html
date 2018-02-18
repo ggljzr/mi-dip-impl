@@ -20,3 +20,18 @@
   {% endif %}
 {% endwith %}
 {% endmacro %}
+
+{% macro render_form(form) %}
+  {{ form.csrf_token }}
+  <ul class=form_fields>
+  {% for field in form %}
+    {% if field != form.csrf_token %}
+    <li class=form_field>{{ render_field(field) }}
+    {% endif %}
+  {% endfor %}
+  </ul>
+
+  <br>
+
+  <input type="submit" class=form_button value="Potvrdit">
+{% endmacro %}

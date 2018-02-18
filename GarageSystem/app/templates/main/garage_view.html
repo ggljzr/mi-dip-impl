@@ -1,16 +1,11 @@
 <h1>Garáž {{ garage.id }}</h1>
 
-{% from "_utils.html" import render_field, render_flash %}
+{% from "_utils.html" import render_form, render_flash %}
 
 {{ render_flash() }}
 
-<form method="POST" action="/garage/{{ garage.id }}">
-    {{ form.csrf_token}}
-    {{ render_field(form.tag) }}
-    <br>
-    {{ render_field(form.period) }}
-    <br>
-    <input type="submit" value="Potvrdit">
+<form class=basic_form method="POST" action="/garage/{{ garage.id }}">
+    {{ render_form(form)}}
 </form>
 <br>
 API klíč: {{ garage.api_key }}
