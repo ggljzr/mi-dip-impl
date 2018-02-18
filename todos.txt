@@ -2,3 +2,4 @@
 * podivat se jak vic vyuzit ten builder pattern, pripadne misto nej pouzit proste konstruktor u toho modelu garaze -- jak udelat konstruktor u tridy co dedi db.Model viz http://flask-sqlalchemy.pocoo.org/2.3/quickstart/#a-minimal-application (to s tema **kwargs)
 * nastavovat vostatni parametry ty garaze (posledni hlaseni), ale to bude na zacatku asi proste none dokavad se nakej system nevozve, tak to je nak upravit v tim view
 * napsat prvni testy
+* rozdelit tu funkci show_garage na show_garage (s get) a edit_garage (s post) pro stejnou routu
