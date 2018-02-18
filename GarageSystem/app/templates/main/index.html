@@ -13,12 +13,12 @@
         </ul>
     </div>
 
-    <div class=garage_box>
+    <div class=garages_box>
     <h2>Garáže</h2>
     {% for garage in garages %}
         <ul class=garage_list>
             <li class_garage>
-            <a href="/garage/{{ garage.id }}">Garáž[{{ garage.id }}]: {{ garage.tag}}</a>
+            <a href="/garage/{{ garage.id }}">[{{ garage.id }}]: {{ garage.tag}}</a>
             </li>
         </ul>
     {% endfor %}
