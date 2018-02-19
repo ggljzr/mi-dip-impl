@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 
 from .password_manager import PasswordManager
 from .forms import LoginForm, ChangePasswordForm
+from .auth_utils import login_required
 
 mod_auth = Blueprint('auth', __name__)
 
@@ -28,10 +29,8 @@ def logout():
 
 
 @mod_auth.route('/change_password', methods=['GET', 'POST'])
+@login_required
 def change_password():
-    if not session.get('logged_in'):
-        return redirect('/login')
-
     form = ChangePasswordForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():

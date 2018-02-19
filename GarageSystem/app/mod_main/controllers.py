@@ -5,22 +5,20 @@ from jinja2 import Markup
 from .models import Model
 from .forms import GarageFormBuilder, GarageForm
 
+from app.mod_auth.auth_utils import login_required
+
 mod_main = Blueprint('main', __name__)
 
 @mod_main.route('/', methods=['GET'])
+@login_required
 def index():
-    if not session.get('logged_in'):
-        return redirect('/login')
-
     garages = Model.get_all_garages()
     return render_template('main/index.html', garages=garages)
 
 
 @mod_main.route('/garage/<id>', methods=['GET', 'POST'])
+@login_required
 def show_garage(id):
-    if not session.get('logged_in'):
-        return redirect('/login')
-
     garage = Model.get_garage_by_id(id)
     if garage == None:
         return render_template('404.html'), 404
@@ -38,10 +36,8 @@ def show_garage(id):
 
 
 @mod_main.route('/create_garage', methods=['GET'])
+@login_required
 def create_garage():
-    if not session.get('logged_in'):
-        return redirect('/login')
-
     Model.add_garage()
     flash('Vytvořena nová garáž')
     return redirect('/')
