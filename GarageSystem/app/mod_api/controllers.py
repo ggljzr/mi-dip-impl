@@ -10,7 +10,7 @@ def add_garage():
 
 @mod_api.route('/api/add_report_event', methods=['POST'])
 def add_report_event():
-    api_key = request.headers.get('Authorization')
+    api_key = request.headers.get('api_key')
 
     try: 
         ModelFacade.add_report_event(api_key)
