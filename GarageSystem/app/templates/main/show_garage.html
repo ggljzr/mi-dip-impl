@@ -30,7 +30,17 @@
             {{ render_form(form)}}
         </form>
         <br>
-        <a href="/revoke_key/{{ garage.id }}">Zneplatnit API klíč</a>
+        <div class=tooltip>
+            <a href="/revoke_key/{{ garage.id }}">Zneplatnit API klíč</a>
+            <span class=tooltiptext>
+            <p>
+            Po zneplatnění klíče nebude moci příslušný podřízený systém odesílat nové události.
+            </p>
+            <p>
+            Pro obnovení přistupu je nutné nahrát na systém nový klíč, případně vytvořit novou garaž pomocí registračního módu.
+            </p>
+            </span>
+        </div>
     </div>
 </div>
 
