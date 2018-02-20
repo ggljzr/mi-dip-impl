@@ -18,8 +18,7 @@ class PasswordManager():
         return bcrypt.checkpw(pw_encoded, pw_hash)
 
     def check_default_password(self):
-        pw_hash = self.user_config['settings']['password'].encode('utf-8')
-        return bcrypt.checkpw(DEFAULT_PASSWORD.encode('utf-8'), pw_hash)
+        return self.check_password(DEFAULT_PASSWORD)
 
     def save_password(self, new_password):
         pw_encoded = new_password.encode('utf-8')
