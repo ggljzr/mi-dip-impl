@@ -9,7 +9,7 @@ class Base(db.Model):
 
 class Garage(Base):
     __tablename__ = 'garage'
-    tag = db.Column(db.String(128), default='New garage')
+    tag = db.Column(db.String(128), default='Nová garáž')
     api_key = db.Column(db.String(32), default=None)
     last_report = db.Column(db.DateTime, default=None)
     next_report = db.Column(db.DateTime, default=None)
@@ -17,7 +17,7 @@ class Garage(Base):
     state = db.Column(db.SmallInteger, default=0)
 
     def __init__(self):
-        self.tag = 'New Garage'
+        self.tag = 'Nová garáž'
         self.api_key = uuid.uuid4().hex
         self.last_report = None
         self.next_report = None
@@ -25,7 +25,7 @@ class Garage(Base):
         self.state = 0
 
     def __repr__(self):
-        return 'Garage[{}]: {}'.format(self.id, self.tag)
+        return 'Garáž[{}]: {}'.format(self.id, self.tag)
 
 
 class Model:
