@@ -29,6 +29,8 @@
         <form class=basic_form method="POST" action="/garage/{{ garage.id }}">
             {{ render_form(form)}}
         </form>
+        <br>
+        <a href="/revoke_key/{{ garage.id }}">Zneplatnit API klíč</a>
     </div>
 </div>
 

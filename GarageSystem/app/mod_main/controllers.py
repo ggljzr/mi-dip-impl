@@ -16,7 +16,7 @@ def date_filter(date):
 
     return date
 
-@mod_main.route('/', methods=['GET'])
+@mod_main.route('/')
 @login_required
 def index():
     garages = Model.get_all_garages()
@@ -42,7 +42,14 @@ def show_garage(id):
     return render_template('main/show_garage.html', garage=garage, form=garage_form)
 
 
-@mod_main.route('/create_garage', methods=['GET'])
+@mod_main.route('/revoke_key/<id>')
+@login_required
+def revoke_key(id):
+    Model.revoke_key(id)
+    flash('Vygenerován nový klíč')
+    return redirect('/garage/{}'.format(id))
+
+@mod_main.route('/create_garage')
 @login_required
 def create_garage():
     Model.add_garage()

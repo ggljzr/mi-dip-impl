@@ -45,3 +45,8 @@ class Model:
         garage.tag = update_data['tag']
         garage.period = update_data['period']
         db.session.commit()
+
+    def revoke_key(id):
+        garage = Garage.query.get(id)
+        garage.api_key = uuid.uuid4().hex
+        db.session.commit()
