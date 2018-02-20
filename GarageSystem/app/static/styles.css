@@ -20,6 +20,11 @@ h2              { font-size: 1.2em; }
     padding: 0.5em;
 }
 
+.flash_warning {
+    background: #f9b194;
+    padding: 0.5em;
+}
+
 .form_field {
     padding: 5px;
 }
