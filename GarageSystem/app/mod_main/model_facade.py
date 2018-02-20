@@ -37,14 +37,18 @@ class ModelFacade:
         return garage
 
     def update_garage(id, update_data):
-        garage = Garage.query.get(id)
+        try:
+            garage = ModelFacade.get_garage_by_id(id)
+        except InvalidGarageIDError:
+            return
+
         garage.tag = update_data['tag']
         garage.period = update_data['period']
         db.session.commit()
 
     def revoke_key(id):
         try:
-            garage = Garage.query.get(id)
+            garage = ModelFacade.get_garage_by_id(id)
         except InvalidGarageIDError:
             return
 
