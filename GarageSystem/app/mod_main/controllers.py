@@ -9,6 +9,13 @@ from app.mod_auth.auth_utils import login_required
 
 mod_main = Blueprint('main', __name__)
 
+@mod_main.app_template_filter('date_filter')
+def date_filter(date):
+    if date == None:
+        return 'Žádné'
+
+    return date
+
 @mod_main.route('/', methods=['GET'])
 @login_required
 def index():

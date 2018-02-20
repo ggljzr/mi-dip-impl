@@ -20,7 +20,7 @@
         <br>
         API klíč: {{ garage.api_key }}
         <br>
-        Poslední hlášení: {{ garage.last_report }}
+        Poslední hlášení: {{ garage.last_report | date_filter}}
         <br>
     </div>
 
