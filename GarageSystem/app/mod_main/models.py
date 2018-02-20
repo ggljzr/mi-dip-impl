@@ -48,5 +48,7 @@ class Model:
 
     def revoke_key(id):
         garage = Garage.query.get(id)
-        garage.api_key = uuid.uuid4().hex
-        db.session.commit()
+
+        if garage != None:
+            garage.api_key = uuid.uuid4().hex
+            db.session.commit()
