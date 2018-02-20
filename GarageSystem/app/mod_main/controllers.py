@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 
 from jinja2 import Markup
 
-from .model_facade import ModelFacade
+from .model_facade import ModelFacade, InvalidGarageIDError
 from .forms import GarageFormBuilder, GarageForm
 
 from app.mod_auth.auth_utils import login_required
@@ -26,8 +26,9 @@ def index():
 @mod_main.route('/garage/<id>', methods=['GET', 'POST'])
 @login_required
 def show_garage(id):
-    garage = ModelFacade.get_garage_by_id(id)
-    if garage == None:
+    try:
+        garage = ModelFacade.get_garage_by_id(id)
+    except InvalidGarageIDError:
         return render_template('404.html'), 404
 
     garage_form = GarageFormBuilder.build_form(garage)
