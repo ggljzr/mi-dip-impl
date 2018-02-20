@@ -22,10 +22,6 @@ class Garage(Base):
     def __init__(self):
         self.api_key = uuid.uuid4().hex
 
-    def __repr__(self):
-        return 'Garáž[{}]: {}'.format(self.id, self.tag)
-
-
 class Event(Base):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
 
