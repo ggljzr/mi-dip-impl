@@ -3,7 +3,10 @@ import configparser
 
 from config import USER_CONFIG_PATH
 
+DEFAULT_PASSWORD = 'password'
+
 class PasswordManager():
+
     def __init__(self):
         self.user_config = configparser.ConfigParser()
         self.user_config.read(USER_CONFIG_PATH)
@@ -12,10 +15,11 @@ class PasswordManager():
         pw_encoded = password.encode('utf-8')
         pw_hash = self.user_config['settings']['password'].encode('utf-8')
 
-        if bcrypt.checkpw(pw_encoded, pw_hash):
-           return True
-        
-        return False
+        return bcrypt.checkpw(pw_encoded, pw_hash)
+
+    def check_default_password(self):
+        pw_hash = self.user_config['settings']['password'].encode('utf-8')
+        return bcrypt.checkpw(DEFAULT_PASSWORD.encode('utf-8'), pw_hash)
 
     def save_password(self, new_password):
         pw_encoded = new_password.encode('utf-8')

@@ -13,6 +13,10 @@ def login():
         pw_man = PasswordManager()
         if pw_man.check_password(request.form['password']):
             session['logged_in'] = True
+
+            if pw_man.check_default_password():
+                flash('Je nutné změnit heslo z implicitně nastavené hodnoty', 'warning')
+
             return redirect('/')
         else:
             flash('Neplatné heslo', 'error')
