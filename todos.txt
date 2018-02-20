@@ -1,3 +1,5 @@
 * podivat se jak vic vyuzit ten builder pattern, pripadne misto nej pouzit proste konstruktor u toho modelu garaze -- jak udelat konstruktor u tridy co dedi db.Model viz http://flask-sqlalchemy.pocoo.org/2.3/quickstart/#a-minimal-application (to s tema **kwargs)
 * napsat prvni testy
 * rozdelit tu funkci show_garage na show_garage (s get) a edit_garage (s post) pro stejnou routu
+* udelat registracni mod (v podstate jen rozhodnout kde se bude drzet ta reg. flag, udelat add_garage v api modulu a dodelat prislusny tlacitka)
+* rozmyslet si tu hierarchii tech event trid a k tomu prislusny api, tj jestli budeme mit ke kazdymu druhu eventu zvlast tridu (asi jo) a jak k nim budou ty routy -- tohle implementovat az po tom co se to popise v navrhu
