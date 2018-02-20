@@ -1,5 +1,6 @@
 from app import db
 
+import uuid
 
 class Base(db.Model):
     __abstract__ = True
@@ -8,8 +9,8 @@ class Base(db.Model):
 
 class Garage(Base):
     __tablename__ = 'garage'
-    tag = db.Column(db.String(128), default='default garage')
-    api_key = db.Column(db.String(128), default='some_key')
+    tag = db.Column(db.String(128), default='New garage')
+    api_key = db.Column(db.String(32), default=None)
     last_report = db.Column(db.DateTime, default=None)
     next_report = db.Column(db.DateTime, default=None)
     period = db.Column(db.Integer, default=60)
@@ -17,7 +18,7 @@ class Garage(Base):
 
     def __init__(self):
         self.tag = 'New Garage'
-        self.api_key = 'some_key' #nahodne generovany
+        self.api_key = uuid.uuid4().hex
         self.last_report = None
         self.next_report = None
         self.period = 60
