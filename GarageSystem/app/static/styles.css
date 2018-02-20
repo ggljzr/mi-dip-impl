@@ -4,7 +4,7 @@ h1, h2          { font-family: 'Georgia', serif; margin: 0; }
 h1              { border-bottom: 2px solid #eee; }
 h2              { font-size: 1.2em; }
 
-.flashes, .garages_list, .menu_list {
+.flashes, .garages_list, .menu_list, .form_fields {
     list-style: none;
     list-style-type: none;
     padding-left: 0;
