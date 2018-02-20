@@ -1,3 +1,4 @@
+* sjednotit ten error handling neplatnejch garazi a tak v tim modelu, tam je nekdy vyjimka a nekdy se nic nestane, plus treba pro checkovani ty session je pouzitej dekorator
 * podivat se jak vic vyuzit ten builder pattern, pripadne misto nej pouzit proste konstruktor u toho modelu garaze -- jak udelat konstruktor u tridy co dedi db.Model viz http://flask-sqlalchemy.pocoo.org/2.3/quickstart/#a-minimal-application (to s tema **kwargs)
 * napsat prvni testy
 * rozdelit tu funkci show_garage na show_garage (s get) a edit_garage (s post) pro stejnou routu
