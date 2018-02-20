@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from app.mod_main.models import Model, InvalidAPIKeyError
+from app.mod_main.model_facade import ModelFacade, InvalidAPIKeyError
 
 mod_api = Blueprint('api', __name__)
 
@@ -13,7 +13,7 @@ def add_report_event():
     api_key = request.headers.get('Authorization')
 
     try: 
-        Model.add_report_event(api_key)
+        ModelFacade.add_report_event(api_key)
     except InvalidAPIKeyError:
         return 'not ok', 403
     

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 
 from jinja2 import Markup
 
-from .models import Model
+from .model_facade import ModelFacade
 from .forms import GarageFormBuilder, GarageForm
 
 from app.mod_auth.auth_utils import login_required
@@ -19,14 +19,14 @@ def date_filter(date):
 @mod_main.route('/')
 @login_required
 def index():
-    garages = Model.get_all_garages()
+    garages = ModelFacade.get_all_garages()
     return render_template('main/index.html', garages=garages)
 
 
 @mod_main.route('/garage/<id>', methods=['GET', 'POST'])
 @login_required
 def show_garage(id):
-    garage = Model.get_garage_by_id(id)
+    garage = ModelFacade.get_garage_by_id(id)
     if garage == None:
         return render_template('404.html'), 404
 
@@ -36,7 +36,7 @@ def show_garage(id):
         #load form from user when they submitting new settings
         garage_form = GarageForm(request.form)
         if garage_form.validate_on_submit():
-            Model.update_garage(id, request.form.to_dict())
+            ModelFacade.update_garage(id, request.form.to_dict())
             flash('Garáž upravena')
 
     return render_template('main/show_garage.html', garage=garage, form=garage_form)
@@ -45,13 +45,13 @@ def show_garage(id):
 @mod_main.route('/revoke_key/<id>')
 @login_required
 def revoke_key(id):
-    Model.revoke_key(id)
+    ModelFacade.revoke_key(id)
     flash('Vygenerován nový klíč')
     return redirect('/garage/{}'.format(id))
 
 @mod_main.route('/create_garage')
 @login_required
 def create_garage():
-    Model.add_garage()
+    ModelFacade.add_garage()
     flash('Vytvořena nová garáž')
     return redirect('/')
