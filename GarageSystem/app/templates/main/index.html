@@ -21,8 +21,8 @@
     <div class=garages_box>
     <h2>Garáže</h2>
     {% for garage in garages %}
-        <ul class=garages>
-            <li class_garage>
+        <ul class=garages_list>
+            <li>
             <a href="/garage/{{ garage.id }}">[{{ garage.id }}]: {{ garage.tag}}</a>
             </li>
         </ul>
