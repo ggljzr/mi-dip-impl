@@ -37,7 +37,7 @@ def show_garage(id):
         #load form from user when they submitting new settings
         garage_form = GarageForm(request.form)
         if garage_form.validate_on_submit():
-            ModelFacade.update_garage(id, request.form.to_dict())
+            ModelFacade.update_garage(garage, request.form.to_dict())
             flash('Garáž upravena')
 
     return render_template('main/show_garage.html', garage=garage, form=garage_form)

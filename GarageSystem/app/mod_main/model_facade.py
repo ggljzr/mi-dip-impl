@@ -36,12 +36,7 @@ class ModelFacade:
 
         return garage
 
-    def update_garage(id, update_data):
-        try:
-            garage = ModelFacade.get_garage_by_id(id)
-        except InvalidGarageIDError:
-            return
-
+    def update_garage(garage, update_data):
         garage.tag = update_data['tag']
         garage.period = update_data['period']
         db.session.commit()
@@ -55,9 +50,7 @@ class ModelFacade:
         garage.api_key = uuid.uuid4().hex
         db.session.commit()
 
-    def add_report_event(api_key):
-        garage = ModelFacade.get_garage_by_key(api_key)
-
+    def add_report_event(garage):
         event = ReportEvent(garage_id=garage.id)
         garage.events.append(event)
         db.session.commit()

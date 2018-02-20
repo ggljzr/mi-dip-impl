@@ -13,8 +13,10 @@ def add_report_event():
     api_key = request.headers.get('api_key')
 
     try: 
-        ModelFacade.add_report_event(api_key)
+        garage = ModelFacade.get_garage_by_key(api_key)
     except InvalidAPIKeyError:
         return 'not ok', 403
     
+    ModelFacade.add_report_event(garage)
+
     return 'ok', 200
