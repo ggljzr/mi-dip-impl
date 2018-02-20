@@ -50,9 +50,9 @@ def revoke_key(id):
     flash('Vygenerován nový klíč')
     return redirect('/garage/{}'.format(id))
 
-@mod_main.route('/create_garage')
+@mod_main.route('/add_garage')
 @login_required
-def create_garage():
+def add_garage():
     ModelFacade.add_garage()
     flash('Vytvořena nová garáž')
     return redirect('/')
