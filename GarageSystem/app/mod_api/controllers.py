@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from app.mod_main.model_facade import ModelFacade, InvalidAPIKeyError
+from app.mod_main.models import Garage
 
 mod_api = Blueprint('api', __name__)
 
@@ -12,9 +12,9 @@ def add_garage():
 def add_report_event():
     api_key = request.headers.get('api_key')
 
-    try: 
-        garage = ModelFacade.get_garage_by_key(api_key)
-    except InvalidAPIKeyError:
+    garage = Garage.get_garage_by_key(api_key)
+
+    if garage == None:
         return 'not ok', 403
     
     garage.add_report_event()
