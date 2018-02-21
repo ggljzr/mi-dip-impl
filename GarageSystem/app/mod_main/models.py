@@ -9,7 +9,8 @@ class Base(db.Model):
 
 
 class Garage(Base):
-    tag = db.Column(db.String(128), default='Nová garáž')
+    tag = db.Column(db.String(64), default='Nová garáž')
+    note = db.Column(db.String(256))
     api_key = db.Column(db.String(32), default=None)
     last_report = db.Column(db.DateTime, default=None)
     next_report = db.Column(db.DateTime, default=None)
@@ -34,6 +35,7 @@ class Garage(Base):
     def update(self, update_data):
         self.tag = update_data['tag']
         self.period = update_data['period']
+        self.note = update_data['note']
         db.session.commit()
 
     def add_report_event(self):
