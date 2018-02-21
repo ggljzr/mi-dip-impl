@@ -37,7 +37,7 @@ def show_garage(id):
         #load form from user when they submitting new settings
         garage_form = GarageForm(request.form)
         if garage_form.validate_on_submit():
-            ModelFacade.update_garage(garage, request.form.to_dict())
+            garage.update(request.form.to_dict())
             flash('Garáž upravena')
 
     return render_template('main/show_garage.html', garage=garage, form=garage_form)
@@ -46,7 +46,12 @@ def show_garage(id):
 @mod_main.route('/revoke_key/<id>')
 @login_required
 def revoke_key(id):
-    ModelFacade.revoke_key(id)
+    try:
+        garage = ModelFacade.get_garage_by_id(id)
+    except InvalidGarageIDError:
+        return render_template('404.html'), 404
+
+    garage.revoke_key() 
     flash('Vygenerován nový klíč')
     return redirect('/garage/{}'.format(id))
 

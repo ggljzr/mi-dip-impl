@@ -35,22 +35,3 @@ class ModelFacade:
             raise InvalidAPIKeyError
 
         return garage
-
-    def update_garage(garage, update_data):
-        garage.tag = update_data['tag']
-        garage.period = update_data['period']
-        db.session.commit()
-
-    def revoke_key(id):
-        try:
-            garage = ModelFacade.get_garage_by_id(id)
-        except InvalidGarageIDError:
-            return
-
-        garage.api_key = uuid.uuid4().hex
-        db.session.commit()
-
-    def add_report_event(garage):
-        event = ReportEvent(garage_id=garage.id)
-        garage.events.append(event)
-        db.session.commit()

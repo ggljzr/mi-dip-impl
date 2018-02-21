@@ -17,6 +17,6 @@ def add_report_event():
     except InvalidAPIKeyError:
         return 'not ok', 403
     
-    ModelFacade.add_report_event(garage)
+    garage.add_report_event()
 
     return 'ok', 200

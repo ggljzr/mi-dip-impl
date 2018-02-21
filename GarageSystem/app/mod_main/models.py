@@ -22,6 +22,21 @@ class Garage(Base):
     def __init__(self):
         self.api_key = uuid.uuid4().hex
 
+    def update(self, update_data):
+        self.tag = update_data['tag']
+        self.period = update_data['period']
+        db.session.commit()
+
+    def add_report_event(self):
+        event = ReportEvent(garage_id=self.id)
+        self.events.append(event)
+        db.session.commit()
+
+    def revoke_key(self):
+        self.api_key = uuid.uuid4().hex
+        db.session.commit()
+
+
 class Event(Base):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
 
