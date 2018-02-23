@@ -1,4 +1,5 @@
 * napsat prvni testy
 * rozdelit tu funkci show_garage na show_garage (s get) a edit_garage (s post) pro stejnou routu
 * udelat registracni mod (v podstate jen rozhodnout kde se bude drzet ta reg. flag, udelat add_garage v api modulu a dodelat prislusny tlacitka)
+* u tech email notifikaci se bude muset vyresit jak poslat notifikaci ze se garaz nehlasi. to znamena pravidelne projet databazi a zjistit, jestli sou naky garaze late a kdyztak poslat ty maily. Pro info viz https://stackoverflow.com/questions/21214270/scheduling-a-function-to-run-every-hour-on-flask/38501429 . Pri notifikaci vo udalost (pozar atp. ) se to resit nemusi, tam ten mail proste posle ten api controller.
 * rozmyslet si tu hierarchii tech event trid a k tomu prislusny api, tj jestli budeme mit ke kazdymu druhu eventu zvlast tridu (asi jo) a jak k nim budou ty routy -- tohle implementovat az po tom co se to popise v navrhu
