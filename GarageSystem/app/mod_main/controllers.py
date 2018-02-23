@@ -42,7 +42,7 @@ def show_garage(id):
     return render_template('main/show_garage.html', garage=garage, form=garage_form)
 
 
-@mod_main.route('/revoke_key/<id>')
+@mod_main.route('/revoke_key/<id>', methods=['POST'])
 @login_required
 def revoke_key(id):
     garage = Garage.query.get(id)
@@ -53,7 +53,7 @@ def revoke_key(id):
     flash('Vygenerován nový klíč')
     return redirect('/garage/{}'.format(id))
 
-@mod_main.route('/add_garage')
+@mod_main.route('/add_garage', methods=['POST'])
 @login_required
 def add_garage():
     Garage.add_garage()

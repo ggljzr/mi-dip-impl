@@ -31,7 +31,10 @@
         </form>
         <br>
         <div class=tooltip>
-            <a href="/revoke_key/{{ garage.id }}">Zneplatnit API klíč</a>
+            <form method="POST" action="/revoke_key/{{ garage.id }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="submit" value="Zneplatnit API klíč">
+                </form>
             <span class=tooltiptext>
             <p>
             Po zneplatnění klíče nebude moci příslušný podřízený systém odesílat nové události.
