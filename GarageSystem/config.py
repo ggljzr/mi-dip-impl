@@ -9,8 +9,6 @@ DATABASE_CONNECT_OPTIONS = {}
 
 THREADS_PER_PAGE = 2
 
-CSRF_ENABLED = True
-
 CSRF_SECRET_KEY = os.urandom(16)
 SECRET_KEY = os.urandom(16)
 
