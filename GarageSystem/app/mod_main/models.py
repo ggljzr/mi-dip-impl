@@ -49,6 +49,15 @@ class Garage(Base):
         self.api_key = uuid.uuid4().hex
         db.session.commit()
 
+    def get_state_string(self):
+        if self.state == 0:
+            return 'Otevřeno'
+        else:
+            return 'Zavřeno'
+
+    def __repr__(self):
+        return '[{}] {} Poslední hlášení: {}'.format(self.id, self.tag, self.last_report)
+
 class Event(Base):
     __tablename__ = 'event'
 
