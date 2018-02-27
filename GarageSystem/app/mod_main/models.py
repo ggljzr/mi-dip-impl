@@ -9,6 +9,8 @@ class Base(db.Model):
 
 
 class Garage(Base):
+    __tablename__ = 'garage'
+
     tag = db.Column(db.String(64), default='Nová garáž')
     note = db.Column(db.String(256))
     api_key = db.Column(db.String(32), default=None)
@@ -18,7 +20,7 @@ class Garage(Base):
     state = db.Column(db.SmallInteger, default=0)
 
     events = db.relationship('Event', backref='Garage',
-                             lazy=True, enable_typechecks=False)
+                             lazy=True)
 
     def add_garage():
         new_garage = Garage()
@@ -47,13 +49,33 @@ class Garage(Base):
         self.api_key = uuid.uuid4().hex
         db.session.commit()
 
-
 class Event(Base):
+    __tablename__ = 'event'
+
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     garage_id = db.Column(db.Integer, db.ForeignKey(
         'garage.id'), nullable=False)
+    type = db.Column(db.String(64))
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'event',
+        'polymorphic_on': type
+    }
+
+    def __repr__(self):
+        return '[{}]'.format(self.timestamp)
 
 
 class ReportEvent(Event):
+    __tablename__ = 'reportevent'
+
+    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
     next_report = db.Column(db.DateTime, default=None)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'reportevent'
+    }
+
+    def __repr__(self):
+        return super(ReportEvent, self).__repr__() + ' Kontrolní hlášení'
