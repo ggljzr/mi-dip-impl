@@ -11,8 +11,10 @@ h1, h2 {text-align: center; font-family: helvetica}
     padding-left: 0;
 }
 
-.flash_message  { 
-    background: #cee5F5; 
+.flash_message  {
+    text-align: center;
+    color: #000;
+    background: #1DE9B6; 
     padding: 5px;
 }
 
@@ -26,11 +28,26 @@ h1, h2 {text-align: center; font-family: helvetica}
     padding: 0.5em;
 }
 
-.login_box{
+.login_box {
     margin: 20px auto;
     width: 300px;
-    background-color: #ccc;
-    padding: 20px;
+    background-color: #455A64;
+    color: #fff;
+    padding: 0 15px 15px 15px;
+    text-align: center;
+}
+
+.login_button {
+    width: 300px;
+}
+
+#password {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: none;
+    background-color: #CFD8DC;
 }
 
 .menu_box {
@@ -45,7 +62,7 @@ h1, h2 {text-align: center; font-family: helvetica}
     font-size: 16pt;
 }
 
-.menu_button {
+.menu_button, .login_button {
     color: #fff;
     font-family: helvetica;
     background-color: #546E7A;
@@ -54,11 +71,14 @@ h1, h2 {text-align: center; font-family: helvetica}
     border: none;
     display: inline-block;
     font-size: 15pt;
-    width: 200px;
     margin: 0px;
 }
 
-.menu_button:hover {
+.menu_button {
+    width: 200px;
+}
+
+.menu_button:hover, .login_button:hover {
     background-color: #607D8B;
 }
 
