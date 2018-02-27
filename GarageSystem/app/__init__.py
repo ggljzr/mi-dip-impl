@@ -20,6 +20,8 @@ from app.mod_auth.controllers import mod_auth as auth_module
 from app.mod_main.controllers import mod_main as main_module
 from app.mod_api.controllers import mod_api as api_module
 
+csrf.exempt(api_module)
+
 app.register_blueprint(main_module)
 app.register_blueprint(auth_module)
 app.register_blueprint(api_module)
