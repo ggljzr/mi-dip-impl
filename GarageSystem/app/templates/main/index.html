@@ -21,13 +21,24 @@
     <div class=garages_box>
     <h1>Garáže</h1>
     {{ render_flash() }}
-    {% for garage in garages %}
-        <ul class=garages_list>
-            <li>
-            <a href="/garage/{{ garage.id }}">[{{ garage.id }}]: {{ garage.tag}}</a>
-            </li>
-        </ul>
-    {% endfor %}
+    <table class=garages_table>
+        <tr>
+        <th>ID</th>
+        <th>Označení</th>
+        <th>Stav</th>
+        <th>Poslední hlášení</th>
+        <th>Plánované další hlášení</th>
+        </tr>
+        {% for garage in garages %}
+            <tr>
+                <td><a href="/garage/{{ garage.id }}">[{{ garage.id }}]</a></td>
+                <td>{{ garage.tag }}</td>
+                <td>{{ garage.get_state_string() }}
+                <td>{{ garage.last_report | date_filter }}</td>
+                <td>{{ garage.next_report | date_filter }}</td>
+            </tr>
+        {% endfor %}
+    </table>
     </div>
 </div>
 

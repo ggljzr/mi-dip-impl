@@ -1,4 +1,6 @@
 
+html * {font-family: helvetica}
+
 body { margin: 0px; padding: 0px;}
 h2 {color: #fff;}
 h1, h2 {text-align: center; font-family: helvetica}
@@ -65,8 +67,22 @@ h1, h2 {text-align: center; font-family: helvetica}
     grid-template-columns: 200px auto;
 }
 
-.garage_data_box, .garage_edit_box, .garages_box {
-    text-align: left;
+.garages_table{
+    font-size: 15pt;
+    padding: 10px;
+    width: 100%;
+}
+
+.garages_table th {
+    color: #fff;
+    background-color: #546E7A;
+    padding: 10px;
+}
+
+.garages_table td {
+    color: #000;
+    background-color: #CFD8DC;
+    text-align: center;
 }
 
 .garage_container {
