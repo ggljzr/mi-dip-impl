@@ -1,8 +1,7 @@
-body            { font-family: sans-serif; background: #eee; text-align: center}
-a, h1, h2       { color: #377ba8; }
-h1, h2          { font-family: 'Georgia', serif; margin: 0; }
-h1              { border-bottom: 2px solid #eee; }
-h2              { font-size: 1.2em; }
+
+body { margin: 0px; padding: 0px;}
+h2 {color: #fff;}
+h1, h2 {text-align: center; font-family: helvetica}
 
 .flashes, .garages_list, .menu_list, .form_fields {
     list-style: none;
@@ -12,21 +11,17 @@ h2              { font-size: 1.2em; }
 
 .flash_message  { 
     background: #cee5F5; 
-    padding: 0.5em;
+    padding: 5px;
 }
 
 .flash_error { 
     background: #f0d6d6; 
-    padding: 0.5em;
+    padding: 5px;
 }
 
 .flash_warning {
     background: #f9b194;
     padding: 0.5em;
-}
-
-.form_field {
-    padding: 5px;
 }
 
 .login_box{
@@ -37,20 +32,40 @@ h2              { font-size: 1.2em; }
 }
 
 .menu_box {
-    background-color: #ccc;
-    padding: 10px;
+    background-color: #455A64;
+    text-align: center;
+    height: 1080px;
+}
+
+.menu_item {
+    color: #fff;
+    font-family: helvetica;
+    font-size: 16pt;
+}
+
+.menu_button {
+    color: #fff;
+    font-family: helvetica;
+    background-color: #546E7A;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    display: inline-block;
+    font-size: 15pt;
+    width: 200px;
+    margin: 0px;
+}
+
+.menu_button:hover {
+    background-color: #607D8B;
 }
 
 .main_container {
     display: grid;
-    padding: 20px;
-    padding-top: 30px;
-    grid-template-columns: 180px auto;
+    grid-template-columns: 200px auto;
 }
 
 .garage_data_box, .garage_edit_box, .garages_box {
-    padding: 10px;
-    padding-left: 50px;
     text-align: left;
 }
 
@@ -64,7 +79,6 @@ h2              { font-size: 1.2em; }
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
