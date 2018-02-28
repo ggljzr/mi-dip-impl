@@ -28,6 +28,8 @@ class Garage(Base):
         db.session.add(new_garage)
         db.session.commit()
 
+    #api_key uniquely identifies garage within database (same as id)
+    #returns none when no matching garage is found
     def get_garage_by_key(api_key):
         garage = Garage.query.filter_by(api_key=api_key).first()
         return garage
@@ -35,6 +37,7 @@ class Garage(Base):
     def __init__(self):
         self.api_key = uuid.uuid4().hex
 
+    #updates specific columns with corresponding dict
     def update(self, update_data):
         self.tag = update_data['tag']
         self.period = update_data['period']
@@ -55,6 +58,7 @@ class Garage(Base):
 
         return self.period
 
+    #revokes garage api key by generating a new one
     def revoke_key(self):
         self.api_key = uuid.uuid4().hex
         db.session.commit()
