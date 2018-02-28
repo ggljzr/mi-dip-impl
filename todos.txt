@@ -6,3 +6,5 @@
 * mozna predelat naky ty tlacitka (add_garage) taky na ty flask_form, abysme nemuseli mit csrf zapnuty globalne (csrf = CSRFProtect(app)) a pak ho rucne vypinali pro ten api modul (ale v podstate neni nutny zatim)
 * u ty reportevent tridy bysme si mozna nemuseli drzet ten next_report cas
 * to reseni tech timestamps ted neni uplne optimalni, viz https://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime
+* mazani garazi
+* mazani eventu?
