@@ -5,3 +5,4 @@
 * rozmyslet si tu hierarchii tech event trid a k tomu prislusny api, tj jestli budeme mit ke kazdymu druhu eventu zvlast tridu (asi jo) a jak k nim budou ty routy -- tohle implementovat az po tom co se to popise v navrhu
 * mozna predelat naky ty tlacitka (add_garage) taky na ty flask_form, abysme nemuseli mit csrf zapnuty globalne (csrf = CSRFProtect(app)) a pak ho rucne vypinali pro ten api modul (ale v podstate neni nutny zatim)
 * u ty reportevent tridy bysme si mozna nemuseli drzet ten next_report cas
+* to reseni tech timestamps ted neni uplne optimalni, viz https://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime
