@@ -43,6 +43,7 @@ class Garage(Base):
     def add_report_event(self):
         event = ReportEvent(garage_id=self.id)
         self.events.append(event)
+        self.last_report = db.func.current_timestamp()
         db.session.commit()
 
     def revoke_key(self):
