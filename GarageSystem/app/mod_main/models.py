@@ -46,8 +46,7 @@ class Garage(Base):
         now = datetime.now()
         next_report = now + timedelta(minutes=self.period)
 
-        event = ReportEvent(garage_id=self.id, timestamp=now,
-                            next_report=next_report)
+        event = ReportEvent(garage_id=self.id, next_report=next_report)
         self.events.append(event)
         self.last_report = now
         self.next_report = next_report
@@ -72,7 +71,7 @@ class Garage(Base):
 class Event(Base):
     __tablename__ = 'event'
 
-    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
+    timestamp = db.Column(db.DateTime, default=datetime.now())
 
     garage_id = db.Column(db.Integer, db.ForeignKey(
         'garage.id'), nullable=False)
