@@ -5,7 +5,7 @@ body { margin: 0px; padding: 0px;}
 h2 {color: #fff;}
 h1, h2 {text-align: center; font-family: helvetica}
 
-.flashes, .garages_list, .menu_list, .form_fields {
+.flashes, .garages_list, .menu_list, .form_fields, .form_errors {
     list-style: none;
     list-style-type: none;
     padding-left: 0;
@@ -14,6 +14,14 @@ h1, h2 {text-align: center; font-family: helvetica}
 .flash_message, .flash_error, .flash_warning {
     text-align: center;
     padding: 5px;
+}
+
+.form_errors {
+    width: 200px;
+    text-align: center;
+    padding: 3px;
+    color: #000;
+    background: #D81B60; 
 }
 
 .flash_message {
