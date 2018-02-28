@@ -39,13 +39,16 @@ h1, h2 {text-align: center; font-family: helvetica}
     padding: 0.5em;
 }
 
-.login_box {
+.login_box, .password_box {
     margin: 20px auto;
     width: 300px;
-    background-color: #455A64;
-    color: #fff;
     padding: 0 15px 15px 15px;
+}
+
+.login_box {
+    color: #fff;
     text-align: center;
+    background-color: #455A64;
 }
 
 .login_button {
