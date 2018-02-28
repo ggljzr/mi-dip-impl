@@ -108,19 +108,19 @@ input[type=text], input[type=password], textarea {
     grid-template-columns: 200px auto;
 }
 
-.garages_table{
+.basic_table{
     font-size: 15pt;
     padding: 10px;
     width: 100%;
 }
 
-.garages_table th {
+.basic_table th {
     color: #fff;
     background-color: #546E7A;
     padding: 10px;
 }
 
-.garages_table td {
+.basic_table td {
     color: #000;
     background-color: #CFD8DC;
     text-align: center;
