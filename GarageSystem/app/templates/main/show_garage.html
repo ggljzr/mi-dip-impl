@@ -1,39 +1,17 @@
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
 
 <body>
-
-<h1>Správa garáží</h1>
-
 {% from "_utils.html" import render_form, render_flash %}
 
-
-<h2>{{ garage.tag }}</h2>
-
-{{ render_flash() }}
-
-<div class=garage_container>
-
-    <div class=garage_data_box>
-        <h3>Data</h3>
-        <br>
-        ID: {{ garage.id }}
-        <br>
-        API klíč: {{ garage.api_key }}
-        <br>
-        Poslední hlášení: {{ garage.last_report | date_filter}}
-        <br>
-    </div>
-
-    <div class=garage_edit_box>
-        <h3>Nastavení garáže</h3>
-        <form class=basic_form method="POST" action="/garage/{{ garage.id }}">
-            {{ render_form(form)}}
-        </form>
-        <br>
-        <div class=tooltip>
+<div class=show_garage_container>
+    <div class=menu_box>
+        <h2>Menu</h2>
+        <ul class=menu_list>
+        <li>
+            <div class=tooltip>
             <form method="POST" action="/revoke_key/{{ garage.id }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <input type="submit" value="Zneplatnit API klíč">
+                    <input type="submit" class=menu_button value="Zneplatnit API klíč">
                 </form>
             <span class=tooltiptext>
             <p>
@@ -43,12 +21,52 @@
             Pro obnovení přistupu je nutné nahrát na systém nový klíč, případně vytvořit novou garaž pomocí registračního módu.
             </p>
             </span>
-        </div>
+            </div>
+        </li>
+        <li class=menu_item><a class=menu_button href='/'>Zpět</a></li>
+        </ul>
+    </div>
+
+    <div class=garage_box>
+        <h1>{{ garage.tag }}</h1>
+        {{ render_flash() }}
+
+    <div class=garage_box_container>
+
+    <div class=garage_data_box>
+        <h3>Údaje o garáži</h3>
+        <ul>
+        <li>ID: {{ garage.id }}</li>
+        <li>Stav: {{ garage.get_state_string() }}</li>
+        <li>Poslední hlášení: {{ garage.last_report | date_filter}}</li>
+        <li>Další plánované hlášení: {{ garage.next_report | date_filter }}</li>
+        <li>API Klíč: {{garage.api_key }}</li>
+        </ul>
+    </div>
+
+    <div class=garage_edit_box>
+        <h3>Nastavení garáže</h3>
+        <form class=basic_form method="POST" action="/garage/{{ garage.id }}">
+            {{ render_form(form)}}
+        </form>
+        <br>
+    </div>
+    </div>
+
+    <table class=garages_table>
+        <tr>
+        <th>Seznam událostí</th>
+        </tr>
+        {% for event in garage.events %}
+            <tr>
+                <td>{{ event }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+
     </div>
 </div>
-
-{{ garage.events }}
-
-<a href='/'>Zpět</a>
 
 </body>

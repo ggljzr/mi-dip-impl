@@ -1,5 +1,5 @@
 {% macro render_field(field) %}
- {{ field.label }}: {{ field }}
+ {{ field.label }}: <br> {{ field }}
  {% if field.errors %}
     <ul class=form_errors>
     {% for error in field.errors %}
