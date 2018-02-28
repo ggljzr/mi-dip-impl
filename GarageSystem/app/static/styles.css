@@ -52,7 +52,7 @@ h1, h2 {text-align: center; font-family: helvetica}
     width: 300px;
 }
 
-input[type=text], textarea, #password {
+input[type=text], input[type=password], textarea {
     padding: 12px;
     margin: 8px 0;
     display: inline-block;
@@ -76,7 +76,7 @@ input[type=text], textarea, #password {
     font-size: 16pt;
 }
 
-.menu_button, .login_button {
+.menu_button, .login_button, .form_button {
     color: #fff;
     font-family: helvetica;
     background-color: #546E7A;
@@ -88,11 +88,15 @@ input[type=text], textarea, #password {
     margin: 0px;
 }
 
+.form_button {
+    padding: 5px;
+}
+
 .menu_button {
     width: 200px;
 }
 
-.menu_button:hover, .login_button:hover {
+.menu_button:hover, .login_button:hover, .form_button:hover {
     background-color: #607D8B;
 }
 
