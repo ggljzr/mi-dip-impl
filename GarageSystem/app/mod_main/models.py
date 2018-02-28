@@ -40,6 +40,8 @@ class Garage(Base):
         self.note = update_data['note']
         db.session.commit()
 
+    #tohle pak bude vracet current_timestamp + period
+    #coz pak poslem v kontroleru tomu podrizenymu systemu
     def add_report_event(self):
         event = ReportEvent(garage_id=self.id)
         self.events.append(event)
