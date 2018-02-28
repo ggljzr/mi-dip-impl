@@ -1,5 +1,6 @@
 from app import db
 import uuid
+from datetime import datetime, timedelta
 
 
 class Base(db.Model):
@@ -40,13 +41,19 @@ class Garage(Base):
         self.note = update_data['note']
         db.session.commit()
 
-    #tohle pak bude vracet current_timestamp + period
-    #coz pak poslem v kontroleru tomu podrizenymu systemu
+    # returns minutes to the next expected report
     def add_report_event(self):
-        event = ReportEvent(garage_id=self.id)
+        now = datetime.now()
+        next_report = now + timedelta(minutes=self.period)
+
+        event = ReportEvent(garage_id=self.id, timestamp=now,
+                            next_report=next_report)
         self.events.append(event)
-        self.last_report = db.func.current_timestamp()
+        self.last_report = now
+        self.next_report = next_report
         db.session.commit()
+
+        return self.period
 
     def revoke_key(self):
         self.api_key = uuid.uuid4().hex
@@ -60,6 +67,7 @@ class Garage(Base):
 
     def __repr__(self):
         return '[{}] {} Poslední hlášení: {}'.format(self.id, self.tag, self.last_report)
+
 
 class Event(Base):
     __tablename__ = 'event'
