@@ -8,3 +8,4 @@
 * to reseni tech timestamps ted neni uplne optimalni, viz https://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime
 * mazani garazi
 * mazani eventu?
+* nakej zakladni pentesting?
