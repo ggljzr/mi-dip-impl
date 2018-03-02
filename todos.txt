@@ -9,3 +9,5 @@
 * mazani garazi
 * mazani eventu?
 * nakej zakladni pentesting?
+* to api upravit podle https://restfulapi.net/http-methods/
+** doplnit spravny navratovy kody, to revoke key by teoreticky mohlo bejt put
