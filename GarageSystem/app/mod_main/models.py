@@ -58,6 +58,10 @@ class Garage(Base):
 
         return self.period
 
+    #function to check if garage missed its expected report
+    def check_report(self):
+        pass
+
     #revokes garage api key by generating a new one
     def revoke_key(self):
         self.api_key = uuid.uuid4().hex
