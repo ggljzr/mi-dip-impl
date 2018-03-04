@@ -103,3 +103,16 @@ class ReportEvent(Event):
 
     def __repr__(self):
         return super(ReportEvent, self).__repr__() + ' Kontrolní hlášení'
+
+#event factory?
+class DoorOpenEvent(Event):
+    pass
+
+class DoorClosedEvent(Event):
+    pass
+
+class SmokeDetectorEvent(Event):
+    pass
+
+class MovementDetectorEvent(Event):
+    pass
