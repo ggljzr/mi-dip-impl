@@ -9,12 +9,14 @@ from app.mod_auth.auth_utils import login_required
 
 mod_main = Blueprint('main', __name__)
 
+
 @mod_main.app_template_filter('date_filter')
 def date_filter(date):
     if date == None:
         return 'Žádné'
 
     return date
+
 
 @mod_main.route('/')
 @login_required
@@ -23,7 +25,7 @@ def index():
     return render_template('main/index.html', garages=garages)
 
 
-@mod_main.route('/garage/<id>', methods=['GET', 'POST'])
+@mod_main.route('/garage/<id>', methods=['GET'])
 @login_required
 def show_garage(id):
     garage = Garage.query.get(id)
@@ -32,12 +34,20 @@ def show_garage(id):
 
     garage_form = GarageFormBuilder.build_form(garage)
 
-    if request.method == 'POST':
-        #load form from user when they submitting new settings
-        garage_form = GarageForm(request.form)
-        if garage_form.validate_on_submit():
-            garage.update(request.form.to_dict())
-            flash('Garáž upravena')
+    return render_template('main/show_garage.html', garage=garage, form=garage_form)
+
+
+@mod_main.route('/garage/<id>', methods=['POST'])
+@login_required
+def edit_garage(id):
+    garage = Garage.query.get(id)
+    if garage == None:
+        return render_template('404.html'), 404
+
+    garage_form = GarageForm(request.form)
+    if garage_form.validate_on_submit():
+        garage.update(request.form.to_dict())
+        flash('Garáž upravena')
 
     return render_template('main/show_garage.html', garage=garage, form=garage_form)
 
@@ -49,9 +59,10 @@ def revoke_key(id):
     if garage == None:
         return render_template('404.html'), 404
 
-    garage.revoke_key() 
+    garage.revoke_key()
     flash('Vygenerován nový klíč')
     return redirect('/garage/{}'.format(id))
+
 
 @mod_main.route('/add_garage', methods=['POST'])
 @login_required
