@@ -18,7 +18,7 @@ class Garage(Base):
     last_report = db.Column(db.DateTime, default=None)
     next_report = db.Column(db.DateTime, default=None)
     period = db.Column(db.Integer, default=60)
-    state = db.Column(db.SmallInteger, default=0)
+    state = db.Column(db.SmallInteger, default=0) #tady pouzit nakej enum jestli je 
 
     events = db.relationship('Event', backref='Garage',
                              lazy=True)
@@ -58,7 +58,7 @@ class Garage(Base):
 
         return self.period
 
-    #function to check if garage missed its expected report
+    #checks if garage missed its expected report
     def check_report(self):
         pass
 
@@ -67,6 +67,8 @@ class Garage(Base):
         self.api_key = uuid.uuid4().hex
         db.session.commit()
 
+    #misto tyhle funkce udelat nakej filter v kontroleru
+    #stejne tam budem pridavat naky barvicky
     def get_state_string(self):
         if self.state == 0:
             return 'Otevřeno'
@@ -108,15 +110,50 @@ class ReportEvent(Event):
     def __repr__(self):
         return super(ReportEvent, self).__repr__() + ' Kontrolní hlášení'
 
-#event factory?
 class DoorOpenEvent(Event):
-    pass
+    __tablename__ = 'dooropenevent'
+
+    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'dooropenevent'
+    }
+
+    def __repr__(self):
+        return super(DoorOpenEvent, self).__repr__() + ' Otevření dveří'
 
 class DoorClosedEvent(Event):
-    pass
+    __tablename__ = 'doorclosedevent'
+
+    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'doorclosedevent'
+    }
+
+    def __repr__(self):
+        return super(DoorOpenEvent, self).__repr__() + ' Zavření dveří'
 
 class SmokeDetectorEvent(Event):
-    pass
+    __tablename__ = 'smokedetectorevent'
+
+    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'smokedetectorevent'
+    }
+
+    def __repr__(self):
+        return super(DoorOpenEvent, self).__repr__() + ' Detekce kouře!'
 
 class MovementDetectorEvent(Event):
-    pass
+    __tablename__ = 'movementdetectorevent'
+
+    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'movementdetectorevent'
+    }
+
+    def __repr__(self):
+        return super(DoorOpenEvent, self).__repr__() + ' Detekce pohybu!'
