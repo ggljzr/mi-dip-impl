@@ -157,6 +157,7 @@ input[type=text], input[type=password], textarea {
     top: 100%;
     left: 60%;
     width: 200px;
+    font-size: 12pt;
 }
 
 .tooltip:hover .tooltiptext {
