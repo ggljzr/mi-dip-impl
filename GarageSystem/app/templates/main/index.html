@@ -33,7 +33,7 @@
             <tr>
                 <td><a href="/garage/{{ garage.id }}">[{{ garage.id }}]</a></td>
                 <td>{{ garage.tag }}</td>
-                <td>{{ garage.get_state_string() }}
+                <td>{{ garage.state | garage_state_filter }}
                 <td>{{ garage.last_report | date_filter }}</td>
                 <td>{{ garage.next_report | date_filter }}</td>
             </tr>

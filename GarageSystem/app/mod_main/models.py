@@ -12,13 +12,17 @@ class Base(db.Model):
 class Garage(Base):
     __tablename__ = 'garage'
 
+    STATE_OPEN = 0
+    STATE_CLOSED = 1
+    STATE_NOT_RESPODING = 2
+
     tag = db.Column(db.String(64), default='Nová garáž')
     note = db.Column(db.String(256))
     api_key = db.Column(db.String(32), default=None)
     last_report = db.Column(db.DateTime, default=None)
     next_report = db.Column(db.DateTime, default=None)
     period = db.Column(db.Integer, default=60)
-    state = db.Column(db.SmallInteger, default=0) #tady pouzit nakej enum jestli je 
+    state = db.Column(db.SmallInteger, default=STATE_OPEN) #tady pouzit nakej enum jestli je 
 
     events = db.relationship('Event', backref='Garage',
                              lazy=True)
@@ -66,14 +70,6 @@ class Garage(Base):
     def revoke_key(self):
         self.api_key = uuid.uuid4().hex
         db.session.commit()
-
-    #misto tyhle funkce udelat nakej filter v kontroleru
-    #stejne tam budem pridavat naky barvicky
-    def get_state_string(self):
-        if self.state == 0:
-            return 'Otevřeno'
-        else:
-            return 'Zavřeno'
 
     def __repr__(self):
         return '[{}] {} Poslední hlášení: {}'.format(self.id, self.tag, self.last_report)

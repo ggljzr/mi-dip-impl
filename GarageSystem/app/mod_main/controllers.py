@@ -17,6 +17,16 @@ def date_filter(date):
 
     return date
 
+@mod_main.app_template_filter('garage_state_filter')
+def garage_state_filter(state):
+    if state == Garage.STATE_OPEN:
+        return 'Otevřeno'
+
+    if state == Garage.STATE_CLOSED:
+        return 'Zavřeno'
+
+    return 'Nedefinován'
+
 
 @mod_main.route('/')
 @login_required
