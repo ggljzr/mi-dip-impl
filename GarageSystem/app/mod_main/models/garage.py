@@ -16,6 +16,8 @@ class Garage(Base):
     STATE_SMOKE = 2
     STATE_MOVEMENT = 3
 
+    REPORT_TOLERANCE = 60
+
     tag = db.Column(db.String(64), default='Nová garáž')
     note = db.Column(db.String(256))
     api_key = db.Column(db.String(32), default=None)
@@ -38,6 +40,11 @@ class Garage(Base):
     def get_garage_by_key(api_key):
         garage = Garage.query.filter_by(api_key=api_key).first()
         return garage
+
+    def check_reports():
+        garages = Garage.query.all()
+        for garage in garages:
+            garage.check_report()
 
     def __init__(self):
         self.api_key = uuid.uuid4().hex
@@ -83,7 +90,18 @@ class Garage(Base):
     #checks if garage missed its expected report
     #also sets state to NOT_RESPONDING if report was missed
     def check_report(self):
-        pass
+        if self.next_report == None:
+            return True
+
+        now = datetime.now()
+        delta = now - self.next_report
+
+        if delta.total_seconds() > Garage.REPORT_TOLERANCE:
+            self.state = Garage.STATE_NOT_RESPONDING
+            db.session.commit()
+            return False
+
+        return True
 
     #revokes garage api key by generating a new one
     def revoke_key(self):

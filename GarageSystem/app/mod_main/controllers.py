@@ -47,6 +47,7 @@ def garage_state_filter(state):
 @mod_main.route('/')
 @login_required
 def index():
+    Garage.check_reports()
     garages = Garage.query.all()
     return render_template('main/index.html', garages=garages)
 
