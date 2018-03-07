@@ -54,6 +54,7 @@ class Garage(Base):
         db.session.commit()
 
     # returns minutes to the next expected report
+    # also sets state to OK if it was NOT_RESPONDING
     def add_report_event(self):
         now = datetime.now()
         next_report = now + timedelta(minutes=self.period)
@@ -63,6 +64,10 @@ class Garage(Base):
         self.events.append(event)
         self.last_report = now
         self.next_report = next_report
+
+        if self.state == Garage.STATE_NOT_RESPONDING:
+            self.state = Garage.STATE_OK
+
         db.session.commit()
 
         return self.period
