@@ -25,17 +25,19 @@
         <tr>
         <th>ID</th>
         <th>Označení</th>
-        <th>Stav</th>
+        <th>Dveře</th>
         <th>Poslední hlášení</th>
         <th>Další plánované hlášení</th>
+        <th>Stav</th>
         </tr>
         {% for garage in garages %}
             <tr>
                 <td><a href="/garage/{{ garage.id }}">[{{ garage.id }}]</a></td>
                 <td>{{ garage.tag }}</td>
-                <td>{{ garage.state | garage_state_filter }}
+                <td>{{ garage.doors | garage_doors_filter }}</td>
                 <td>{{ garage.last_report | date_filter }}</td>
                 <td>{{ garage.next_report | date_filter }}</td>
+                <td>stav</td>
             </tr>
         {% endfor %}
     </table>

@@ -17,12 +17,12 @@ def date_filter(date):
 
     return date
 
-@mod_main.app_template_filter('garage_state_filter')
-def garage_state_filter(state):
-    if state == Garage.STATE_OPEN:
+@mod_main.app_template_filter('garage_doors_filter')
+def garage_doors_filter(doors):
+    if doors == Garage.DOORS_OPEN:
         return 'Otevřeno'
 
-    if state == Garage.STATE_CLOSED:
+    if doors == Garage.DOORS_CLOSED:
         return 'Zavřeno'
 
     return 'Nedefinován'

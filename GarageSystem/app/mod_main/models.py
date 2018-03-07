@@ -12,9 +12,8 @@ class Base(db.Model):
 class Garage(Base):
     __tablename__ = 'garage'
 
-    STATE_OPEN = 0
-    STATE_CLOSED = 1
-    STATE_NOT_RESPODING = 2
+    DOORS_OPEN = 0
+    DOORS_CLOSED = 1
 
     tag = db.Column(db.String(64), default='Nová garáž')
     note = db.Column(db.String(256))
@@ -22,7 +21,7 @@ class Garage(Base):
     last_report = db.Column(db.DateTime, default=None)
     next_report = db.Column(db.DateTime, default=None)
     period = db.Column(db.Integer, default=60)
-    state = db.Column(db.SmallInteger, default=STATE_OPEN) #tady pouzit nakej enum jestli je 
+    doors = db.Column(db.SmallInteger, default=DOORS_OPEN)
 
     events = db.relationship('Event', backref='Garage',
                              lazy=True)
