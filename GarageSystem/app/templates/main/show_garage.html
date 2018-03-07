@@ -37,7 +37,8 @@
         <h3>Údaje o garáži</h3>
         <ul>
         <li>ID: {{ garage.id }}</li>
-        <li>Stav: {{ garage.doors | garage_doors_filter }}</li>
+        <li>Stav: {{ garage.state | garage_state_filter }}</li>
+        <li>Dveře: {{ garage.doors | garage_doors_filter }}</li>
         <li>Poslední hlášení: {{ garage.last_report | date_filter}}</li>
         <li>Další plánované hlášení: {{ garage.next_report | date_filter }}</li>
         <li>API Klíč: {{garage.api_key }}</li>

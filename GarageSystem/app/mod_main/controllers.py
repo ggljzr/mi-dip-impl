@@ -35,6 +35,12 @@ def garage_state_filter(state):
     if state == Garage.STATE_NOT_RESPONDING:
         return 'Nehlásí se'
 
+    if state == Garage.STATE_SMOKE:
+        return 'Detekce kouře'
+
+    if state == Garage.STATE_MOVEMENT:
+        return 'Detekce pohybu'
+
     return 'Nedefinováno'
 
 
