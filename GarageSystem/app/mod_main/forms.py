@@ -1,12 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, TextAreaField
+from wtforms import StringField, IntegerField, TextAreaField, BooleanField
 from wtforms.validators import NumberRange
+
+class UserSettingsForm(FlaskForm):
+    notification_mail = StringField('Email pro upozornění')
+    notifications = BooleanField('Povolit upozornění', default=True)
 
 
 class GarageForm(FlaskForm):
     tag = StringField('Označení')
     period = IntegerField('Perioda hlášení (minuty)', validators=[NumberRange(
-        1, 999, message="Perioda musí být mezi 1 a 999")])
+        1, 999, message='Perioda musí být mezi 1 a 999')])
     note = TextAreaField('Poznámka')
 
 

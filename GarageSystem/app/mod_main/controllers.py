@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from jinja2 import Markup
 
 from .models.garage import Garage
-from .forms import GarageFormBuilder, GarageForm
+from .forms import GarageFormBuilder, GarageForm, UserSettingsForm
 from .filters import Filters
 
 from app.mod_auth.auth_utils import login_required
@@ -95,3 +95,14 @@ def delete_garage(id):
 
     flash('Garáž úspěšně smazáná')
     return redirect('/')
+
+@mod_main.route('/user_settings', methods=['GET', 'POST'])
+@login_required
+def user_settings():
+    form = UserSettingsForm(request.form)
+
+    if request.method == 'POST' and form.validate_on_submit():
+        print(request.form.to_dict())
+        flash('Nastavení uloženo')
+
+    return render_template('main/user_settings.html', form=form)
