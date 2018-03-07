@@ -6,7 +6,7 @@
     <div class=menu_box>
         <h2>Menu</h2>
         <ul class=menu_list>
-        <li>
+        <li class=menu_item>
             <div class=tooltip>
             <form method="POST" action="/revoke_key/{{ garage.id }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -22,7 +22,7 @@
             </span>
             </div>
         </li>
-        <li>
+        <li class=menu_item>
             <div class=tooltip>
             <form method="POST" action="/delete_garage/{{ garage.id }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>

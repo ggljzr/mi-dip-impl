@@ -12,7 +12,7 @@
                 </form>
             </li>
             <li class=menu_item>Registrační mód: {{ reg_mode | reg_mode_filter }}</li>
-            <li>
+            <li class=menu_item>
             <div class=tooltip>
                 <form method="POST" action="/reg_mode">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
