@@ -31,7 +31,7 @@ class Garage(Base):
     state = db.Column(db.SmallInteger, default=STATE_OK)
 
     events = db.relationship('Event', backref='Garage',
-                             lazy=True, cascade='all, delete-orphan')
+                             lazy=True, cascade='all, delete-orphan', order_by='desc(Event.timestamp)')
 
     def add_garage():
         new_garage = Garage()
