@@ -78,7 +78,6 @@ class Garage(Base):
         self.events.append(event)
         db.session.commit()
 
-    # also sets state to OK if it was NOT_RESPONDING
     def proc_report_event(self):
         now = datetime.now()
         next_report = now + timedelta(minutes=self.period)
@@ -101,8 +100,6 @@ class Garage(Base):
     def proc_smoke_event(self):
         pass
 
-    #checks if garage missed its expected report
-    #also sets state to NOT_RESPONDING if report was missed
     def check_report(self):
         if self.next_report == None:
             return
