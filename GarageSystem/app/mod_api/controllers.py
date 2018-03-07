@@ -6,6 +6,10 @@ mod_api = Blueprint('api', __name__)
 
 @mod_api.route('/api/garages', methods=['POST'])
 def add_garage():
+    if not Garage.reg_mode:
+        return 'forbidden', 403
+
+    Garage.add_garage()
     return 'created', 201
 
 @mod_api.route('/api/events', methods=['POST'])
