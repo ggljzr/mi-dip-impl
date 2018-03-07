@@ -61,46 +61,44 @@ class Garage(Base):
 
     def add_event(self, event_type):
         if event_type == Event.TYPE_REPORT:
-            self.add_report_event()
+            self.proc_report_event()
         elif event_type == Event.TYPE_DOOR_OPEN:
-            self.add_door_open_event()
+            self.proc_door_open_event()
         elif event_type == Event.TYPE_DOOR_CLOSED:
-            self.add_door_closed_event()
+            self.proc_door_closed_event()
         elif event_type == Event.TYPE_MOVEMENT:
-            self.add_movement_event()
+            self.proc_movement_event()
         elif event_type == Event.TYPE_SMOKE:
-            self.add_smoke_event()
+            self.proc_smoke_event()
         else:
             raise InvalidEventTypeError
 
-    # returns minutes to the next expected report
+        now = datetime.now()
+        event = Event(garage_id=self.id, timestamp=now, type=event_type)
+        self.events.append(event)
+        db.session.commit()
+
     # also sets state to OK if it was NOT_RESPONDING
     def add_report_event(self):
         now = datetime.now()
         next_report = now + timedelta(minutes=self.period)
 
-        event = Event(garage_id=self.id, timestamp=now, type=Event.TYPE_REPORT)
-        self.events.append(event)
         self.last_report = now
         self.next_report = next_report
 
         if self.state == Garage.STATE_NOT_RESPONDING:
             self.state = Garage.STATE_OK
 
-        db.session.commit()
-
-        return self.period
-
-    def add_door_open_event(self):
+    def proc_door_open_event(self):
         pass
 
-    def add_door_closed_event(self):
+    def proc_door_closed_event(self):
         pass
 
-    def add_movement_event(self):
+    def proc_movement_event(self):
         pass
 
-    def add_smoke_event(self):
+    def proc_smoke_event(self):
         pass
 
     #checks if garage missed its expected report
