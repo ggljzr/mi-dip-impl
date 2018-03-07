@@ -52,7 +52,7 @@ def event_filter(event):
         ret = ret + ' Kontrolní událost'
     elif event.type == Event.TYPE_DOOR_OPEN:
         ret = ret + ' Otevření dveří'
-    elif event.type == Event.TYPE_DOOR_CLOSE:
+    elif event.type == Event.TYPE_DOOR_CLOSED:
         ret = ret + ' Zavření dveří'
     elif event.type == Event.TYPE_MOVEMENT:
         ret = ret + ' Detekce pohybu!'
