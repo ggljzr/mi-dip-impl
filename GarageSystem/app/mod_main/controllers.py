@@ -65,7 +65,6 @@ def edit_garage(id):
 
     return render_template('main/show_garage.html', garage=garage, form=garage_form)
 
-
 @mod_main.route('/revoke_key/<id>', methods=['POST'])
 @login_required
 def revoke_key(id):
@@ -83,4 +82,16 @@ def revoke_key(id):
 def add_garage():
     Garage.add_garage()
     flash('Vytvořena nová garáž')
+    return redirect('/')
+
+@mod_main.route('/delete_garage/<id>', methods=['POST'])
+@login_required
+def delete_garage(id):
+    garage = Garage.query.get(id)
+    if garage == None:
+        return render_template('404.html'), 404
+
+    garage.delete_garage()
+
+    flash('Garáž úspěšně smazáná')
     return redirect('/')

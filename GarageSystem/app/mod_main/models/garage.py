@@ -31,7 +31,7 @@ class Garage(Base):
     state = db.Column(db.SmallInteger, default=STATE_OK)
 
     events = db.relationship('Event', backref='Garage',
-                             lazy=True)
+                             lazy=True, cascade='all, delete-orphan')
 
     def add_garage():
         new_garage = Garage()
@@ -79,7 +79,7 @@ class Garage(Base):
         db.session.commit()
 
     # also sets state to OK if it was NOT_RESPONDING
-    def add_report_event(self):
+    def proc_report_event(self):
         now = datetime.now()
         next_report = now + timedelta(minutes=self.period)
 
@@ -117,4 +117,8 @@ class Garage(Base):
     #revokes garage api key by generating a new one
     def revoke_key(self):
         self.api_key = uuid.uuid4().hex
+        db.session.commit()
+
+    def delete_garage(self):
+        db.session.delete(self)
         db.session.commit()
