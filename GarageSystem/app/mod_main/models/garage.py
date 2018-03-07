@@ -5,6 +5,11 @@ from datetime import datetime, timedelta
 from .base import Base
 from .event import Event
 
+from apscheduler.schedulers.background import BackgroundScheduler
+
+scheduler = BackgroundScheduler()
+scheduler.start()
+
 class InvalidEventTypeError(Exception):
     pass
 
@@ -21,6 +26,8 @@ class Garage(Base):
 
     REPORT_TOLERANCE = 60
 
+    reg_mode = False
+
     tag = db.Column(db.String(64), default='Nová garáž')
     note = db.Column(db.String(256))
     api_key = db.Column(db.String(32), default=None)
@@ -32,6 +39,19 @@ class Garage(Base):
 
     events = db.relationship('Event', backref='Garage',
                              lazy=True, cascade='all, delete-orphan', order_by='desc(Event.timestamp)')
+
+    def start_reg_mode():
+        if Garage.reg_mode:
+            return
+
+        Garage.reg_mode = True
+
+        def quit_req_mode():
+            print('quitting')
+            Garage.reg_mode = False
+
+        quit_time = datetime.now() + timedelta(minutes=3)
+        scheduler.add_job(quit_req_mode, run_date=quit_time)
 
     def add_garage():
         new_garage = Garage()

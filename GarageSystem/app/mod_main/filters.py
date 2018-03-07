@@ -49,3 +49,9 @@ class Filters():
             ret = ret + 'Nedefinováno'
 
         return ret
+
+    def reg_mode_filter(reg_mode):
+        if reg_mode:
+            return 'Zapnutý'
+
+        return 'Vypnutý'

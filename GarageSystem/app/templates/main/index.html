@@ -11,6 +11,20 @@
                     <input type="submit" class='menu_button' value="Nová garáž">
                 </form>
             </li>
+            <li class=menu_item>Registrační mód: {{ reg_mode | reg_mode_filter }}</li>
+            <li>
+            <div class=tooltip>
+                <form method="POST" action="/reg_mode">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="submit" class=menu_button value="Zapnout reg. mód">
+                </form>
+            <span class=tooltiptext>
+            <p>
+            Registrační mód umožní automatickou registraci nových subsystémů pomocí registračního požadavku. Mód se automaticky vypne po 3 minutách.
+            </p>
+            </span>
+            </div>
+        </li>
             <li class=menu_item>Nastavení</li>
             <li class=menu_item><a href='/change_password' class='menu_button'>Změna hesla</a></li>
             <li class=menu_item><a href='/user_settings' class='menu_button'>Uživatel</a></li>

@@ -30,13 +30,16 @@ def garage_state_filter(state):
 def event_filter(event):
     return Filters.event_filter(event)
 
+@mod_main.app_template_filter('reg_mode_filter')
+def reg_mode_filter(reg_mode):
+    return Filters.reg_mode_filter(reg_mode)
 
 @mod_main.route('/')
 @login_required
 def index():
     Garage.check_reports()
     garages = Garage.query.all()
-    return render_template('main/index.html', garages=garages)
+    return render_template('main/index.html', garages=garages, reg_mode=Garage.reg_mode)
 
 
 @mod_main.route('/garage/<id>', methods=['GET'])
@@ -94,6 +97,17 @@ def delete_garage(id):
     garage.delete_garage()
 
     flash('Garáž úspěšně smazáná')
+    return redirect('/')
+
+@mod_main.route('/reg_mode', methods=['POST'])
+@login_required
+def reg_mode():
+    if Garage.reg_mode:
+        flash('Registrační mód už běží', 'warning')
+        return redirect('/')
+
+    Garage.start_reg_mode()
+    flash('Registrační mód spuštěn')
     return redirect('/')
 
 @mod_main.route('/user_settings', methods=['GET', 'POST'])
