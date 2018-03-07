@@ -47,7 +47,6 @@ class Garage(Base):
         Garage.reg_mode = True
 
         def quit_req_mode():
-            print('quitting')
             Garage.reg_mode = False
 
         quit_time = datetime.now() + timedelta(minutes=3)
