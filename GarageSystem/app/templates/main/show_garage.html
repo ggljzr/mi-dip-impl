@@ -60,7 +60,7 @@
         </tr>
         {% for event in garage.events %}
             <tr>
-                <td>{{ event }}</td>
+                <td>{{ event | event_filter }}</td>
             </tr>
         {% else %}
         <tr>

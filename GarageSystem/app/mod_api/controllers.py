@@ -1,31 +1,26 @@
 from flask import Blueprint, request
 
-from app.mod_main.models.garage import Garage
+from app.mod_main.models.garage import Garage, InvalidEventTypeError
 
 mod_api = Blueprint('api', __name__)
 
-#tady to udelat proste /garages a /events a post
-#pro vytvareni novejch eventu a garazi
-#jak je to popsany v 
-#https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design
-
-#u tech eventu to udelat proste tak ze typ eventu je soucasti toho
-#pozadavku, tj je posilanej tim postem, tzn bude jen jedna routa
-#pro vsechny eventy
-
-@mod_api.route('/api/add_garage')
+@mod_api.route('/api/garages', methods=['POST'])
 def add_garage():
-    return 'ok', 200
+    return 'created', 201
 
-@mod_api.route('/api/add_report_event', methods=['POST'])
+@mod_api.route('/api/events', methods=['POST'])
 def add_report_event():
     api_key = request.headers.get('api_key')
 
     garage = Garage.get_garage_by_key(api_key)
 
     if garage == None:
-        return 'not ok', 403
-    
-    garage.add_report_event()
+        return 'forbidden', 403
 
-    return 'ok', 200
+    try:
+        event_type = int(request.headers.get('event_type'))
+        garage.add_event(event_type)
+    except (InvalidEventTypeError, TypeError):
+        return 'bad request', 400
+
+    return 'created', 201

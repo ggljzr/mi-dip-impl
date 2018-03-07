@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from jinja2 import Markup
 
 from .models.garage import Garage
+from .models.event import Event
 from .forms import GarageFormBuilder, GarageForm
 
 from app.mod_auth.auth_utils import login_required
@@ -43,6 +44,24 @@ def garage_state_filter(state):
 
     return 'Nedefinováno'
 
+@mod_main.app_template_filter('event_filter')
+def event_filter(event):
+    ret = '[{}]'.format(event.timestamp)
+
+    if event.type == Event.TYPE_REPORT:
+        ret = ret + ' Kontrolní událost'
+    elif event.type == Event.TYPE_DOOR_OPEN:
+        ret = ret + ' Otevření dveří'
+    elif event.type == Event.TYPE_DOOR_CLOSE:
+        ret = ret + ' Zavření dveří'
+    elif event.type == Event.TYPE_MOVEMENT:
+        ret = ret + ' Detekce pohybu!'
+    elif event.type == Event.TYPE_SMOKE:
+        ret = ret + ' Detekce kouře!'
+    else:
+        ret = ret + 'Nedefinováno'
+
+    return ret
 
 @mod_main.route('/')
 @login_required
