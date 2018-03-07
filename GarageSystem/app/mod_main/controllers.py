@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 
 from jinja2 import Markup
 
-from .models import Garage
+from .models.garage import Garage
 from .forms import GarageFormBuilder, GarageForm
 
 from app.mod_auth.auth_utils import login_required

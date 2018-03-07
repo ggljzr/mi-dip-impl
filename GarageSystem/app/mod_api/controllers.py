@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from app.mod_main.models import Garage
+from app.mod_main.models.garage import Garage
 
 mod_api = Blueprint('api', __name__)
 

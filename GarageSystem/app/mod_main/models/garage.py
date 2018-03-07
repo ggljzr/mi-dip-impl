@@ -2,12 +2,8 @@ from app import db
 import uuid
 from datetime import datetime, timedelta
 
-
-class Base(db.Model):
-    __abstract__ = True
-
-    id = db.Column(db.Integer, primary_key=True)
-
+from .base import Base
+from .events import ReportEvent
 
 class Garage(Base):
     __tablename__ = 'garage'
@@ -72,7 +68,20 @@ class Garage(Base):
 
         return self.period
 
+    def add_door_open_event(self):
+        pass
+
+    def add_door_closed_event(self):
+        pass
+
+    def add_movement_event(self):
+        pass
+
+    def add_smoke_event(self):
+        pass
+
     #checks if garage missed its expected report
+    #also sets state to NOT_RESPONDING if report was missed
     def check_report(self):
         pass
 
@@ -84,82 +93,3 @@ class Garage(Base):
     def __repr__(self):
         return '[{}] {} Poslední hlášení: {}'.format(self.id, self.tag, self.last_report)
 
-
-class Event(Base):
-    __tablename__ = 'event'
-
-    timestamp = db.Column(db.DateTime)
-
-    garage_id = db.Column(db.Integer, db.ForeignKey(
-        'garage.id'), nullable=False)
-    type = db.Column(db.String(64))
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'event',
-        'polymorphic_on': type
-    }
-
-    def __repr__(self):
-        return '[{}]'.format(self.timestamp)
-
-
-class ReportEvent(Event):
-    __tablename__ = 'reportevent'
-
-    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
-    next_report = db.Column(db.DateTime, default=None)
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'reportevent'
-    }
-
-    def __repr__(self):
-        return super(ReportEvent, self).__repr__() + ' Kontrolní hlášení'
-
-class DoorOpenEvent(Event):
-    __tablename__ = 'dooropenevent'
-
-    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'dooropenevent'
-    }
-
-    def __repr__(self):
-        return super(DoorOpenEvent, self).__repr__() + ' Otevření dveří'
-
-class DoorClosedEvent(Event):
-    __tablename__ = 'doorclosedevent'
-
-    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'doorclosedevent'
-    }
-
-    def __repr__(self):
-        return super(DoorOpenEvent, self).__repr__() + ' Zavření dveří'
-
-class SmokeDetectorEvent(Event):
-    __tablename__ = 'smokedetectorevent'
-
-    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'smokedetectorevent'
-    }
-
-    def __repr__(self):
-        return super(DoorOpenEvent, self).__repr__() + ' Detekce kouře!'
-
-class MovementDetectorEvent(Event):
-    __tablename__ = 'movementdetectorevent'
-
-    id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'movementdetectorevent'
-    }
-
-    def __repr__(self):
-        return super(DoorOpenEvent, self).__repr__() + ' Detekce pohybu!'
