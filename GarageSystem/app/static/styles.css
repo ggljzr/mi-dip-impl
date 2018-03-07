@@ -64,7 +64,7 @@ input[type=text], input[type=password], textarea {
 }
 
 #password {
-    width: 100%;
+    width: 90%;
 }
 
 .menu_box {
@@ -77,6 +77,7 @@ input[type=text], input[type=password], textarea {
     color: #fff;
     font-family: helvetica;
     font-size: 16pt;
+    margin-top: 15px;
 }
 
 .menu_button, .login_button, .form_button {
