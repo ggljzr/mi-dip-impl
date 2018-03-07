@@ -15,6 +15,11 @@ class Garage(Base):
     DOORS_OPEN = 0
     DOORS_CLOSED = 1
 
+    STATE_OK = 0
+    STATE_NOT_RESPONDING = 1
+    STATE_SMOKE = 2
+    STATE_MOVEMENT = 3
+
     tag = db.Column(db.String(64), default='Nová garáž')
     note = db.Column(db.String(256))
     api_key = db.Column(db.String(32), default=None)
@@ -22,6 +27,7 @@ class Garage(Base):
     next_report = db.Column(db.DateTime, default=None)
     period = db.Column(db.Integer, default=60)
     doors = db.Column(db.SmallInteger, default=DOORS_OPEN)
+    state = db.Column(db.SmallInteger, default=STATE_OK)
 
     events = db.relationship('Event', backref='Garage',
                              lazy=True)

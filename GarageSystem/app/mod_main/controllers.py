@@ -25,7 +25,17 @@ def garage_doors_filter(doors):
     if doors == Garage.DOORS_CLOSED:
         return 'Zavřeno'
 
-    return 'Nedefinován'
+    return 'Nedefinováno'
+
+@mod_main.app_template_filter('garage_state_filter')
+def garage_state_filter(state):
+    if state == Garage.STATE_OK:
+        return 'OK'
+
+    if state == Garage.STATE_NOT_RESPONDING:
+        return 'Nehlásí se'
+
+    return 'Nedefinováno'
 
 
 @mod_main.route('/')
