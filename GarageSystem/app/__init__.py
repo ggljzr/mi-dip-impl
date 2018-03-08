@@ -3,10 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask_wtf.csrf import CSRFProtect
 
+from apscheduler.schedulers.background import BackgroundScheduler
+
 app = Flask(__name__)
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
+
+scheduler = BackgroundScheduler()
+scheduler.start()
 
 #csrf protection for non FlaskForm forms
 #(simple one button forms like for /add_garage)

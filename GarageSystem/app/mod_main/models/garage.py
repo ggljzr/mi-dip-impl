@@ -1,14 +1,9 @@
-from app import db
+from app import db, scheduler
 import uuid
 from datetime import datetime, timedelta
 
 from .base import Base
 from .event import Event
-
-from apscheduler.schedulers.background import BackgroundScheduler
-
-scheduler = BackgroundScheduler()
-scheduler.start()
 
 class InvalidEventTypeError(Exception):
     pass
