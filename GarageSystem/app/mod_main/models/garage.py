@@ -26,6 +26,8 @@ class Garage(Base):
 
     REPORT_TOLERANCE = 60
 
+    REG_MODE_TIMER = 3
+
     reg_mode = False
 
     tag = db.Column(db.String(64), default='Nová garáž')
@@ -49,7 +51,7 @@ class Garage(Base):
         def quit_req_mode():
             Garage.reg_mode = False
 
-        quit_time = datetime.now() + timedelta(minutes=3)
+        quit_time = datetime.now() + timedelta(minutes=Garage.REG_MODE_TIMER)
         scheduler.add_job(quit_req_mode, run_date=quit_time)
 
     def add_garage():
