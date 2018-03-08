@@ -110,10 +110,10 @@ class Garage(Base):
             self.state = Garage.STATE_OK
 
     def proc_door_open_event(self):
-        pass
+        self.doors = Garage.DOORS_OPEN
 
     def proc_door_closed_event(self):
-        pass
+        self.doors = Garage.DOORS_CLOSED
 
     def proc_movement_event(self):
         pass
