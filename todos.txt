@@ -1,10 +1,7 @@
 * napsat prvni testy
-* u tech email notifikaci se bude muset vyresit jak poslat notifikaci ze se garaz nehlasi. to znamena pravidelne projet databazi a zjistit, jestli sou naky garaze late a kdyztak poslat ty maily. Pro info viz https://stackoverflow.com/questions/21214270/scheduling-a-function-to-run-every-hour-on-flask/38501429 . Pri notifikaci vo udalost (pozar atp. ) se to resit nemusi, tam ten mail proste posle ten api controller.
-* mozna predelat naky ty tlacitka (add_garage) taky na ty flask_form, abysme nemuseli mit csrf zapnuty globalne (csrf = CSRFProtect(app)) a pak ho rucne vypinali pro ten api modul (ale v podstate neni nutny zatim)
-* to reseni tech timestamps ted neni uplne optimalni, viz https://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime
+
 * nakej zakladni pentesting?
-* to api upravit podle https://restfulapi.net/http-methods/
-** doplnit spravny navratovy kody, to revoke key by teoreticky mohlo bejt put
+
 ** dalsi zdroj k navrhu api https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design
 
 *v zasade chybi: notifikace, zmeny stavu garaze, user settings
