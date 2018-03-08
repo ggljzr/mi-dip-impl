@@ -14,3 +14,5 @@
 Viz http://docs.sqlalchemy.org/en/latest/orm/events.html#sqlalchemy.orm.events.AttributeEvents.set, v sqlalchemy asi neni primo on_change, ale tady je oldvalue hodnota takze se to da pouzit
 
 * pri pouziti scheduleru je taky moznost naplanovat dycky dalsi check_reports pri prijeti kontrolniho hlaseni
+
+* dodelat web, uzivatelskou prirucku, udelat use casy, zacit zaver
