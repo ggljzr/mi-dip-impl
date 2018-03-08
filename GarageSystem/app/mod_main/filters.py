@@ -33,20 +33,21 @@ class Filters():
         return 'Nedefinováno'
         
     def event_filter(event):
-        ret = '[{}]'.format(event.timestamp)
 
         if event.type == Event.TYPE_REPORT:
-            ret = ret + ' Kontrolní událost'
+            text = 'Kontrolní událost'
         elif event.type == Event.TYPE_DOOR_OPEN:
-            ret = ret + ' Otevření dveří'
+            text = 'Otevření dveří'
         elif event.type == Event.TYPE_DOOR_CLOSED:
-            ret = ret + ' Zavření dveří'
+            text = 'Zavření dveří'
         elif event.type == Event.TYPE_MOVEMENT:
-            ret = ret + ' Detekce pohybu!'
+            text = 'Detekce pohybu!'
         elif event.type == Event.TYPE_SMOKE:
-            ret = ret + ' Detekce kouře!'
+            text = 'Detekce kouře!'
         else:
-            ret = ret + 'Nedefinováno'
+            text = 'Nedefinováno'
+
+        ret = '[{}] {}'.format(event.timestamp, text)
 
         return ret
 
