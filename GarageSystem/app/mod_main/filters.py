@@ -35,7 +35,7 @@ class Filters():
     def event_filter(event):
 
         if event.type == Event.TYPE_REPORT:
-            text = 'Kontrolní událost'
+            text = 'Kontrolní hlášení'
         elif event.type == Event.TYPE_DOOR_OPEN:
             text = 'Otevření dveří'
         elif event.type == Event.TYPE_DOOR_CLOSED:
