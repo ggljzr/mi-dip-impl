@@ -109,10 +109,14 @@ input[type=text], input[type=password], textarea {
     grid-template-columns: 200px auto;
 }
 
-.basic_table{
+.basic_table {
     font-size: 15pt;
     padding: 10px;
     width: 100%;
+}
+
+.filter_buttons {
+    margin-left: 12px;
 }
 
 .basic_table th {
