@@ -33,5 +33,5 @@ def add_report_event():
         return json.dumps(ret), 400
 
 
-    ret = {'status' : 201, 'next_report' : garage.period}
+    ret = {'status' : 201, 'period' : garage.period}
     return json.dumps(ret), 201
