@@ -53,6 +53,7 @@ class Garage(Base):
         new_garage = Garage()
         db.session.add(new_garage)
         db.session.commit()
+        return new_garage
 
     #api_key uniquely identifies garage within database (same as id)
     #returns none when no matching garage is found

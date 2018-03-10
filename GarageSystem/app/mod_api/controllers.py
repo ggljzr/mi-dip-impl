@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+import json
 
 from app.mod_main.models.garage import Garage, InvalidEventTypeError
 
@@ -7,10 +8,12 @@ mod_api = Blueprint('api', __name__)
 @mod_api.route('/api/garages', methods=['POST'])
 def add_garage():
     if not Garage.reg_mode:
-        return 'forbidden', 403
+        ret = {'status' : 403}
+        return json.dumps(ret), 403
 
-    Garage.add_garage()
-    return 'created', 201
+    new_garage = Garage.add_garage()
+    ret = {'status' : 201, 'key' : new_garage.api_key}
+    return json.dumps(ret), 201
 
 @mod_api.route('/api/events', methods=['POST'])
 def add_report_event():
