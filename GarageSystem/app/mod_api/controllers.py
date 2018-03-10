@@ -22,12 +22,16 @@ def add_report_event():
     garage = Garage.get_garage_by_key(api_key)
 
     if garage == None:
-        return 'forbidden', 403
+        ret = {'status' : 403}
+        return json.dumps(ret), 403
 
     try:
         event_type = int(request.headers.get('event_type'))
         garage.add_event(event_type)
     except (InvalidEventTypeError, TypeError):
-        return 'bad request', 400
+        ret = {'status' : 400}
+        return json.dumps(ret), 400
 
-    return 'created', 201
+
+    ret = {'status' : 201, 'next_report' : garage.period}
+    return json.dumps(ret), 201
