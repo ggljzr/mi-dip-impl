@@ -7,7 +7,7 @@ class Event(Base):
 
     TYPE_REPORT = 0
     TYPE_DOOR_OPEN = 1
-    TYPE_DOOR_CLOSED = 2
+    TYPE_DOOR_CLOSE = 2
     TYPE_MOVEMENT = 3
     TYPE_SMOKE = 4
 

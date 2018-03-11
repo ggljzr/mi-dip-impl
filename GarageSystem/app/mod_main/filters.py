@@ -12,7 +12,7 @@ class Filters():
         if doors == Garage.DOORS_OPEN:
             return 'Otevřeno'
 
-        if doors == Garage.DOORS_CLOSED:
+        if doors == Garage.DOORS_CLOSE:
             return 'Zavřeno'
 
         return 'Nedefinováno'
@@ -38,7 +38,7 @@ class Filters():
             text = 'Kontrolní hlášení'
         elif event.type == Event.TYPE_DOOR_OPEN:
             text = 'Otevření dveří'
-        elif event.type == Event.TYPE_DOOR_CLOSED:
+        elif event.type == Event.TYPE_DOOR_CLOSE:
             text = 'Zavření dveří'
         elif event.type == Event.TYPE_MOVEMENT:
             text = 'Detekce pohybu!'

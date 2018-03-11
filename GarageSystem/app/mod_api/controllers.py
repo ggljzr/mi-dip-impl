@@ -44,7 +44,7 @@ def add_door_open_event():
 
     return wrap_status_code(201)
 
-@mod_api.route('/api/door_closed_event', methods=['POST'])
+@mod_api.route('/api/door_close_event', methods=['POST'])
 def add_door_closed_event():
     api_key = request.headers.get('api_key')
     garage = Garage.get_garage_by_key(api_key)
@@ -52,7 +52,7 @@ def add_door_closed_event():
     if garage == None:
         return wrap_status_code(403)
 
-    garage.add_door_closed_event()
+    garage.add_door_close_event()
 
     return wrap_status_code(201)
 

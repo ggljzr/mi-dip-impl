@@ -9,7 +9,7 @@ class Garage(Base):
     __tablename__ = 'garage'
 
     DOORS_OPEN = 0
-    DOORS_CLOSED = 1
+    DOORS_CLOSE = 1
 
     STATE_OK = 0
     STATE_NOT_RESPONDING = 1
@@ -95,9 +95,9 @@ class Garage(Base):
         self.doors = Garage.DOORS_OPEN
         self.add_event(Event.TYPE_DOOR_OPEN)
 
-    def add_door_closed_event(self):
-        self.doors = Garage.DOORS_CLOSED
-        self.add_event(Event.TYPE_DOOR_CLOSED)
+    def add_door_close_event(self):
+        self.doors = Garage.DOORS_CLOSE
+        self.add_event(Event.TYPE_DOOR_CLOSE)
 
     def add_movement_event(self):
         self.add_event(Event.TYPE_MOVEMENT)
