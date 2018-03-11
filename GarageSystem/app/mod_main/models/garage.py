@@ -86,8 +86,7 @@ class Garage(Base):
         self.last_report = now
         self.next_report = next_report
 
-        if self.state == Garage.STATE_NOT_RESPONDING:
-            self.state = Garage.STATE_OK
+        self.state = Garage.STATE_OK
 
         self.add_event(Event.TYPE_REPORT)
 
@@ -100,9 +99,15 @@ class Garage(Base):
         self.add_event(Event.TYPE_DOOR_CLOSE)
 
     def add_movement_event(self):
+        if self.state == Garage.STATE_OK:
+            self.state = Garage.STATE_MOVEMENT
+
         self.add_event(Event.TYPE_MOVEMENT)
 
     def add_smoke_event(self):
+        if self.state == Garage.STATE_OK or self.state == Garage.STATE_MOVEMENT:
+            self.state = Garage.STATE_SMOKE
+
         self.add_event(Event.TYPE_SMOKE)
 
     def check_report(self):
