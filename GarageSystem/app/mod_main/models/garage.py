@@ -5,9 +5,6 @@ from datetime import datetime, timedelta
 from .base import Base
 from .event import Event
 
-class InvalidEventTypeError(Exception):
-    pass
-
 class Garage(Base):
     __tablename__ = 'garage'
 
@@ -76,26 +73,13 @@ class Garage(Base):
         self.note = update_data['note']
         db.session.commit()
 
-    def add_event(self, event_type):
-        if event_type == Event.TYPE_REPORT:
-            self.proc_report_event()
-        elif event_type == Event.TYPE_DOOR_OPEN:
-            self.proc_door_open_event()
-        elif event_type == Event.TYPE_DOOR_CLOSED:
-            self.proc_door_closed_event()
-        elif event_type == Event.TYPE_MOVEMENT:
-            self.proc_movement_event()
-        elif event_type == Event.TYPE_SMOKE:
-            self.proc_smoke_event()
-        else:
-            raise InvalidEventTypeError
-
+    def add_event(self, type):
         now = datetime.now()
-        event = Event(garage_id=self.id, timestamp=now, type=event_type)
+        event = Event(garage_id=self.id, timestamp=now, type=type)
         self.events.append(event)
         db.session.commit()
 
-    def proc_report_event(self):
+    def add_report_event(self):
         now = datetime.now()
         next_report = now + timedelta(minutes=self.period)
 
@@ -105,17 +89,21 @@ class Garage(Base):
         if self.state == Garage.STATE_NOT_RESPONDING:
             self.state = Garage.STATE_OK
 
-    def proc_door_open_event(self):
+        self.add_event(Event.TYPE_REPORT)
+
+    def add_door_open_event(self):
         self.doors = Garage.DOORS_OPEN
+        self.add_event(Event.TYPE_DOOR_OPEN)
 
-    def proc_door_closed_event(self):
+    def add_door_closed_event(self):
         self.doors = Garage.DOORS_CLOSED
+        self.add_event(Event.TYPE_DOOR_CLOSED)
 
-    def proc_movement_event(self):
-        pass
+    def add_movement_event(self):
+        self.add_event(Event.TYPE_MOVEMENT)
 
-    def proc_smoke_event(self):
-        pass
+    def add_smoke_event(self):
+        self.add_event(Event.TYPE_SMOKE)
 
     def check_report(self):
         if self.next_report == None:
