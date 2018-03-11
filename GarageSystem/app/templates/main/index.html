@@ -58,7 +58,7 @@
                 <td>{{ garage.doors | garage_doors_filter }}</td>
                 <td>{{ garage.last_report | date_filter }}</td>
                 <td>{{ garage.next_report | date_filter }}</td>
-                <td>{{ garage.state | garage_state_filter }}</td>
+                <td class='garage_state_{{ garage.state }}'>{{ garage.state | garage_state_filter }}</td>
             </tr>
         {% endfor %}
     </table>
