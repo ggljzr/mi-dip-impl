@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from .base import Base
 from .event import Event
 
+
 class Garage(Base):
     __tablename__ = 'garage'
 
@@ -52,8 +53,8 @@ class Garage(Base):
         db.session.commit()
         return new_garage
 
-    #api_key uniquely identifies garage within database (same as id)
-    #returns none when no matching garage is found
+    # api_key uniquely identifies garage within database (same as id)
+    # returns none when no matching garage is found
     def get_garage_by_key(api_key):
         garage = Garage.query.filter_by(api_key=api_key).first()
         return garage
@@ -66,7 +67,7 @@ class Garage(Base):
     def __init__(self):
         self.api_key = uuid.uuid4().hex
 
-    #updates specific columns with corresponding dict
+    # updates specific columns with corresponding dict
     def update(self, update_data):
         self.tag = update_data['tag']
         self.period = update_data['period']
@@ -121,7 +122,7 @@ class Garage(Base):
             self.state = Garage.STATE_NOT_RESPONDING
             db.session.commit()
 
-    #revokes garage api key by generating a new one
+    # revokes garage api key by generating a new one
     def revoke_key(self):
         self.api_key = uuid.uuid4().hex
         db.session.commit()
@@ -129,3 +130,13 @@ class Garage(Base):
     def delete_garage(self):
         db.session.delete(self)
         db.session.commit()
+
+
+@db.event.listens_for(Garage.state, 'set', named=True)
+def send_notification(**kwargs):
+
+    if kwargs['value'] == kwargs['oldvalue']:
+        #do nothing since state is unchanged
+        return
+
+    #send email
