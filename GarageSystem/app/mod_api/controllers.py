@@ -16,7 +16,7 @@ def add_garage():
         return wrap_status_code(403)
 
     new_garage = Garage.add_garage()
-    ret = {'status' : 201, 'key' : new_garage.api_key}
+    ret = {'status' : 201, 'api_key' : new_garage.api_key}
     return json.dumps(ret), 201
 
 @mod_api.route('/api/report_event', methods=['POST'])
