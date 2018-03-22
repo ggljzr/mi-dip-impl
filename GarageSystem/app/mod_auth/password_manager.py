@@ -1,7 +1,8 @@
 import bcrypt
 import configparser
 
-from config import USER_CONFIG_PATH
+#from config import USER_CONFIG_PATH
+from app import app
 
 DEFAULT_PASSWORD = 'password'
 
@@ -9,7 +10,7 @@ class PasswordManager():
 
     def __init__(self):
         self.user_config = configparser.ConfigParser()
-        self.user_config.read(USER_CONFIG_PATH)
+        self.user_config.read(app.config['USER_CONFIG_PATH'])
 
     def check_password(self, password):
         pw_encoded = password.encode('utf-8')
@@ -25,5 +26,5 @@ class PasswordManager():
         pw_hash = bcrypt.hashpw(pw_encoded, bcrypt.gensalt())
         self.user_config['settings']['password'] = pw_hash.decode('utf-8')
 
-        with open(USER_CONFIG_PATH, 'w') as f:
+        with open(app.config['USER_CONFIG_PATH'], 'w') as f:
             self.user_config.write(f)
