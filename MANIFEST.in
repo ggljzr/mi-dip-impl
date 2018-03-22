@@ -1,0 +1,5 @@
+include LICENSE
+include default_config.py
+
+recursive-include garage_system/templates *
+recursive-include garage_system/static *

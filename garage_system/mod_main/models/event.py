@@ -1,4 +1,4 @@
-from app import db
+from garage_system import db
 from .base import Base
 
 

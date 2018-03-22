@@ -6,7 +6,7 @@ from .models.garage import Garage
 from .forms import GarageFormBuilder, GarageForm, UserSettingsForm
 from .filters import Filters
 
-from app.mod_auth.auth_utils import login_required
+from garage_system.mod_auth.auth_utils import login_required
 
 mod_main = Blueprint('main', __name__)
 
