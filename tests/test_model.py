@@ -22,4 +22,4 @@ def garage():
 def test_add_garage(garage):
     garage.add_garage()
     # adds exactly one garage
-    assert len(garage.query.all()) == 0
+    assert len(garage.query.all()) == 1
