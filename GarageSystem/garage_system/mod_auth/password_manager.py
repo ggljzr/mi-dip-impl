@@ -1,7 +1,7 @@
 import bcrypt
 import configparser
 
-from app import app
+from garage_system import app
 
 DEFAULT_PASSWORD = 'password'
 

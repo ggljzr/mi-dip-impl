@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 import json
 
-from app.mod_main.models.garage import Garage
+from garage_system.mod_main.models.garage import Garage
 
 mod_api = Blueprint('api', __name__)
 

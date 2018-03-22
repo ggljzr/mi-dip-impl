@@ -1,4 +1,4 @@
-from app import db, scheduler
+from garage_system import db, scheduler
 import uuid
 from datetime import datetime, timedelta
 
