@@ -4,12 +4,8 @@
 
 ** dalsi zdroj k navrhu api https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design
 
-*v zasade chybi: notifikace, zmeny stavu garaze, user settings
+*v zasade chybi: notifikace, user settings
 
-* napad: tu posilani emailu udelat jako nakou tu on_change udalost v sqlalchemy u toho garage.state, tj kdyz se stav zmeni na neco jinyho nez ok, posle se mail. Pri kontrole hlaseni je pak jedno, jestli ji proved nakej planovac nebo se zavolala protoze nekdo votevrel web, email se bude posilat jen pri zmene zaznamu, takze max jednou pro kazdy propasnuty hlaseni. Stejne tak pri zaznamenani naky vyznamny udalosti se nebude posilat email z toho controlleru treba ale proste na zaklade zmeny toho policka state 
-
-Viz http://docs.sqlalchemy.org/en/latest/orm/events.html#sqlalchemy.orm.events.AttributeEvents.set, v sqlalchemy asi neni primo on_change, ale tady je oldvalue hodnota takze se to da pouzit
+* napad: tu posilani emailu udelat jako nakou tu on_change udalost v sqlalchemy u toho garage.state, tj kdyz se stav zmeni na neco jinyho nez ok, posle se mail. Pri kontrole hlaseni je pak jedno, jestli ji proved nakej planovac nebo se zavolala protoze nekdo votevrel web, email se bude posilat jen pri zmene zaznamu, takze max jednou pro kazdy propasnuty hlaseni. Stejne tak pri zaznamenani naky vyznamny udalosti se nebude posilat email z toho controlleru treba ale proste na zaklade zmeny toho policka state
 
 * pri pouziti scheduleru je taky moznost naplanovat dycky dalsi check_reports pri prijeti kontrolniho hlaseni
-
-* dodelat web, uzivatelskou prirucku, udelat use casy, zacit zaver
