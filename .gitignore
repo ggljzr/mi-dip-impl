@@ -9,6 +9,8 @@ __pycache__/
 *.db
 *.ini
 
+.pytest_cache/
+
 # Distribution / packaging
 .Python
 env/
