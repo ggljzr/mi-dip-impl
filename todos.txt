@@ -9,3 +9,5 @@
 * napad: tu posilani emailu udelat jako nakou tu on_change udalost v sqlalchemy u toho garage.state, tj kdyz se stav zmeni na neco jinyho nez ok, posle se mail. Pri kontrole hlaseni je pak jedno, jestli ji proved nakej planovac nebo se zavolala protoze nekdo votevrel web, email se bude posilat jen pri zmene zaznamu, takze max jednou pro kazdy propasnuty hlaseni. Stejne tak pri zaznamenani naky vyznamny udalosti se nebude posilat email z toho controlleru treba ale proste na zaklade zmeny toho policka state
 
 * pri pouziti scheduleru je taky moznost naplanovat dycky dalsi check_reports pri prijeti kontrolniho hlaseni
+
+* BUG: na rpi to nenajde ten default config, je potreba nastavit tu env var GARAGE_SYSTEM_CONFIG (u me na pocitaci to ten default normalne najde)
