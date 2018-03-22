@@ -29,9 +29,9 @@ csrf = CSRFProtect(app)
 def not_found(error):
     return render_template('404.html'), 404
 
-from garage_system.mod_main.controllers import mod_main as main_module
-from garage_system.mod_auth.controllers import mod_auth as auth_module
-from garage_system.mod_api.controllers import mod_api as api_module
+from .mod_main.controllers import mod_main as main_module
+from .mod_auth.controllers import mod_auth as auth_module
+from .mod_api.controllers import mod_api as api_module
 
 #api module routes does not require login,
 #so no csrf is required 
@@ -43,3 +43,6 @@ app.register_blueprint(auth_module)
 app.register_blueprint(api_module)
 
 db.create_all()
+
+def run():
+    app.run(host='0.0.0.0', port=8080, debug=True)
