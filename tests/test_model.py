@@ -3,6 +3,7 @@ import os
 
 # test tips : http://alexmic.net/flask-sqlalchemy-pytest/
 #           : http://flask.pocoo.org/docs/0.12/testing/#testing
+#           : https://docs.pytest.org/en/latest/fixture.html#fixture-finalization-executing-teardown-code (yield thing)
 
 import testing_config
 
