@@ -1,7 +1,6 @@
 import bcrypt
 import configparser
 
-#from config import USER_CONFIG_PATH
 from app import app
 
 DEFAULT_PASSWORD = 'password'
