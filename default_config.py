@@ -1,6 +1,8 @@
 DEBUG = True
 
 import os
+# this means app.db, user_config.ini are created in the same
+# directory as this file
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
