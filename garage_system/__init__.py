@@ -8,13 +8,11 @@ from apscheduler.schedulers.background import BackgroundScheduler
 app = Flask(__name__)
 
 # loading config (see http://flask.pocoo.org/docs/0.12/config/)
-app.config.from_object('default_config')
-
 # try to overwrite config from env variable
 try:
     app.config.from_envvar('GARAGE_SYSTEM_CONFIG')
 except RuntimeError:
-    pass # use default config
+    app.config.from_object('default_config') # use default config
 
 db = SQLAlchemy(app)
 
