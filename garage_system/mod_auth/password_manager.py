@@ -13,11 +13,11 @@ class PasswordManager():
 
     def check_password(self, password):
         pw_encoded = password.encode('utf-8')
-        pw_hash = bcrypt.hashpw(DEFAULT_PASSWORD.encode('utf-8'), bcrypt.gensalt())
 
         try:
             pw_hash = self.user_config['settings']['password'].encode('utf-8')
         except KeyError:
+            pw_hash = bcrypt.hashpw(DEFAULT_PASSWORD.encode('utf-8'), bcrypt.gensalt())
             self.set_default_password() # set default password if password section is missing
 
         return bcrypt.checkpw(pw_encoded, pw_hash)
