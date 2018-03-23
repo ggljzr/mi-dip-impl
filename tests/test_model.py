@@ -1,6 +1,6 @@
 import pytest
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from freezegun import freeze_time
 # test tips : http://alexmic.net/flask-sqlalchemy-pytest/
 #           : http://flask.pocoo.org/docs/0.12/testing/#testing
@@ -33,6 +33,17 @@ def test_revoke_key(garage):
     new_garage.revoke_key()
 
     assert old_key != new_garage.api_key
+
+@freeze_time("2011-01-01 00:00:00")
+def test_add_report(garage):
+    new_garage = garage.add_garage()
+    new_garage.add_report_event()
+    now = datetime.now()
+    next = now + timedelta(minutes=new_garage.period)
+
+    assert new_garage.last_report == now
+    assert new_garage.next_report == next
+    assert new_garage.state == garage.STATE_OK
 
 @freeze_time("2011-01-01 00:00:00")
 def test_check_report(garage):
