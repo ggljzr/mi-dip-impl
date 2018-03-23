@@ -10,7 +10,6 @@ import testing_config
 
 @pytest.fixture(scope='module') # teardown after last test in module
 def garage():
-    print('TEST MODEL START')
     # set app config to testing via env var
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
     try:
@@ -29,7 +28,6 @@ def garage():
 
     # teardown (delete db)
     os.unlink(BASE_DIR + '/test_app.db')
-    print('TEST MODEL END')
 
 def test_add_garage(garage):
     garage.add_garage()
