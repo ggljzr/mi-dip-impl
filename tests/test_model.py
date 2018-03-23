@@ -69,3 +69,9 @@ def test_open_close(garage):
     new_garage.add_door_close_event()
     assert new_garage.doors == garage.DOORS_CLOSE
 
+def test_delete_garage(garage):
+    old_garage_num = len(garage.query.all())
+    new_garage = garage.add_garage()
+    new_garage.delete_garage()
+
+    assert old_garage_num == len(garage.query.all())
