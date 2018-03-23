@@ -112,7 +112,7 @@ class Garage(Base):
         self.add_event(Event.TYPE_SMOKE)
 
     def check_report(self):
-        if self.next_report == None:
+        if self.next_report is None:
             return
 
         now = datetime.now()
@@ -136,7 +136,7 @@ class Garage(Base):
 def send_notification(**kwargs):
 
     if kwargs['value'] == kwargs['oldvalue']:
-        #do nothing since state is unchanged
+        # do nothing since state is unchanged
         return
 
-    #send email
+    # send email

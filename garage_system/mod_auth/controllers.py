@@ -15,7 +15,9 @@ def login():
             session['logged_in'] = True
 
             if pw_man.check_default_password():
-                flash('Je nutné změnit heslo z implicitně nastavené hodnoty', 'warning')
+                flash(
+                    'Je nutné změnit heslo z implicitně nastavené hodnoty',
+                    'warning')
                 return redirect('/change_password')
 
             return redirect('/')

@@ -30,35 +30,39 @@ def garage_state_filter(state):
 def event_filter(event):
     return Filters.event_filter(event)
 
+
 @mod_main.app_template_filter('reg_mode_filter')
 def reg_mode_filter(reg_mode):
     return Filters.reg_mode_filter(reg_mode)
+
 
 @mod_main.route('/')
 @login_required
 def index():
     Garage.check_reports()
     garages = Garage.query.all()
-    return render_template('main/index.html', garages=garages, reg_mode=Garage.reg_mode)
+    return render_template(
+        'main/index.html', garages=garages, reg_mode=Garage.reg_mode)
 
 
 @mod_main.route('/garage/<id>', methods=['GET'])
 @login_required
 def show_garage(id):
     garage = Garage.query.get(id)
-    if garage == None:
+    if garage is None:
         return render_template('404.html'), 404
 
     garage_form = GarageFormBuilder.build_form(garage)
 
-    return render_template('main/show_garage.html', garage=garage, form=garage_form)
+    return render_template('main/show_garage.html',
+                           garage=garage, form=garage_form)
 
 
 @mod_main.route('/garage/<id>', methods=['POST'])
 @login_required
 def edit_garage(id):
     garage = Garage.query.get(id)
-    if garage == None:
+    if garage is None:
         return render_template('404.html'), 404
 
     garage_form = GarageForm(request.form)
@@ -66,13 +70,15 @@ def edit_garage(id):
         garage.update(request.form.to_dict())
         flash('Garáž upravena')
 
-    return render_template('main/show_garage.html', garage=garage, form=garage_form)
+    return render_template('main/show_garage.html',
+                           garage=garage, form=garage_form)
+
 
 @mod_main.route('/revoke_key/<id>', methods=['POST'])
 @login_required
 def revoke_key(id):
     garage = Garage.query.get(id)
-    if garage == None:
+    if garage is None:
         return render_template('404.html'), 404
 
     garage.revoke_key()
@@ -87,17 +93,19 @@ def add_garage():
     flash('Vytvořena nová garáž')
     return redirect('/')
 
+
 @mod_main.route('/delete_garage/<id>', methods=['POST'])
 @login_required
 def delete_garage(id):
     garage = Garage.query.get(id)
-    if garage == None:
+    if garage is None:
         return render_template('404.html'), 404
 
     garage.delete_garage()
 
     flash('Garáž úspěšně smazáná')
     return redirect('/')
+
 
 @mod_main.route('/reg_mode', methods=['POST'])
 @login_required
@@ -109,6 +117,7 @@ def reg_mode():
     Garage.start_reg_mode()
     flash('Registrační mód spuštěn')
     return redirect('/')
+
 
 @mod_main.route('/user_settings', methods=['GET', 'POST'])
 @login_required

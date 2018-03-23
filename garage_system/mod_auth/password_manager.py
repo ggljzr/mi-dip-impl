@@ -5,6 +5,7 @@ from garage_system import app
 
 DEFAULT_PASSWORD = 'password'
 
+
 class PasswordManager():
 
     def __init__(self):
@@ -17,8 +18,10 @@ class PasswordManager():
         try:
             pw_hash = self.user_config['settings']['password'].encode('utf-8')
         except KeyError:
-            pw_hash = bcrypt.hashpw(DEFAULT_PASSWORD.encode('utf-8'), bcrypt.gensalt())
-            self.set_default_password() # set default password if password section is missing
+            pw_hash = bcrypt.hashpw(
+                DEFAULT_PASSWORD.encode('utf-8'),
+                bcrypt.gensalt())
+            self.set_default_password()  # set default password if password section is missing
 
         return bcrypt.checkpw(pw_encoded, pw_hash)
 
@@ -27,12 +30,14 @@ class PasswordManager():
         return self.check_password(DEFAULT_PASSWORD)
 
     def set_default_password(self):
-        try: 
+        try:
             self.user_config.add_section('settings')
         except configparser.DuplicateSectionError:
-            pass # create settings section if it does not exists
+            pass  # create settings section if it does not exists
 
-        pw_hash = bcrypt.hashpw(DEFAULT_PASSWORD.encode('utf-8'), bcrypt.gensalt())
+        pw_hash = bcrypt.hashpw(
+            DEFAULT_PASSWORD.encode('utf-8'),
+            bcrypt.gensalt())
         self.user_config.set('settings', 'password', pw_hash.decode('utf-8'))
 
         with open(app.config['USER_CONFIG_PATH'], 'w') as f:

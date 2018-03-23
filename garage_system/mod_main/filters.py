@@ -1,9 +1,10 @@
 from .models.event import Event
 from .models.garage import Garage
 
+
 class Filters():
     def date_filter(date):
-        if date == None:
+        if date is None:
             return 'Žádné'
 
         return date
@@ -31,7 +32,7 @@ class Filters():
             return 'Detekce pohybu'
 
         return 'Nedefinováno'
-        
+
     def event_filter(event):
 
         if event.type == Event.TYPE_REPORT:

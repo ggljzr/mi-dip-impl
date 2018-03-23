@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, TextAreaField, BooleanField
 from wtforms.validators import NumberRange
 
+
 class UserSettingsForm(FlaskForm):
     notification_mail = StringField('Email pro upozornění')
     notifications = BooleanField('Povolit upozornění', default=True)
