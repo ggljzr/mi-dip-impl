@@ -34,6 +34,7 @@ def test_revoke_key(garage):
 
     assert old_key != new_garage.api_key
 
+# freeze time so we always have the same now
 @freeze_time("2011-01-01 00:00:00")
 def test_add_report(garage):
     new_garage = garage.add_garage()
@@ -58,3 +59,13 @@ def test_check_report(garage):
     with freeze_time("2011-01-01 02:00:00"):
         new_garage.check_report()
         assert new_garage.state == garage.STATE_NOT_RESPONDING
+
+def test_open_close(garage):
+    new_garage = garage.add_garage()
+
+    new_garage.add_door_open_event()
+    assert new_garage.doors == garage.DOORS_OPEN
+
+    new_garage.add_door_close_event()
+    assert new_garage.doors == garage.DOORS_CLOSE
+
