@@ -3,7 +3,7 @@ import os
 
 import testing_config
 
-@pytest.fixture(scope='module')
+@pytest.fixture()
 def app():
     # set up -- load test config via var env
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -29,29 +29,67 @@ def test_login_required(app):
     response = app.get('/')
 
     # redirect to login page
-    assert response.status == '302 FOUND'
-    assert 'login' in response.headers['location']
+    assert response.status == '403 FORBIDDEN'
+    assert '/login' in response.headers['location']
 
-def test_default_password(app):
+# helper login function
+def login_with_default_password(app):
     from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
 
     response = app.post('/login', data={
         'password' : DEFAULT_PASSWORD
         })
 
-    # redirects to change password page
-    assert response.status == '302 FOUND'
-    assert 'change_password' in response.headers['location']
+    return response
+
+# helper logout function
+def logout(app):
+    response = app.get('/logout')
+    return response
 
 def test_invalid_password(app):
     response = app.post('/login', data={
         'password' : 'some fake password'
-        }, follow_redirects=True) # follow redirect so we can check flash message
+        })
 
-    # redirects to /login with flashed error message
-    assert response.status == '200 OK'
-    # check if flash_error css class tag is in returned data
-    assert 'flash_error' in response.data.decode('utf-8')
+    assert response.status == '403 FORBIDDEN'
+    # flash error message is displayed
+    assert 'Neplatné heslo' in response.data.decode('utf-8')
+
+def test_default_password(app):
+    # redirects to change password page
+    response = login_with_default_password(app)
+
+    assert response.status == '302 FOUND'
+    assert '/change_password' in response.headers['location']
 
 def test_password_change(app):
-    pass
+    from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
+    from garage_system.mod_auth.forms import ChangePasswordForm
+
+    new_password = 'some new password'
+
+    # session is valid within test function
+    login_with_default_password(app)
+
+    # since form is being validated, we have to use
+    # actual wtform class
+
+    # change password
+    response = app.post('/change_password', data={
+        'old_password' : DEFAULT_PASSWORD,
+        'new_password' : new_password,
+        'repeat_password' : new_password
+        })
+
+    # log out and try to log in with new password
+    logout(app)
+
+    print(response.data.decode('utf-8'))
+    
+    response = app.post('/login', data={
+        'password' : new_password
+        })
+
+    assert response.status == '302 FOUND'
+
