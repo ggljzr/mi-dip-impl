@@ -24,6 +24,7 @@ def app():
 
     # delete created user testing config
     os.unlink(testing_config.USER_CONFIG_PATH)
+    os.unlink(BASE_DIR + '/test_app.db')
 
 def test_login_required(app):
     response = app.get('/')
