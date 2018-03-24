@@ -64,9 +64,7 @@ def test_default_password(app):
     assert '/change_password' in response.headers['location']
 
 def test_password_change(app):
-    """
     from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
-    from garage_system.mod_auth.forms import ChangePasswordForm
 
     new_password = 'some new password'
 
@@ -77,19 +75,19 @@ def test_password_change(app):
     response = app.post('/change_password', data={
         'old_password' : DEFAULT_PASSWORD,
         'new_password' : new_password,
-        'repeat_password' : new_password
+        'repeat_password' : new_password,
+        'csrf_token' : 'fake token'
         })
+
+    # check flash message
+    assert 'flash_message' in response.data.decode('utf-8')
 
     # log out and try to log in with new password
     logout(app)
-
-    print(response.data.decode('utf-8'))
     
     response = app.post('/login', data={
         'password' : new_password
         })
 
+    # we are redirected to homepage
     assert response.status == '302 FOUND'
-    """
-
-    pass
