@@ -29,7 +29,7 @@ def test_login_required(app):
     response = app.get('/')
 
     # redirect to login page
-    assert response.status == '403 FORBIDDEN'
+    assert response.status == '302 FOUND'
     assert '/login' in response.headers['location']
 
 # helper login function
