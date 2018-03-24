@@ -24,7 +24,10 @@ def app():
 
     # delete created user testing config
     os.unlink(testing_config.USER_CONFIG_PATH)
-    os.unlink(BASE_DIR + '/test_app.db')
+    try:
+        os.unlink(BASE_DIR + '/test_app.db')
+    except FileNotFoundError:
+        pass
 
 def test_login_required(app):
     response = app.get('/')
