@@ -14,6 +14,10 @@ THREADS_PER_PAGE = 2
 
 # csrf disabled for testing
 WTF_CSRF_ENABLED = False
+
+# interesting sidenote: if this would be set to false
+# in production, every from would have to be validated
+# via validate() method, to force checking csrf token
 WTF_CSRF_CHECK_DEFAULT = False
 
 SECRET_KEY = 'testing key'
