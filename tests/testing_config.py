@@ -1,4 +1,5 @@
 DEBUG = True
+TESTING = True
 
 import os
 # this means app.db, user_config.ini are created in the same
