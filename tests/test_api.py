@@ -7,10 +7,6 @@ import testing_config
 def app():
     # set up -- load test config via var env
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    try:
-        os.unlink(BASE_DIR + '/test_app.db') # delete current test db
-    except FileNotFoundError:
-        pass
     os.environ['GARAGE_SYSTEM_CONFIG'] = BASE_DIR + '/testing_config.py'
 
     from garage_system import db
