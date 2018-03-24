@@ -91,3 +91,26 @@ def test_password_change(app):
 
     # we are redirected to homepage
     assert response.status == '302 FOUND'
+
+# simple test if csrf protection is working
+def test_csrf():
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+    os.environ['GARAGE_SYSTEM_CONFIG'] = BASE_DIR + '/testing_config.py'
+
+    from garage_system import app
+
+    # turn on csrf protection
+    app.config['WTF_CSRF_ENABLED'] = True
+    app.config['WTF_CSRF_CHECK_DEFAULT'] = True
+
+    # we can try csrf attack against login form
+    # its basically post request without proper csrf token
+    # (password value does not matter)
+    response = app.test_client().post('/login', data={'password' : 'test password'})
+
+    # we should get bad request status code
+    # instead of expected forbidden (wrong password)
+    assert response.status == '400 BAD REQUEST'
+
+    # response should mention csrf
+    assert 'CSRF' in response.data.decode('utf-8')
