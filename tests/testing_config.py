@@ -13,9 +13,9 @@ DATABASE_CONNECT_OPTIONS = {}
 THREADS_PER_PAGE = 2
 
 # csrf disabled for testing
-WTF_CSRF_ENABLE = False
+WTF_CSRF_ENABLED = False
 WTF_CSRF_CHECK_DEFAULT = False
 
-SECRET_KEY = os.urandom(16)
+SECRET_KEY = 'testing key'
 
 USER_CONFIG_PATH = os.path.join(BASE_DIR, 'test_user_config.ini')
