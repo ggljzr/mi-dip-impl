@@ -9,6 +9,8 @@ mod_auth = Blueprint('auth', __name__)
 
 @mod_auth.route('/login', methods=['GET', 'POST'])
 def login():
+    status_code = 200
+
     if request.method == 'POST':
         pw_man = PasswordManager()
         if pw_man.check_password(request.form['password']):
@@ -22,10 +24,11 @@ def login():
 
             return redirect('/')
         else:
+            status_code = 403
             flash('Neplatné heslo', 'error')
 
     form = LoginForm()
-    return render_template('auth/login.html', form=form)
+    return render_template('auth/login.html', form=form), status_code
 
 
 @mod_auth.route('/logout')
