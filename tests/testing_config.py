@@ -16,8 +16,10 @@ THREADS_PER_PAGE = 2
 WTF_CSRF_ENABLED = False
 
 # interesting sidenote: if this would be set to false
-# in production, every from would have to be validated
+# in production, every form would have to be validated
 # via validate() method, to force checking csrf token
+# when its set to true (default), bad request response
+# is sent even when form was not validated
 WTF_CSRF_CHECK_DEFAULT = False
 
 SECRET_KEY = 'testing key'
