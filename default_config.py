@@ -11,7 +11,6 @@ DATABASE_CONNECT_OPTIONS = {}
 
 THREADS_PER_PAGE = 2
 
-CSRF_SECRET_KEY = os.urandom(16)
 SECRET_KEY = os.urandom(16)
 
 USER_CONFIG_PATH = os.path.join(BASE_DIR, 'user_config.ini')
