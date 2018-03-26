@@ -1,6 +1,7 @@
 include LICENSE
 include default_config.py
 include tests/testing_config.py
+include tests/testing_utils.py
 
 recursive-include garage_system/templates *
 recursive-include garage_system/static *
