@@ -71,6 +71,7 @@ def test_password_change(app_client):
 
     # check flash message
     assert 'flash_message' in response.data.decode('utf-8')
+    assert 'změněno' in response.data.decode('utf-8')
 
     # log out and try to log in with new password
     testing_utils.logout(app_client)
