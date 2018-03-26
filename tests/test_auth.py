@@ -35,6 +35,7 @@ def test_login_get(app):
     response = app.get('/login')
 
     # login form is displayed
+    assert 'login_box' in response.data.decode('utf-8')
 
 def test_login_required(app):
     response = app.get('/')
