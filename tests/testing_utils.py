@@ -39,6 +39,8 @@ def logout(app_client):
     return response
 
 # sets logged in flag in flask session
+# bypases auth controller, password check
+# (unlike login/logout functions)
 def set_logged_in(app_client, value):
     with app_client as c:
         with c.session_transaction() as s:
