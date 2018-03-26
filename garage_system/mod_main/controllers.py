@@ -70,8 +70,7 @@ def edit_garage(id):
         garage.update(request.form.to_dict())
         flash('Garáž upravena')
 
-    return render_template('main/show_garage.html',
-                           garage=garage, form=garage_form)
+    return redirect('/garage/{}'.format(id))
 
 
 @mod_main.route('/revoke_key/<id>', methods=['POST'])
