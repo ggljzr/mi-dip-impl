@@ -128,3 +128,7 @@ def test_csrf():
     assert 'CSRF' in response.data.decode('utf-8')
 
     testing_utils.teardown()
+
+    # turn csrf protection off again for other tests
+    app.config['WTF_CSRF_ENABLED'] = False
+    app.config['WTF_CSRF_CHECK_DEFAULT'] = False
