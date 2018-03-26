@@ -62,7 +62,7 @@ def test_edit_garage(app_client):
         'tag' : 'some testing tag',
         'period' : 60,
         'note' : 'some testing note'
-        })
+        }, follow_redirects=True) # follow redirect to updated page
 
     response_data = response.data.decode('utf-8')
 
