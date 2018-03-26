@@ -63,9 +63,10 @@ def test_password_change(app_client, log_in_out):
         'old_password' : DEFAULT_PASSWORD,
         'new_password' : new_password,
         'repeat_password' : new_password,
-        })
+        }, follow_redirects=True)
 
     # check flash message
+    assert response.status == '200 OK'
     assert 'flash_message' in response.data.decode('utf-8')
     assert 'změněno' in response.data.decode('utf-8')
 
