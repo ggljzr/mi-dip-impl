@@ -36,3 +36,9 @@ def login_with_default_password(app_client):
 def logout(app_client):
     response = app_client.get('/logout')
     return response
+
+# sets logged in flag in flask session
+def set_logged_in(app_client):
+    with app_client as c:
+        with c.session_transaction() as s:
+            s['logged_in'] = True
