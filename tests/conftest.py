@@ -27,3 +27,11 @@ def app_client():
 
     # teardown (delete db)
     testing_utils.teardown()
+
+# fixture to set and clear logged_in flag
+# in flask session
+@pytest.fixture()
+def log_in_out(app_client):
+    testing_utils.set_logged_in(app_client, True)
+    yield None
+    testing_utils.set_logged_in(app_client, False)
