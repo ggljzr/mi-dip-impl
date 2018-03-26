@@ -9,34 +9,36 @@ main controller unit tests
 this also test application views (templates)
 """
 
-def test_index(app_client):
-    testing_utils.set_logged_in(app_client)
+# fixture to set and clear logged_in flag
+# in flask session
+@pytest.fixture()
+def log_in_out(app_client):
+    testing_utils.set_logged_in(app_client, True)
+    yield None
+    testing_utils.set_logged_in(app_client, False)
+
+
+def test_index(app_client, log_in_out):
     response = app_client.get('/')
     # we get main page right away
     # (no redirects)
     assert response.status == '200 OK'
     assert 'garages_box' in response.data.decode('utf-8')
 
-def test_garage(app_client):
-    testing_utils.set_logged_in(app_client)
-
+def test_garage(app_client, log_in_out):
     # get first garage
     response = app_client.get('/garage/1')
 
     assert response.status == '200 OK'
     assert 'show_garage_container' in response.data.decode('utf-8')
 
-def test_nonexistent_garage(app_client):
-    testing_utils.set_logged_in(app_client)
-
+def test_nonexistent_garage(app_client, log_in_out):
     response = app_client.get('/garage/468864684')
 
     # get 404
     assert response.status == '404 NOT FOUND'
 
-def test_edit_garage(app_client):
-    testing_utils.set_logged_in(app_client)
-
+def test_edit_garage(app_client, log_in_out):
     # edit first garage data
     response = app_client.post('/garage/1', data={
         'tag' : 'some testing tag',
