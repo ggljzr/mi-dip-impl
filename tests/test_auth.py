@@ -1,6 +1,5 @@
 import pytest
 
-import testing_config
 import testing_utils
 
 """

@@ -1,7 +1,5 @@
 import pytest
-import os
 
-import testing_config
 import testing_utils
 
 """
