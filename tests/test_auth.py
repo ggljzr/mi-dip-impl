@@ -19,6 +19,9 @@ def app():
     pw_manager = PasswordManager()
     pw_manager.set_default_password()
 
+    from garage_system import db
+    db.create_all()
+
     # initialize and yield test application
     from garage_system import app
     yield app.test_client()
@@ -111,10 +114,13 @@ def test_password_change(app):
     
     response = app.post('/login', data={
         'password' : new_password
-        })
+        }, follow_redirects=True)
 
     # we are redirected to homepage
-    assert response.status == '302 FOUND'
+    # instead of getting 403
+    assert response.status == '200 OK'
+    # we can see garages now
+    assert 'garages_box' in response.data.decode('utf-8')
 
 # simple test if csrf protection is working
 def test_csrf():
