@@ -39,7 +39,7 @@ def logout(app_client):
     return response
 
 # sets logged in flag in flask session
-def set_logged_in(app_client):
+def set_logged_in(app_client, value):
     with app_client as c:
         with c.session_transaction() as s:
-            s['logged_in'] = True
+            s['logged_in'] = value
