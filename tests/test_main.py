@@ -9,14 +9,6 @@ main controller unit tests
 this also test application views (templates)
 """
 
-# fixture to set and clear logged_in flag
-# in flask session
-@pytest.fixture()
-def log_in_out(app_client):
-    testing_utils.set_logged_in(app_client, True)
-    yield None
-    testing_utils.set_logged_in(app_client, False)
-
 
 def test_index(app_client, log_in_out):
     response = app_client.get('/')

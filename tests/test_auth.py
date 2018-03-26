@@ -38,8 +38,7 @@ def test_default_password(app_client):
     assert response.status == '302 FOUND'
     assert '/change_password' in response.headers['location']
 
-def test_logout(app_client):
-    testing_utils.login_with_default_password(app_client)
+def test_logout(app_client, log_in_out):
     response = app_client.get('/logout', follow_redirects=True)
 
     # redirects to /login
@@ -54,13 +53,10 @@ def test_logout(app_client):
     assert '/login' in response.headers['location']
 
 
-def test_password_change(app_client):
+def test_password_change(app_client, log_in_out):
     from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
 
     new_password = 'some new password'
-
-    # session is valid within test function
-    testing_utils.login_with_default_password(app_client)
 
     # change password
     response = app_client.post('/change_password', data={
@@ -74,7 +70,7 @@ def test_password_change(app_client):
     assert 'změněno' in response.data.decode('utf-8')
 
     # log out and try to log in with new password
-    testing_utils.logout(app_client)
+    testing_utils.set_logged_in(app_client, False)
     
     response = app_client.post('/login', data={
         'password' : new_password
