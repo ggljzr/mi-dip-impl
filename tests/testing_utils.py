@@ -21,3 +21,18 @@ def teardown():
         os.unlink(BASE_DIR + '/test_app.db')
     except FileNotFoundError:
         pass
+
+# helper login function
+def login_with_default_password(app_client):
+    from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
+
+    response = app_client.post('/login', data={
+        'password' : DEFAULT_PASSWORD
+        })
+
+    return response
+
+# helper logout function
+def logout(app_client):
+    response = app_client.get('/logout')
+    return response
