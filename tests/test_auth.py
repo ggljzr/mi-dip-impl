@@ -31,6 +31,11 @@ def app():
     except FileNotFoundError:
         pass
 
+def test_login_get(app):
+    response = app.get('/login')
+
+    # login form is displayed
+
 def test_login_required(app):
     response = app.get('/')
 
@@ -60,6 +65,7 @@ def test_invalid_password(app):
 
     assert response.status == '403 FORBIDDEN'
     # flash error message is displayed
+    assert 'flash_error' in response.data.decode('utf-8')
     assert 'Neplatné heslo' in response.data.decode('utf-8')
 
 def test_default_password(app):
@@ -71,11 +77,13 @@ def test_default_password(app):
 
 def test_logout(app):
     login_with_default_password(app)
-    response = logout(app)
+    response = app.get('/logout', follow_redirects=True)
 
     # redirects to /login
-    assert response.status == '302 FOUND'
-    assert '/login' in response.headers['location']
+    assert response.status == '200 OK'
+    # message about logging out is displayed
+    assert 'flash_message' in response.data.decode('utf-8')
+    assert 'Odhlášení proběhlo úspěšně' in response.data.decode('utf-8')
 
     # cant access app after logout
     response = app.get('/') # redirects to /login
