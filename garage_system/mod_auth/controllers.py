@@ -48,6 +48,7 @@ def change_password():
         if pw_man.check_password(request.form['old_password']):
             pw_man.save_password(request.form['new_password'])
             flash('Heslo úspěšně změněno')
+            return redirect('/')
         else:
             flash('Neplatné staré heslo', 'error')
 
