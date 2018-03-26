@@ -102,7 +102,6 @@ def test_password_change(app_client):
         'old_password' : DEFAULT_PASSWORD,
         'new_password' : new_password,
         'repeat_password' : new_password,
-        'csrf_token' : 'fake token'
         })
 
     # check flash message
