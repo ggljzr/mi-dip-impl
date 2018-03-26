@@ -10,7 +10,7 @@ auth controller unit tests
 """
 
 @pytest.fixture()
-def app():
+def app_client():
     # set up -- load test config via var env
     testing_utils.setup()
 
@@ -29,36 +29,36 @@ def app():
     # delete created user testing config
     testing_utils.teardown()
 
-def test_login_get(app):
-    response = app.get('/login')
+def test_login_get(app_client):
+    response = app_client.get('/login')
 
     # login form is displayed
     assert 'login_box' in response.data.decode('utf-8')
 
-def test_login_required(app):
-    response = app.get('/')
+def test_login_required(app_client):
+    response = app_client.get('/')
 
     # redirect to login page
     assert response.status == '302 FOUND'
     assert '/login' in response.headers['location']
 
 # helper login function
-def login_with_default_password(app):
+def login_with_default_password(app_client):
     from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
 
-    response = app.post('/login', data={
+    response = app_client.post('/login', data={
         'password' : DEFAULT_PASSWORD
         })
 
     return response
 
 # helper logout function
-def logout(app):
-    response = app.get('/logout')
+def logout(app_client):
+    response = app_client.get('/logout')
     return response
 
-def test_invalid_password(app):
-    response = app.post('/login', data={
+def test_invalid_password(app_client):
+    response = app_client.post('/login', data={
         'password' : 'some fake password'
         })
 
@@ -67,16 +67,16 @@ def test_invalid_password(app):
     assert 'flash_error' in response.data.decode('utf-8')
     assert 'Neplatné heslo' in response.data.decode('utf-8')
 
-def test_default_password(app):
+def test_default_password(app_client):
     # redirects to change password page
-    response = login_with_default_password(app)
+    response = login_with_default_password(app_client)
 
     assert response.status == '302 FOUND'
     assert '/change_password' in response.headers['location']
 
-def test_logout(app):
-    login_with_default_password(app)
-    response = app.get('/logout', follow_redirects=True)
+def test_logout(app_client):
+    login_with_default_password(app_client)
+    response = app_client.get('/logout', follow_redirects=True)
 
     # redirects to /login
     assert response.status == '200 OK'
@@ -85,21 +85,21 @@ def test_logout(app):
     assert 'Odhlášení proběhlo úspěšně' in response.data.decode('utf-8')
 
     # cant access app after logout
-    response = app.get('/') # redirects to /login
+    response = app_client.get('/') # redirects to /login
     assert response.status == '302 FOUND'
     assert '/login' in response.headers['location']
 
 
-def test_password_change(app):
+def test_password_change(app_client):
     from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
 
     new_password = 'some new password'
 
     # session is valid within test function
-    login_with_default_password(app)
+    login_with_default_password(app_client)
 
     # change password
-    response = app.post('/change_password', data={
+    response = app_client.post('/change_password', data={
         'old_password' : DEFAULT_PASSWORD,
         'new_password' : new_password,
         'repeat_password' : new_password,
@@ -110,9 +110,9 @@ def test_password_change(app):
     assert 'flash_message' in response.data.decode('utf-8')
 
     # log out and try to log in with new password
-    logout(app)
+    logout(app_client)
     
-    response = app.post('/login', data={
+    response = app_client.post('/login', data={
         'password' : new_password
         }, follow_redirects=True)
 
