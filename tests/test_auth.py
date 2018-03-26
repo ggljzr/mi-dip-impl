@@ -69,6 +69,20 @@ def test_default_password(app):
     assert response.status == '302 FOUND'
     assert '/change_password' in response.headers['location']
 
+def test_logout(app):
+    login_with_default_password(app)
+    response = logout(app)
+
+    # redirects to /login
+    assert response.status == '302 FOUND'
+    assert '/login' in response.headers['location']
+
+    # cant access app after logout
+    response = app.get('/') # redirects to /login
+    assert response.status == '302 FOUND'
+    assert '/login' in response.headers['location']
+
+
 def test_password_change(app):
     from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
 
