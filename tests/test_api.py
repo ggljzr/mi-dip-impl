@@ -3,6 +3,12 @@ import os
 
 import testing_config
 
+"""
+api controller unit tests
+
+application model is tested separately
+"""
+
 @pytest.fixture(scope='module')
 def app():
     # set up -- load test config via var env

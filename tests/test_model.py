@@ -8,6 +8,10 @@ from freezegun import freeze_time
 
 import testing_config
 
+"""
+model (garage and event) unit tests
+"""
+
 @pytest.fixture(scope='module') # teardown after last test in module
 def garage():
     # set app config to testing via env var
@@ -52,6 +56,7 @@ def test_add_report(garage):
     assert new_garage.last_report == now
     assert new_garage.next_report == next
     assert new_garage.state == garage.STATE_OK
+    assert len(new_garage.events) == 1
 
 @freeze_time("2011-01-01 00:00:00")
 def test_check_report(garage):

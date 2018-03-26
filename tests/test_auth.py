@@ -3,6 +3,12 @@ import os
 
 import testing_config
 
+"""
+auth controller unit tests
+
+(including password manager functionality)
+"""
+
 @pytest.fixture()
 def app():
     # set up -- load test config via var env
