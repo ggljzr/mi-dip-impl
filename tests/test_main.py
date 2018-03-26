@@ -16,6 +16,8 @@ def test_index(app_client, log_in_out):
     # (no redirects)
     assert response.status == '200 OK'
     assert 'garages_box' in response.data.decode('utf-8')
+    # we can see garage tag
+    assert 'Nová garáž' in response.data.decode('utf-8')
 
 def test_garage(app_client, log_in_out):
     # get first garage
@@ -23,6 +25,8 @@ def test_garage(app_client, log_in_out):
 
     assert response.status == '200 OK'
     assert 'show_garage_container' in response.data.decode('utf-8')
+    # we can see garage tag
+    assert 'Nová garáž' in response.data.decode('utf-8')
 
 def test_nonexistent_garage(app_client, log_in_out):
     response = app_client.get('/garage/468864684')
