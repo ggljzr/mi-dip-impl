@@ -21,6 +21,9 @@ def app_client():
     test_garage.api_key = 'testing_key' # we need to know garage api key
     db.session.commit() # commit new key
 
+    # add some event we can check
+    test_garage.add_report_event()
+
     from garage_system import app
     # set logged in flag to be true for all tests
     yield app.test_client()

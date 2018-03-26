@@ -19,7 +19,7 @@ def test_index(app_client, log_in_out):
     # we can see garage tag
     assert 'Nová garáž' in response.data.decode('utf-8')
 
-def test_garage(app_client, log_in_out):
+def test_garage_display(app_client, log_in_out):
     # get first garage
     response = app_client.get('/garage/1')
 
@@ -33,6 +33,11 @@ def test_nonexistent_garage(app_client, log_in_out):
 
     # get 404
     assert response.status == '404 NOT FOUND'
+
+def test_event_display(app_client, log_in_out):
+    response = app_client.get('/garage/1')
+
+    assert 'Kontrolní hlášení' in response.data.decode('utf-8')
 
 def test_edit_garage(app_client, log_in_out):
     # edit first garage data
