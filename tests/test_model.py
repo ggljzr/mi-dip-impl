@@ -7,6 +7,7 @@ from freezegun import freeze_time
 #           : https://docs.pytest.org/en/latest/fixture.html#fixture-finalization-executing-teardown-code (yield thing)
 
 import testing_config
+import testing_utils
 
 """
 model (garage and event) unit tests
@@ -15,12 +16,7 @@ model (garage and event) unit tests
 @pytest.fixture(scope='module') # teardown after last test in module
 def garage():
     # set app config to testing via env var
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    try:
-        os.unlink(BASE_DIR + '/test_app.db') # delete current test db
-    except FileNotFoundError:
-        pass
-    os.environ['GARAGE_SYSTEM_CONFIG'] = BASE_DIR + '/testing_config.py'
+    testing_utils.setup()
 
     # initialize app with testing config
     # (garage module imports db from garage_system)
@@ -31,7 +27,7 @@ def garage():
     yield Garage
 
     # teardown (delete db)
-    os.unlink(BASE_DIR + '/test_app.db')
+    testing_utils.teardown()
 
 def test_add_garage(garage):
     garage.add_garage()

@@ -1,7 +1,7 @@
 import pytest
-import os
 
 import testing_config
+import testing_utils
 
 """
 auth controller unit tests
@@ -12,8 +12,7 @@ auth controller unit tests
 @pytest.fixture()
 def app():
     # set up -- load test config via var env
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    os.environ['GARAGE_SYSTEM_CONFIG'] = BASE_DIR + '/testing_config.py'
+    testing_utils.setup()
 
     # create testing user config with default password
     from garage_system.mod_auth.password_manager import PasswordManager
@@ -25,11 +24,7 @@ def app():
     yield app.test_client()
 
     # delete created user testing config
-    os.unlink(testing_config.USER_CONFIG_PATH)
-    try:
-        os.unlink(BASE_DIR + '/test_app.db')
-    except FileNotFoundError:
-        pass
+    testing_utils.teardown()
 
 def test_login_get(app):
     response = app.get('/login')
@@ -123,8 +118,7 @@ def test_password_change(app):
 
 # simple test if csrf protection is working
 def test_csrf():
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    os.environ['GARAGE_SYSTEM_CONFIG'] = BASE_DIR + '/testing_config.py'
+    testing_utils.setup()
 
     from garage_system import app
 
@@ -143,3 +137,5 @@ def test_csrf():
 
     # response should mention csrf
     assert 'CSRF' in response.data.decode('utf-8')
+
+    testing_utils.teardown()

@@ -2,6 +2,7 @@ import pytest
 import os
 
 import testing_config
+import testing_utils
 
 """
 api controller unit tests
@@ -12,8 +13,7 @@ application model is tested separately
 @pytest.fixture(scope='module')
 def app():
     # set up -- load test config via var env
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    os.environ['GARAGE_SYSTEM_CONFIG'] = BASE_DIR + '/testing_config.py'
+    testing_utils.setup()
 
     from garage_system import db
     db.create_all() # reinitialize db scheme (because other tests might screw it up)
@@ -28,7 +28,7 @@ def app():
     yield app.test_client()
 
     # teardown
-    os.unlink(BASE_DIR + '/test_app.db')
+    testing_utils.teardown()
 
 def test_turned_off_regmode(app):
     response = app.post('/api/garages')
