@@ -8,26 +8,6 @@ auth controller unit tests
 (including password manager functionality)
 """
 
-@pytest.fixture()
-def app_client():
-    # set up -- load test config via var env
-    testing_utils.setup()
-
-    # create testing user config with default password
-    from garage_system.mod_auth.password_manager import PasswordManager
-    pw_manager = PasswordManager()
-    pw_manager.set_default_password()
-
-    from garage_system import db
-    db.create_all()
-
-    # initialize and yield test application
-    from garage_system import app
-    yield app.test_client()
-
-    # delete created user testing config
-    testing_utils.teardown()
-
 def test_login_get(app_client):
     response = app_client.get('/login')
 

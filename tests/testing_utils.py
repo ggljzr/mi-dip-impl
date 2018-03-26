@@ -22,6 +22,7 @@ def teardown():
     except FileNotFoundError:
         pass
 
+
 # helper login function
 def login_with_default_password(app_client):
     from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
