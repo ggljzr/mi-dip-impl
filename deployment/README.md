@@ -6,5 +6,6 @@
 * Don't forget to set `secret_key` for flask app in `.wsgi` file
 * Set `GARAGE_SYSTEM_CONFIG` env variable to your app config file (or use default)
 * When [SSLOpenSSLConfCmd](https://serverfault.com/questions/698093/invalid-command-sslopensslconfcmd-perhaps-misspelled-or-defined-by-a-module-n) is not working, concat `dhparams.pem` at the end of the cert
+* Strong HTTPS [config](https://raymii.org/s/tutorials/Strong_SSL_Security_On_Apache2.html)
 
 More detailed how-to coming soon.
