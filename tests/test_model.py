@@ -66,6 +66,22 @@ def test_check_report(garage):
         new_garage.check_report()
         assert new_garage.state == garage.STATE_NOT_RESPONDING
 
+def test_smoke_event(garage):
+    new_garage = garage.add_garage()
+    new_garage.add_smoke_event()
+    assert new_garage.state == garage.STATE_SMOKE
+
+def test_movement_event(garage):
+    new_garage = garage.add_garage()
+    new_garage.add_movement_event()
+    assert new_garage.state == garage.STATE_MOVEMENT
+
+    # garage does not change state after smoke event
+    # as per specification
+    new_garage.state = garage.STATE_SMOKE
+    new_garage.add_movement_event()
+    assert new_garage.state == garage.STATE_SMOKE
+
 def test_open_close(garage):
     new_garage = garage.add_garage()
 
