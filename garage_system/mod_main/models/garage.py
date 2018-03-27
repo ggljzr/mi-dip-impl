@@ -113,7 +113,7 @@ class Garage(Base):
 
     def check_report(self):
         if self.next_report is None:
-            return
+            return True
 
         now = datetime.now()
         delta = now - self.next_report
@@ -121,6 +121,9 @@ class Garage(Base):
         if delta.total_seconds() > Garage.REPORT_TOLERANCE:
             self.state = Garage.STATE_NOT_RESPONDING
             db.session.commit()
+            return False
+
+        return True
 
     # revokes garage api key by generating a new one
     def revoke_key(self):
