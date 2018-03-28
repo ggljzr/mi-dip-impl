@@ -96,7 +96,10 @@ def test_csrf():
     # we can try csrf attack against login form
     # its basically post request without proper csrf token
     # (password value does not matter)
-    response = app.test_client().post('/login', data={'password' : 'test password'})
+    response = app.test_client().post('/login', data={
+        'password' : 'test password',
+        'csrf_token' : 'some fake token'
+        })
 
     # we should get bad request status code
     # instead of expected forbidden (wrong password)
