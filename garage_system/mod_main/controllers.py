@@ -62,13 +62,11 @@ def show_garage(id):
 @login_required
 def edit_garage(id):
     garage = Garage.query.get(id)
-    if garage is None:
-        return render_template('404.html'), 404
-
-    garage_form = GarageForm(request.form)
-    if garage_form.validate_on_submit():
-        garage.update(request.form.to_dict())
-        flash('Garáž upravena')
+    if garage is not None:
+        garage_form = GarageForm(request.form)
+        if garage_form.validate_on_submit():
+            garage.update(request.form.to_dict())
+            flash('Garáž upravena')
 
     return redirect('/garage/{}'.format(id))
 
@@ -77,11 +75,10 @@ def edit_garage(id):
 @login_required
 def revoke_key(id):
     garage = Garage.query.get(id)
-    if garage is None:
-        return render_template('404.html'), 404
+    if garage is not None:
+        garage.revoke_key()
+        flash('Vygenerován nový klíč')
 
-    garage.revoke_key()
-    flash('Vygenerován nový klíč')
     return redirect('/garage/{}'.format(id))
 
 
