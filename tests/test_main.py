@@ -45,7 +45,8 @@ def test_edit_garage(app_client, log_in_out):
     response = app_client.post('/garage/1', data={
         'tag' : 'some testing tag',
         'period' : 60,
-        'note' : 'some testing note'
+        'note' : 'some testing note',
+        'phone' : 'some phone number'
         }, follow_redirects=True) # follow redirect to updated page
 
     response_data = response.data.decode('utf-8')
@@ -53,5 +54,6 @@ def test_edit_garage(app_client, log_in_out):
     assert response.status == '200 OK'
     assert 'some testing tag' in response_data
     assert 'some testing note' in response_data
+    assert 'some phone number' in response_data
 
 

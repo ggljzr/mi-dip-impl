@@ -31,6 +31,7 @@ class Garage(Base):
     period = db.Column(db.Integer, default=60)
     doors = db.Column(db.SmallInteger, default=DOORS_OPEN)
     state = db.Column(db.SmallInteger, default=STATE_OK)
+    phone = db.Column(db.String(64))
 
     events = db.relationship('Event', backref='Garage',
                              lazy=True, cascade='all, delete-orphan', order_by='desc(Event.timestamp)')
@@ -72,6 +73,7 @@ class Garage(Base):
         self.tag = update_data['tag']
         self.period = update_data['period']
         self.note = update_data['note']
+        self.phone = update_data['phone']
         db.session.commit()
 
     def add_event(self, type):

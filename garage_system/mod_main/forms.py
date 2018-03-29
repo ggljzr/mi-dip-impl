@@ -12,6 +12,7 @@ class GarageForm(FlaskForm):
     tag = StringField('Označení')
     period = IntegerField('Perioda hlášení (minuty)', validators=[NumberRange(
         1, 999, message='Perioda musí být mezi 1 a 999')])
+    phone = StringField('Telefonní číslo')
     note = TextAreaField('Poznámka')
 
 
@@ -22,4 +23,5 @@ class GarageFormBuilder:
         garage_form.tag.data = garage.tag
         garage_form.period.data = garage.period
         garage_form.note.data = garage.note
+        garage_form.phone.data = garage.phone
         return garage_form
