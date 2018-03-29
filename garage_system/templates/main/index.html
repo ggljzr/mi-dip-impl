@@ -34,7 +34,12 @@
             <li class=menu_item>Nastavení</li>
             <li class=menu_item><a href='/change_password' class='menu_button'>Změna hesla</a></li>
             <li class=menu_item><a href='/user_settings' class='menu_button'>Uživatel</a></li>
-            <li class=menu_item><a href='/logout' class='menu_button'>Odhlásit</a></li>
+            <li class=menu_item>
+                <form method="POST" action="/logout">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="submit" class='menu_button' value="Odhlásit">
+                </form>
+            </li>
         </ul>
     </div>
 

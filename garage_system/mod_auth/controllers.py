@@ -31,7 +31,7 @@ def login():
     return render_template('auth/login.html', form=form), status_code
 
 
-@mod_auth.route('/logout')
+@mod_auth.route('/logout', methods=['POST'])
 def logout():
     session['logged_in'] = False
     flash('Odhlášení proběhlo úspěšně')

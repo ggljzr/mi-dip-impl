@@ -35,7 +35,7 @@ def login_with_default_password(app_client):
 
 # helper logout function
 def logout(app_client):
-    response = app_client.get('/logout')
+    response = app_client.post('/logout')
     return response
 
 # sets logged in flag in flask session

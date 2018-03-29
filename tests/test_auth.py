@@ -39,7 +39,7 @@ def test_default_password(app_client):
     assert '/change_password' in response.headers['location']
 
 def test_logout(app_client, log_in_out):
-    response = app_client.get('/logout', follow_redirects=True)
+    response = app_client.post('/logout', follow_redirects=True)
 
     # redirects to /login
     assert response.status == '200 OK'
