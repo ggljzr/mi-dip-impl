@@ -12,4 +12,4 @@
 
 * spravit tohle: https://stackoverflow.com/questions/24427274/csrf-token-mismatch-in-apache-flask-due-to-session-reset#40486201 (to dela to vodlogovani a bad csrf kdyz to bezi na apachi)
 
-** tema threadama to asi neni spis https://stackoverflow.com/questions/48507267/mod-wsgi-keeps-restarting-flask-app
+** tema threadama to asi neni spis https://stackoverflow.com/questions/48507267/mod-wsgi-keeps-restarting-flask-app, vypada to ze pruser je ze se pri tech restartech generuje furt novej secret key, lepsi vygenerovat nakej jednou, tohle napsat taky do toho testovani
