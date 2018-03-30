@@ -144,4 +144,6 @@ def send_notification(**kwargs):
         # do nothing since state is unchanged
         return
 
+    # send sms to kwargs['target'].phone
+    # mozna to posilani smsk ve zvlastnim threadu
     # send email

@@ -7,5 +7,6 @@
 * Set `GARAGE_SYSTEM_CONFIG` env variable to your app config file (or use default)
 * When [SSLOpenSSLConfCmd](https://serverfault.com/questions/698093/invalid-command-sslopensslconfcmd-perhaps-misspelled-or-defined-by-a-module-n) is not working, concat `dhparams.pem` at the end of the cert
 * Strong HTTPS [config](https://raymii.org/s/tutorials/Strong_SSL_Security_On_Apache2.html)
+* db access -- [set app directory](https://stackoverflow.com/questions/27753308/how-to-set-permissions-for-apache2-to-let-user-create-or-edit-files-in-var-www) (eg. `/var/www/my-app/`) owner to `www-data` and set appropriate read/write access with `chmod`
 
 More detailed how-to coming soon.
