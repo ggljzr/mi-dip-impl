@@ -9,3 +9,7 @@
 * tu Garage v test_api by chtelo celou namockovat, vcetne ty metody na vyhledavani podle api klice asi, pak by se tam nesrala ta databaze no (by v tim test_api modulu vubec nemela bejt potreba)
 
 * udelat to posilani smsek: viz https://wammu.eu/python-gammu/ http://www.mattiasnorell.com/send-sms-from-a-raspberry-pi/ tohle je asi nejjednodussi, ten modem muze bejt klidne nakej do usbcka, takze nejsme vomezeny jen na rpi s gpio pinama
+
+* spravit tohle: https://stackoverflow.com/questions/24427274/csrf-token-mismatch-in-apache-flask-due-to-session-reset#40486201 (to dela to vodlogovani a bad csrf kdyz to bezi na apachi)
+
+** tema threadama to asi neni spis https://stackoverflow.com/questions/48507267/mod-wsgi-keeps-restarting-flask-app
