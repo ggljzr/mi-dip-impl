@@ -1,5 +1,3 @@
-* napsat prvni testy
-
 * nakej zakladni pentesting?
 
 *v zasade chybi: notifikace, user settings
