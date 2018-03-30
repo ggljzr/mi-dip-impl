@@ -13,11 +13,11 @@ def test_turned_off_regmode(app_client):
     assert response.status == '403 FORBIDDEN'
 
 def test_fake_api_key(app_client):
-    response = app_client.post('/api/report_event', headers={'api_key' : 'fake_key'})
+    response = app_client.post('/api/report_event', headers={'apikey' : 'fake_key'})
     assert response.status == '403 FORBIDDEN'
 
 def test_add_report_event(app_client):
-    response = app_client.post('/api/report_event', headers={'api_key' : 'testing_key'})
+    response = app_client.post('/api/report_event', headers={'apikey' : 'testing_key'})
     assert response.status == '201 CREATED'
     assert 'period' in response.data.decode('utf-8')
 

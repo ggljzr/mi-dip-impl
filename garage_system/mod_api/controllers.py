@@ -23,7 +23,7 @@ def add_garage():
 
 @mod_api.route('/api/report_event', methods=['POST'])
 def add_report_event():
-    api_key = request.headers.get('api_key')
+    api_key = request.headers.get('apikey')
     garage = Garage.get_garage_by_key(api_key)
 
     if garage is None:
@@ -37,7 +37,7 @@ def add_report_event():
 
 @mod_api.route('/api/door_open_event', methods=['POST'])
 def add_door_open_event():
-    api_key = request.headers.get('api_key')
+    api_key = request.headers.get('apikey')
     garage = Garage.get_garage_by_key(api_key)
 
     if garage is None:
@@ -50,7 +50,7 @@ def add_door_open_event():
 
 @mod_api.route('/api/door_close_event', methods=['POST'])
 def add_door_closed_event():
-    api_key = request.headers.get('api_key')
+    api_key = request.headers.get('apikey')
     garage = Garage.get_garage_by_key(api_key)
 
     if garage is None:
@@ -63,7 +63,7 @@ def add_door_closed_event():
 
 @mod_api.route('/api/movement_event', methods=['POST'])
 def add_movement_event():
-    api_key = request.headers.get('api_key')
+    api_key = request.headers.get('apikey')
     garage = Garage.get_garage_by_key(api_key)
 
     if garage is None:
@@ -76,7 +76,7 @@ def add_movement_event():
 
 @mod_api.route('/api/smoke_event', methods=['POST'])
 def add_smoke_event():
-    api_key = request.headers.get('api_key')
+    api_key = request.headers.get('apikey')
     garage = Garage.get_garage_by_key(api_key)
 
     if garage is None:
