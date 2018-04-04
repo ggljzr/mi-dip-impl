@@ -35,6 +35,12 @@ def event_filter(event):
 def reg_mode_filter(reg_mode):
     return Filters.reg_mode_filter(reg_mode)
 
+# if debug flag is true, allow simulator
+@mod_main.route('/simulator')
+def simulator():
+    if app.config['DEBUG'] == True:
+        return render_template('simulator.html')
+    return render_template('404.html'), 404
 
 @mod_main.route('/')
 @login_required
