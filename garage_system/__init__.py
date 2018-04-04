@@ -23,11 +23,9 @@ scheduler.start()
 #(simple one button forms like for /add_garage)
 csrf = CSRFProtect(app)
 
-
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html'), 404
-
 
 from .mod_main.controllers import mod_main as main_module
 from .mod_auth.controllers import mod_auth as auth_module
@@ -44,6 +42,12 @@ app.register_blueprint(api_module)
 
 db.create_all()
 
+# if debug flag is true, allow simulator
+@app.route('/simulator')
+def simulator():
+    if app.config['DEBUG'] == True:
+        return render_template('simulator.html')
+    return render_template('404.html'), 404
 
 def run():
     app.run(host='0.0.0.0', port=8080, debug=True)
