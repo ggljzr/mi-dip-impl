@@ -11,27 +11,42 @@
   crossorigin="anonymous"></script>
 
   <script type="text/javascript">
+  function on_success(data, status, xhr) {
+    document.getElementById('return-code').innerHTML = xhr.status
+    document.getElementById('return-value').innerHTML = data
+  }
+
+  function on_error(xhr, status, error) {
+    document.getElementById('return-code').innerHTML = xhr.status
+    document.getElementById('return-value').innerHTML = 'Došlo k chybě'
+  }
+
+  function add_garage() {
+    var systemForm = document.getElementById('system-form')
+    var url = systemForm['server-address'].value + '/api/garages'
+    $.ajax({
+      url : url,
+      type : 'post',
+      dataType : 'text',
+      success : on_success,
+      error : on_error
+    })
+  }
+
   function send_event() {
   	var systemForm = document.getElementById('system-form')
-  	var address = systemForm['server-address'].value + /api/
   	var apiKey = systemForm['api-key'].value
 
   	var eventType = document.getElementById('event-form')['event-type'].value
-  	var url = systemForm['server-address'].value + /api/ + eventType
+  	var url = systemForm['server-address'].value + '/api/' + eventType
   	
   	$.ajax({
   		url : url,
   		type : 'post',
   		headers : {'apikey' : apiKey},
   		dataType : 'text',
-  		success: function(data, status, xhr) {
-  			document.getElementById('return-code').innerHTML = xhr.status
-        document.getElementById('return-value').innerHTML = data
-  		},
-  		error: function(xhr, status, error) {
-  			document.getElementById('return-code').innerHTML = xhr.status
-        document.getElementById('return-value').innerHTML = 'Došlo k chybě'
-  		}
+  		success: on_success,
+  		error: on_error
   	})
   }
   </script>
@@ -57,11 +72,14 @@
 		Typ události: <br>
 		<input type="radio" name="event-type" value="report_event" checked> Kontrolní hlášení<br>
  	 	<input type="radio" name="event-type" value="smoke_event"> Kouř<br>
-  		<input type="radio" name="event-type" value="movement_event"> Pohyb<br>
-  		<input type="radio" name="event-type" value="door_open_event"> Otevření dveří<br>
-  		<input type="radio" name="event-type" value="door_close_event"> Zavření dveří<br>
-  		<input type='button' value='Odeslat' onclick="send_event()">
+  	<input type="radio" name="event-type" value="movement_event"> Pohyb<br>
+  	<input type="radio" name="event-type" value="door_open_event"> Otevření dveří<br>
+  	<input type="radio" name="event-type" value="door_close_event"> Zavření dveří<br>
+  	<input type='button' value='Odeslat' onclick="send_event()">
 	</form>
+
+  <h2>Přidání garáže</h2>
+  <input type="button" value='Přidat garáž' onclick="add_garage()"><br>
 </body>
 
 </html>
