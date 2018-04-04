@@ -25,10 +25,12 @@
   		headers : {'apikey' : apiKey},
   		dataType : 'json',
   		success: function(data, status, xhr) {
-  			alert('Success ' + xhr.status)
+  			document.getElementById('return-code') = xhr.status
+        document.getElementById('return-value').innerHTML = data
   		},
   		error: function(xhr, status, error) {
-  			alert('Error ' + xhr.status)
+  			document.getElementById('return-code').innerHTML = xhr.status
+        document.getElementById('return-value').innerHTML = 'Došlo k chybě'
   		}
   	})
   }
@@ -38,7 +40,7 @@
 <body>
 	<h1>Simulátor podřízeného systému</h1>
 
-	<h2>Odpověď</h2>
+	<h2>Odpověď nadřazeného systému</h2>
 
 	Návratový kód: <span id=return-code></span><br>
 	Návratová hodnota: <span id=return-value></span>
