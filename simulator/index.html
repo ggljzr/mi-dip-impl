@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulátor podřízeného systému</title>
+
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+  function send_event() {
+  	var systemForm = document.getElementById('system-form')
+  	var address = systemForm['server-address'].value + /api/
+  	var apiKey = systemForm['api-key'].value
+
+  	var eventType = document.getElementById('event-form')['event-type'].value
+  	var url = systemForm['server-address'].value + /api/ + eventType
+  	
+  	$.ajax({
+  		url : url,
+  		type : 'post',
+  		headers : {'apikey' : apiKey},
+  		dataType : 'json',
+  		success: function(data, status, xhr) {
+  			alert('Success ' + xhr.status)
+  		},
+  		error: function(xhr, status, error) {
+  			alert('Error ' + xhr.status)
+  		}
+  	})
+  }
+  </script>
+</head>
+
+<body>
+	<h1>Simulátor podřízeného systému</h1>
+
+	<h2>Odpověď</h2>
+
+	Návratový kód: <span id=return-code></span><br>
+	Návratová hodnota: <span id=return-value></span>
+
+	<h2>Podřízený systém</h2>
+	<form id=system-form>
+		Adresa nadřazeného systému:<br> <input type='text' name='server-address' value='https://demo-garaze.tk'><br>
+		API klíč:<br> <input type="text" name="api-key" value=><br>
+	</form>
+
+	<h2>Zaslání události</h2>
+
+	<form id=event-form>
+		Typ události: <br>
+		<input type="radio" name="event-type" value="report_event" checked> Kontrolní hlášení<br>
+ 	 	<input type="radio" name="event-type" value="smoke_event"> Kouř<br>
+  		<input type="radio" name="event-type" value="movement_event"> Pohyb<br>
+  		<input type="radio" name="event-type" value="door_open_event"> Otevření dveří<br>
+  		<input type="radio" name="event-type" value="door_close_event"> Zavření dveří<br>
+  		<input type='button' value='Odeslat' onclick="send_event()">
+	</form>
+</body>
+
+</html>
