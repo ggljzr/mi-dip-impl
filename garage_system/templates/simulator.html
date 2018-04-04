@@ -23,7 +23,7 @@
   		url : url,
   		type : 'post',
   		headers : {'apikey' : apiKey},
-  		dataType : 'json',
+  		dataType : 'text',
   		success: function(data, status, xhr) {
   			document.getElementById('return-code').innerHTML = xhr.status
         document.getElementById('return-value').innerHTML = data
