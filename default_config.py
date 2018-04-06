@@ -12,5 +12,8 @@ DATABASE_CONNECT_OPTIONS = {}
 THREADS_PER_PAGE = 2
 
 SECRET_KEY = os.urandom(16)
+# set session lifetime to 6 hours
+# after that user is logged out automatically
+PERMANENT_SESSION_LIFETIME = 6 * 60 * 60 # seconds
 
 USER_CONFIG_PATH = os.path.join(BASE_DIR, 'user_config.ini')
