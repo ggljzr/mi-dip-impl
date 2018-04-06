@@ -35,7 +35,8 @@ setup(
                      'Flask-WTF>=0.14.2',
                      'requests>=2.11.1',
                      'Werkzeug>=0.11.11',
-                     'bcrypt>=3.1.3',
+                     'argon2-cffi>=18.1.0',
+                     'passlib>=1.7.1'
                      'APScheduler>=3.5.1'
                      ],
     setup_requires=[

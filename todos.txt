@@ -1,6 +1,6 @@
 * nakej zakladni pentesting?
 
-*v zasade chybi: notifikace, user settings
+*v zasade chybi: notifikace, user settings, (dopsat tam ten check report job do toho scheduleru, staci zkopirovat ten radek z ty diplomky)
 
 * BUG: na rpi to nenajde ten default config, je potreba nastavit tu env var GARAGE_SYSTEM_CONFIG (u me na pocitaci to ten default normalne najde)
 

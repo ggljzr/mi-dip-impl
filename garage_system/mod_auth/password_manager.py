@@ -1,4 +1,4 @@
-import bcrypt
+from passlib.hash import argon2
 import configparser
 
 from garage_system import app
@@ -13,17 +13,15 @@ class PasswordManager():
         self.user_config.read(app.config['USER_CONFIG_PATH'])
 
     def check_password(self, password):
-        pw_encoded = password.encode('utf-8')
-
         try:
-            pw_hash = self.user_config['settings']['password'].encode('utf-8')
+            pw_hash = self.user_config['settings']['password']
         except KeyError:
-            pw_hash = bcrypt.hashpw(
-                DEFAULT_PASSWORD.encode('utf-8'),
-                bcrypt.gensalt())
+            # hash function from passlib autogenerates 
+            # salt for each password, see https://passlib.readthedocs.io/en/stable/lib/passlib.hash.argon2.html
+            pw_hash = argon2.hash(DEFAULT_PASSWORD)
             self.set_default_password()  # set default password if password section is missing
 
-        return bcrypt.checkpw(pw_encoded, pw_hash)
+        return argon2.verify(password, pw_hash)
 
     # checks if password in user_config.ini is default password
     def check_default_password(self):
@@ -35,18 +33,15 @@ class PasswordManager():
         except configparser.DuplicateSectionError:
             pass  # create settings section if it does not exists
 
-        pw_hash = bcrypt.hashpw(
-            DEFAULT_PASSWORD.encode('utf-8'),
-            bcrypt.gensalt())
-        self.user_config.set('settings', 'password', pw_hash.decode('utf-8'))
+        pw_hash = argon2.hash(DEFAULT_PASSWORD)
+        self.user_config.set('settings', 'password', pw_hash)
 
         with open(app.config['USER_CONFIG_PATH'], 'w') as f:
             self.user_config.write(f)
 
     def save_password(self, new_password):
-        pw_encoded = new_password.encode('utf-8')
-        pw_hash = bcrypt.hashpw(pw_encoded, bcrypt.gensalt())
-        self.user_config['settings']['password'] = pw_hash.decode('utf-8')
+        pw_hash = argon2.hash(new_password)
+        self.user_config['settings']['password'] = pw_hash
 
         with open(app.config['USER_CONFIG_PATH'], 'w') as f:
             self.user_config.write(f)
