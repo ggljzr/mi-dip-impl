@@ -155,15 +155,18 @@ def send_notification(**kwargs):
         # try to send sms if gammu daemon is installed
         try:
             # print(sms_text) # tady bacha v tim tagu muze bejt unicode
-            subprocess.call(['gammu-smsd-inject', 'TEXT', user_phone, '-text', sms_text])
+            subprocess.call(['gammu-smsd-inject', 'TEXT',
+                             user_phone, '-unicode', '-text', sms_text])
         except FileNotFoundError:
             pass
 
     garage_phone = kwargs['target'].phone
     if garage_phone is not None:
-        sms_text = 'Neco se deje s Vasi garazi! Volejte spravce na {}'.format(user_phone)
+        sms_text = 'Neco se deje s Vasi garazi! Volejte spravce na {}'.format(
+            user_phone)
         try:
             # print(sms_text)
-            subprocess.call(['gammu-smsd-inject', 'TEXT', garage_phone, '-text', sms_text])
+            subprocess.call(['gammu-smsd-inject', 'TEXT',
+                             garage_phone, '-unicode', '-text', sms_text])
         except FileNotFoundError:
             pass
