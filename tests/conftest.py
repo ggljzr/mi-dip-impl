@@ -29,6 +29,8 @@ def app_client():
 
     # teardown (delete db)
     testing_utils.teardown()
+    # load empty config
+    config_manager.reload_config()
 
 # fixture to set and clear logged_in flag
 # in flask session

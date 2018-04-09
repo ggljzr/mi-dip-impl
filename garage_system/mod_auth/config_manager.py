@@ -60,3 +60,15 @@ class ConfigManager():
         except KeyError:
             pass
         return phone
+
+    # used only for loading clean config in tests
+    def reload_config(self):
+        self.user_config = configparser.ConfigParser()
+        self.user_config.read(self.config_path)
+
+        try:
+            self.user_config.add_section('settings')
+        except configparser.DuplicateSectionError:
+            pass  # create settings section if it does not exists
+
+        self.write_config()
