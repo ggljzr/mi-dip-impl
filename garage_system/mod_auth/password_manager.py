@@ -8,9 +8,10 @@ DEFAULT_PASSWORD = 'password'
 
 class PasswordManager():
 
-    def __init__(self):
+    def __init__(self, config_path):
+        self.config_path = config_path
         self.user_config = configparser.ConfigParser()
-        self.user_config.read(app.config['USER_CONFIG_PATH'])
+        self.user_config.read(self.config_path)
 
         try:
             self.user_config.add_section('settings')
@@ -20,7 +21,7 @@ class PasswordManager():
         self.write_config()
 
     def write_config(self):
-        with open(app.config['USER_CONFIG_PATH'], 'w') as f:
+        with open(self.config_path, 'w') as f:
             self.user_config.write(f)
 
     def check_password(self, password):

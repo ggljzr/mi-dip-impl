@@ -7,7 +7,8 @@ from .forms import GarageFormBuilder, GarageForm, UserSettingsForm
 from .filters import Filters
 
 from garage_system.mod_auth.auth_utils import login_required
-from garage_system.mod_auth.password_manager import PasswordManager
+
+from garage_system import config_manager
 
 mod_main = Blueprint('main', __name__)
 
@@ -119,7 +120,6 @@ def reg_mode():
 @login_required
 def user_settings():
     form = UserSettingsForm(request.form)
-    config_manager = PasswordManager()
     form.notification_phone.data = config_manager.read_phone()
 
     return render_template('main/user_settings.html', form=form)
@@ -128,7 +128,6 @@ def user_settings():
 @login_required
 def edit_user_settings():
     form = UserSettingsForm(request.form)
-    config_manager = PasswordManager()
     config_manager.save_phone(form.notification_phone.data)
 
     flash('Nastavení uloženo')

@@ -7,9 +7,8 @@ def app_client():
     # set app config to testing via env var
     testing_utils.setup()
 
-    from garage_system.mod_auth.password_manager import PasswordManager
-    pw_manager = PasswordManager()
-    pw_manager.set_default_password()
+    from garage_system import config_manager
+    config_manager.set_default_password()
 
     # initialize app with testing config
     # (garage module imports db from garage_system)

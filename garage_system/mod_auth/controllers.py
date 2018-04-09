@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 
-from .password_manager import PasswordManager
+from garage_system import config_manager
 from .forms import LoginForm, ChangePasswordForm
 from .auth_utils import login_required
 
@@ -12,11 +12,10 @@ def login():
     status_code = 200
 
     if request.method == 'POST':
-        pw_man = PasswordManager()
-        if pw_man.check_password(request.form['password']):
+        if config_manager.check_password(request.form['password']):
             session['logged_in'] = True
 
-            if pw_man.check_default_password():
+            if config_manager.check_default_password():
                 flash(
                     'Je nutné změnit heslo z implicitně nastavené hodnoty',
                     'warning')
@@ -44,9 +43,8 @@ def change_password():
     form = ChangePasswordForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
-        pw_man = PasswordManager()
-        if pw_man.check_password(request.form['old_password']):
-            pw_man.save_password(request.form['new_password'])
+        if config_manager.check_password(request.form['old_password']):
+            config_manager.save_password(request.form['new_password'])
             flash('Heslo úspěšně změněno')
             return redirect('/')
         else:
