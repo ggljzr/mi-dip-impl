@@ -1,5 +1,6 @@
 from garage_system import db, scheduler
 import uuid
+import subprocess
 from datetime import datetime, timedelta
 
 from .base import Base
@@ -144,6 +145,14 @@ def send_notification(**kwargs):
         # do nothing since state is unchanged
         return
 
+    garage_phone = kwargs['target'].phone
+    sms_text = 'Neco se deje s {}'.format(kwargs['target'].tag)
+
+    # try to send sms if gammu daemon is installed
+    try:
+        subprocess.call(['gammu-smsd-inject', 'TEXT', garage_phone, '-text', sms_text])
+    except (FileNotFoundError, TypeError):
+        pass
+
     # send sms to kwargs['target'].phone
-    # mozna to posilani smsk ve zvlastnim threadu
-    # send email
+
