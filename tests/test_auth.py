@@ -54,7 +54,7 @@ def test_logout(app_client, log_in_out):
 
 
 def test_password_change(app_client, log_in_out):
-    from garage_system.mod_auth.password_manager import DEFAULT_PASSWORD
+    from garage_system.mod_auth.config_manager import DEFAULT_PASSWORD
 
     new_password = 'some new password'
 

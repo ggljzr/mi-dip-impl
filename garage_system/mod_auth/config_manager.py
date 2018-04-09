@@ -6,7 +6,7 @@ from garage_system import app
 DEFAULT_PASSWORD = 'password'
 
 
-class PasswordManager():
+class ConfigManager():
 
     def __init__(self, config_path):
         self.config_path = config_path

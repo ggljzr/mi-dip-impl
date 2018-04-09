@@ -27,9 +27,9 @@ csrf = CSRFProtect(app)
 def not_found(error):
     return render_template('404.html'), 404
 
-from .mod_auth.password_manager import PasswordManager
+from .mod_auth.config_manager import ConfigManager
 # init config manager
-config_manager = PasswordManager(app.config['USER_CONFIG_PATH'])
+config_manager = ConfigManager(app.config['USER_CONFIG_PATH'])
 
 from .mod_main.controllers import mod_main as main_module
 from .mod_auth.controllers import mod_auth as auth_module
