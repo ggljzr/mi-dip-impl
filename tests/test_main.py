@@ -56,4 +56,12 @@ def test_edit_garage(app_client, log_in_out):
     assert 'some testing note' in response_data
     assert 'some phone number' in response_data
 
+def test_change_phone(app_client, log_in_out):
+    test_phone = '+420123456879'
 
+    response = app_client.post('/user_settings', data={
+        'notification_phone' : test_phone
+        }, follow_redirects=True) 
+        # we follow redirect to settings page with our phone displayerd
+
+    assert test_phone in response.data.decode('utf-8')

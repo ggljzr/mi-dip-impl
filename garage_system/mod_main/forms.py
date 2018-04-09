@@ -4,8 +4,7 @@ from wtforms.validators import NumberRange
 
 
 class UserSettingsForm(FlaskForm):
-    notification_mail = StringField('Email pro upozornění')
-    notifications = BooleanField('Povolit upozornění', default=True)
+    notification_phone = StringField('Telefon pro upozornění (včetně předvolby)')
 
 
 class GarageForm(FlaskForm):
