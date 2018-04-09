@@ -12,6 +12,17 @@ class PasswordManager():
         self.user_config = configparser.ConfigParser()
         self.user_config.read(app.config['USER_CONFIG_PATH'])
 
+        try:
+            self.user_config.add_section('settings')
+        except configparser.DuplicateSectionError:
+            pass  # create settings section if it does not exists
+
+        self.write_config()
+
+    def write_config(self):
+        with open(app.config['USER_CONFIG_PATH'], 'w') as f:
+            self.user_config.write(f)
+
     def check_password(self, password):
         try:
             pw_hash = self.user_config['settings']['password']
@@ -28,20 +39,11 @@ class PasswordManager():
         return self.check_password(DEFAULT_PASSWORD)
 
     def set_default_password(self):
-        try:
-            self.user_config.add_section('settings')
-        except configparser.DuplicateSectionError:
-            pass  # create settings section if it does not exists
-
         pw_hash = argon2.hash(DEFAULT_PASSWORD)
         self.user_config.set('settings', 'password', pw_hash)
-
-        with open(app.config['USER_CONFIG_PATH'], 'w') as f:
-            self.user_config.write(f)
+        self.write_config()
 
     def save_password(self, new_password):
         pw_hash = argon2.hash(new_password)
         self.user_config['settings']['password'] = pw_hash
-
-        with open(app.config['USER_CONFIG_PATH'], 'w') as f:
-            self.user_config.write(f)
+        self.write_config()
