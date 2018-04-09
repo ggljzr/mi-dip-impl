@@ -54,7 +54,7 @@ class ConfigManager():
         self.write_config()
 
     def read_phone(self):
-        phone = ''
+        phone = None
         try:
             phone = self.user_config['settings']['phone']
         except KeyError:
