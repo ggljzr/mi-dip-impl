@@ -146,12 +146,15 @@ def send_notification(**kwargs):
         return
 
     garage_phone = kwargs['target'].phone
+    if garage_phone == None:
+        return
+
     sms_text = 'Neco se deje s {}'.format(kwargs['target'].tag)
 
     # try to send sms if gammu daemon is installed
     try:
         subprocess.call(['gammu-smsd-inject', 'TEXT', garage_phone, '-text', sms_text])
-    except (FileNotFoundError, TypeError):
+    except FileNotFoundError:
         pass
 
     # send sms to kwargs['target'].phone
