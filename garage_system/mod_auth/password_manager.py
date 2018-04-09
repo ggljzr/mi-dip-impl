@@ -47,3 +47,15 @@ class PasswordManager():
         pw_hash = argon2.hash(new_password)
         self.user_config['settings']['password'] = pw_hash
         self.write_config()
+
+    def save_phone(self, phone):
+        self.user_config['settings']['phone'] = phone
+        self.write_config()
+
+    def read_phone(self):
+        phone = ''
+        try:
+            phone = self.user_config['settings']['phone']
+        except KeyError:
+            pass
+        return phone
