@@ -145,17 +145,19 @@ def send_notification(**kwargs):
         # do nothing since state is unchanged
         return
 
+    user_phone = config_manager.read_phone()
+    if user_phone is not None:
+        sms_text = 'Neco se deje s garazi : {}'.format(kwargs['target'].tag)
+        # try to send sms if gammu daemon is installed
+        try:
+        subprocess.call(['gammu-smsd-inject', 'TEXT', user_phone, '-text', sms_text])
+        except FileNotFoundError:
+            pass
+
     garage_phone = kwargs['target'].phone
-    if garage_phone == None:
-        return
-
-    sms_text = 'Neco se deje s {}'.format(kwargs['target'].tag)
-
-    # try to send sms if gammu daemon is installed
-    try:
+    if garage_phone is not None:
+        sms_text = 'Neco se deje s Vasi garazi! Volejte spravce na {}'.format(user_phone)
+        try:
         subprocess.call(['gammu-smsd-inject', 'TEXT', garage_phone, '-text', sms_text])
-    except FileNotFoundError:
-        pass
-
-    # send sms to kwargs['target'].phone
-
+        except FileNotFoundError:
+            pass
