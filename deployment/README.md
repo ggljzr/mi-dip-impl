@@ -9,5 +9,6 @@
 * Strong HTTPS [config](https://raymii.org/s/tutorials/Strong_SSL_Security_On_Apache2.html)
 * db access -- [set app directory](https://stackoverflow.com/questions/27753308/how-to-set-permissions-for-apache2-to-let-user-create-or-edit-files-in-var-www) (eg. `/var/www/my-app/`) owner to `www-data` and set appropriate read/write access with `chmod`
 * Add user that runs the web app (usually `www-data`) to `gammu` group so they can inject new messages to Gammu-smsd
+* Gammu-smsd config in `/etc/gammu-smsdrc`
 
 More detailed how-to coming soon.
