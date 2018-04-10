@@ -42,7 +42,10 @@ def logout():
 def change_password():
     form = ChangePasswordForm(request.form)
 
-    if request.method == 'POST' and form.validate_on_submit():
+    if request.method == 'POST':
+        if not form.validate_on_submit():
+            return render_template('auth/change_password.html', form=form), 400
+
         if config_manager.check_password(request.form['old_password']):
             config_manager.save_password(request.form['new_password'])
             flash('Heslo úspěšně změněno')
