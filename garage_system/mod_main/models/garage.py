@@ -158,9 +158,8 @@ def send_notification(**kwargs):
             kwargs['target'].tag, state)
         # try to send sms if gammu daemon is installed
         try:
-            print(sms_text) # tady bacha v tim tagu muze bejt unicode
-            # subprocess.call(['gammu-smsd-inject', 'TEXT',
-            #                 user_phone, '-unicode', '-text', sms_text])
+            subprocess.call(['gammu-smsd-inject', 'TEXT',
+                             user_phone, '-unicode', '-text', sms_text])
         except FileNotFoundError:
             pass
 
@@ -169,8 +168,7 @@ def send_notification(**kwargs):
         sms_text = 'Změna stavu Vaší garáže : {}! Volejte spravce na {}'.format(state,
                                                                                 user_phone)
         try:
-            print(sms_text)
-            # subprocess.call(['gammu-smsd-inject', 'TEXT',
-            #                 garage_phone, '-unicode', '-text', sms_text])
+            subprocess.call(['gammu-smsd-inject', 'TEXT',
+                             garage_phone, '-unicode', '-text', sms_text])
         except FileNotFoundError:
             pass
