@@ -56,6 +56,16 @@ def test_edit_garage(app_client, log_in_out):
     assert 'some testing note' in response_data
     assert '+420732000111' in response_data
 
+def test_edit_garage_bad_request(app_client, log_in_out):
+    response = app_client.post('/garage/1', data={
+        'tag' : 'some testing tag',
+        'period' : -60,
+        'note' : 'some testing note',
+        'phone' : 'some fake phone'
+        }, follow_redirects=True) # follow redirect to updated page
+
+    assert response.status == '400 BAD REQUEST'
+
 def test_change_phone(app_client, log_in_out):
     test_phone = '+420732000111'
 
