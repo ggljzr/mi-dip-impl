@@ -44,6 +44,7 @@ def change_password():
 
     if request.method == 'POST':
         if not form.validate_on_submit():
+            flash('Chyba ve formuláři', 'error')
             return render_template('auth/change_password.html', form=form), 400
 
         if config_manager.check_password(request.form['old_password']):
