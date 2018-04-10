@@ -70,7 +70,7 @@ def edit_garage(id):
             garage.update(request.form.to_dict())
             flash('Garáž upravena')
         else:
-            flash('Chyba ve formuláři')
+            flash('Chyba ve formuláři', 'error')
             return render_template('main/show_garage.html',
                            garage=garage, form=garage_form), 400
 
@@ -138,7 +138,7 @@ def edit_user_settings():
         config_manager.save_phone(form.notification_phone.data)
         flash('Nastavení uloženo')
     else:
-        flash('Chyba ve formuláři')
+        flash('Chyba ve formuláři', 'error')
         return render_template('main/user_settings.html', form=form), 400
 
     return redirect('/user_settings')
