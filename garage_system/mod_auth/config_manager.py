@@ -1,8 +1,6 @@
 from passlib.hash import argon2
 import configparser
 
-from garage_system import app
-
 DEFAULT_PASSWORD = 'password'
 
 
@@ -10,15 +8,7 @@ class ConfigManager():
 
     def __init__(self, config_path):
         self.config_path = config_path
-        self.user_config = configparser.ConfigParser()
-        self.user_config.read(self.config_path)
-
-        try:
-            self.user_config.add_section('settings')
-        except configparser.DuplicateSectionError:
-            pass  # create settings section if it does not exists
-
-        self.write_config()
+        self.reload_config()
 
     def write_config(self):
         with open(self.config_path, 'w') as f:
