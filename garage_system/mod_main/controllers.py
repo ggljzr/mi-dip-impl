@@ -63,11 +63,16 @@ def show_garage(id):
 @login_required
 def edit_garage(id):
     garage = Garage.query.get(id)
+
     if garage is not None:
         garage_form = GarageForm(request.form)
         if garage_form.validate_on_submit():
             garage.update(request.form.to_dict())
             flash('Garáž upravena')
+        else:
+            flash('Chyba ve formuláři')
+            return render_template('main/show_garage.html',
+                           garage=garage, form=garage_form), 400
 
     return redirect('/garage/{}'.format(id))
 
@@ -128,7 +133,12 @@ def user_settings():
 @login_required
 def edit_user_settings():
     form = UserSettingsForm(request.form)
-    config_manager.save_phone(form.notification_phone.data)
+    
+    if form.validate_on_submit():
+        config_manager.save_phone(form.notification_phone.data)
+        flash('Nastavení uloženo')
+    else:
+        flash('Chyba ve formuláři')
+        return render_template('main/user_settings.html', form=form), 400
 
-    flash('Nastavení uloženo')
     return redirect('/user_settings')

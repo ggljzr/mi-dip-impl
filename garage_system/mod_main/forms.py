@@ -1,17 +1,36 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, TextAreaField, BooleanField
+from wtforms import StringField, IntegerField, TextAreaField, BooleanField, ValidationError
 from wtforms.validators import NumberRange
+
+from phonenumbers import parse, is_valid_number
+from phonenumbers.phonenumberutil import NumberParseException
+
+
+def validate_phone_number(form, field):
+    if field.data is '':
+        return
+
+    error_message = 'Neplatné telefonní číslo'
+
+    try:
+        phone = parse(field.data)
+    except NumberParseException:
+        raise ValidationError(error_message)
+    else:
+        if not is_valid_number(phone):
+            raise ValidationError(error_message)
 
 
 class UserSettingsForm(FlaskForm):
-    notification_phone = StringField('Telefon pro upozornění (včetně předvolby)')
+    notification_phone = StringField(
+        'Telefon pro upozornění (včetně předvolby)', validators=[validate_phone_number])
 
 
 class GarageForm(FlaskForm):
     tag = StringField('Označení')
     period = IntegerField('Perioda hlášení (minuty)', validators=[NumberRange(
         1, 999, message='Perioda musí být mezi 1 a 999')])
-    phone = StringField('Telefonní číslo')
+    phone = StringField('Telefonní číslo', validators=[validate_phone_number])
     note = TextAreaField('Poznámka')
 
 
