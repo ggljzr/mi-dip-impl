@@ -21,7 +21,7 @@
 
   function add_garage() {
     var systemForm = document.getElementById('system-form')
-    var url = systemForm['server-address'].value + '/api/garages'
+    var url = '/api/garages'
     $.ajax({
       url : url,
       type : 'post',
@@ -36,7 +36,7 @@
   	var apiKey = systemForm['api-key'].value
 
   	var eventType = document.getElementById('event-form')['event-type'].value
-  	var url = systemForm['server-address'].value + '/api/' + eventType
+  	var url = '/api/' + eventType
   	
   	$.ajax({
   		url : url,
@@ -60,7 +60,6 @@
 
 	<h2>Podřízený systém</h2>
 	<form id=system-form>
-		Adresa nadřazeného systému:<br> <input type='text' name='server-address' value='https://demo-garaze.tk'><br>
 		API klíč:<br> <input type="text" name="api-key" value=><br>
 	</form>
 
