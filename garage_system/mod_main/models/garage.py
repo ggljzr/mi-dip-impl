@@ -156,7 +156,7 @@ def send_notification(**kwargs):
     state = Filters.garage_state_filter(kwargs['value'])
 
     user_phone = config_manager.read_phone()
-    text = 'Změna stavu garáže : {} (id={}), stav: {}'.format(kwargs['target'].tag
+    text = 'Změna stavu garáže : {} (id={}), stav: {}'.format(kwargs['target'].tag,
                                                               kwargs['target'].id, state)
     send_sms(user_phone, text)
 
