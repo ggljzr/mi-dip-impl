@@ -149,24 +149,28 @@ def send_notification(**kwargs):
     if kwargs['value'] == Garage.STATE_OK:
         return
 
+    from ..filters import Filters
+
     user_phone = config_manager.read_phone()
+    state = Filters.garage_state_filter(kwargs['value'])
     if user_phone is not None:
-        sms_text = 'Neco se deje s garazi : {}'.format(kwargs['target'].tag)
+        sms_text = 'Změna stavu garáže : {}, stav: {}'.format(
+            kwargs['target'].tag, state)
         # try to send sms if gammu daemon is installed
         try:
-            # print(sms_text) # tady bacha v tim tagu muze bejt unicode
-            subprocess.call(['gammu-smsd-inject', 'TEXT',
-                             user_phone, '-unicode', '-text', sms_text])
+            print(sms_text) # tady bacha v tim tagu muze bejt unicode
+            # subprocess.call(['gammu-smsd-inject', 'TEXT',
+            #                 user_phone, '-unicode', '-text', sms_text])
         except FileNotFoundError:
             pass
 
     garage_phone = kwargs['target'].phone
     if garage_phone is not None:
-        sms_text = 'Neco se deje s Vasi garazi! Volejte spravce na {}'.format(
-            user_phone)
+        sms_text = 'Změna stavu Vaší garáže : {}! Volejte spravce na {}'.format(state,
+                                                                                user_phone)
         try:
-            # print(sms_text)
-            subprocess.call(['gammu-smsd-inject', 'TEXT',
-                             garage_phone, '-unicode', '-text', sms_text])
+            print(sms_text)
+            # subprocess.call(['gammu-smsd-inject', 'TEXT',
+            #                 garage_phone, '-unicode', '-text', sms_text])
         except FileNotFoundError:
             pass
