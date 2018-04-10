@@ -57,7 +57,7 @@ def test_edit_garage(app_client, log_in_out):
     assert '+420732000111' in response_data
 
 def test_change_phone(app_client, log_in_out):
-    test_phone = '+420123456879'
+    test_phone = '+420732000111'
 
     response = app_client.post('/user_settings', data={
         'notification_phone' : test_phone
@@ -65,3 +65,13 @@ def test_change_phone(app_client, log_in_out):
         # we follow redirect to settings page with our phone displayerd
 
     assert test_phone in response.data.decode('utf-8')
+
+def test_fake_phone(app_client, log_in_out):
+    test_phone = '0000'
+
+    response = app_client.post('/user_settings', data={
+        'notification_phone' : test_phone
+        }, follow_redirects=True) 
+        # we follow redirect to settings page with our phone displayerd
+
+    assert response.status == '400 BAD REQUEST'
