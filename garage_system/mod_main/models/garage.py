@@ -150,25 +150,15 @@ def send_notification(**kwargs):
         return
 
     from ..filters import Filters
+    from ..sms_utils import send_sms
+
+    # get string representation of garage state
+    state = Filters.garage_state_filter(kwargs['value'])
 
     user_phone = config_manager.read_phone()
-    state = Filters.garage_state_filter(kwargs['value'])
-    if user_phone is not None:
-        sms_text = 'Změna stavu garáže : {}, stav: {}'.format(
-            kwargs['target'].tag, state)
-        # try to send sms if gammu daemon is installed
-        try:
-            subprocess.call(['gammu-smsd-inject', 'TEXT',
-                             user_phone, '-unicode', '-text', sms_text])
-        except FileNotFoundError:
-            pass
+    text = 'Změna stavu garáže : {}, stav: {}'.format(kwargs['target'].tag, state)
+    send_sms(user_phone, text)
 
     garage_phone = kwargs['target'].phone
-    if garage_phone is not None:
-        sms_text = 'Změna stavu Vaší garáže : {}! Volejte spravce na {}'.format(state,
-                                                                                user_phone)
-        try:
-            subprocess.call(['gammu-smsd-inject', 'TEXT',
-                             garage_phone, '-unicode', '-text', sms_text])
-        except FileNotFoundError:
-            pass
+    text = 'Změna stavu Vaší garáže : {}! Volejte spravce na {}'.format(state, user_phone)
+    send_sms(garage_phone, text)
