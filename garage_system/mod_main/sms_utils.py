@@ -1,7 +1,11 @@
 import subprocess
 import unicodedata
 
-def send_sms(phone, text, clear_unicode=True):
+def send_sms(phone, text, clear_unicode=True, debug_print=False):
+    if debug_print:
+        print('Sending SMS to: {}'.format(phone))
+        print('SMS text: {}'.format(text))
+
     if phone is None:
         return False
 
