@@ -136,6 +136,8 @@ class Garage(Base):
         db.session.delete(self)
         db.session.commit()
 
+from ..filters import Filters
+from ..sms_utils import send_sms
 
 @db.event.listens_for(Garage.state, 'set', named=True)
 def send_notification(**kwargs):
@@ -147,9 +149,6 @@ def send_notification(**kwargs):
     # if new state is ok do nothing
     if kwargs['value'] == Garage.STATE_OK:
         return
-
-    from ..filters import Filters
-    from ..sms_utils import send_sms
 
     # get string representation of garage state
     state = Filters.garage_state_filter(kwargs['value'])
