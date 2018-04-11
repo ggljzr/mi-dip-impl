@@ -30,9 +30,7 @@ class ConfigManager():
         return self.check_password(DEFAULT_PASSWORD)
 
     def set_default_password(self):
-        pw_hash = argon2.hash(DEFAULT_PASSWORD)
-        self.user_config.set('settings', 'password', pw_hash)
-        self.write_config()
+        self.save_password(DEFAULT_PASSWORD)
 
     def save_password(self, new_password):
         pw_hash = argon2.hash(new_password)
