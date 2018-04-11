@@ -3,5 +3,3 @@
 (dopsat tam ten check report job do toho scheduleru, staci zkopirovat ten radek z ty diplomky)
 
 * BUG: na rpi to nenajde ten default config, je potreba nastavit tu env var GARAGE_SYSTEM_CONFIG (u me na pocitaci to ten default normalne najde)
-
-* tu Garage v test_api by chtelo celou namockovat, vcetne ty metody na vyhledavani podle api klice asi, pak by se tam nesrala ta databaze no (by v tim test_api modulu vubec nemela bejt potreba)
