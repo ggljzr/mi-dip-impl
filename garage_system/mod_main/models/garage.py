@@ -1,6 +1,5 @@
 from garage_system import db, scheduler, config_manager
 import uuid
-import subprocess
 from datetime import datetime, timedelta
 
 from .base import Base
