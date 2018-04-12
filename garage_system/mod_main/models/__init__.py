@@ -4,7 +4,7 @@ from .garage import Garage
 from ..filters import Filters
 from ..sms_utils import send_sms
 
-scheduler.add_job(Garage.check_reports, 'interval', minutes=5)
+scheduler.add_job(Garage.check_reports, 'interval', minutes=1)
 
 @db.event.listens_for(Garage.state, 'set', named=True)
 def send_notification(**kwargs):
@@ -23,7 +23,7 @@ def send_notification(**kwargs):
     user_phone = config_manager.read_phone()
     text = 'Změna stavu garáže : {} (id={}), stav: {}'.format(kwargs['target'].tag,
                                                               kwargs['target'].id, state)
-    send_sms(user_phone, text, debug_print=True)
+    send_sms(user_phone, text)
 
     garage_phone = kwargs['target'].phone
     text = 'Změna stavu Vaší garáže : {}! Volejte spravce na {}'.format(
