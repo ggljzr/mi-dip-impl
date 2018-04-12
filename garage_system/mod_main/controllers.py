@@ -53,6 +53,7 @@ def show_garage(id):
     if garage is None:
         return render_template('404.html'), 404
 
+    garage.check_report()
     garage_form = GarageFormBuilder.build_form(garage)
 
     return render_template('main/show_garage.html',
