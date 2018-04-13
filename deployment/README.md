@@ -16,7 +16,7 @@
 Allow access to `/var/www` directory, where application is placed:
 
 ```
-$ sudo chown -R root:www-data /var/www
+$ sudo chown -R www-data:www-data /var/www
 ```
 
 Allow read/write access to `user_config.ini` and `app.db` (database file):
@@ -29,6 +29,8 @@ $ sudo chown root:www-data /path/to/app.db
 $ sudo chmod 660 /path/to/user_config.ini
 $ sudo chmod 660 /path/to/app.db
 ```
+
+Also copy `garage_system.wsgi` to the the root of the application and set it's execute bit.
 
 Addd `www-data` user to `gammu` group so application can add messages to `gammu-smsd` with `gammu-smsd-inject`:
 
