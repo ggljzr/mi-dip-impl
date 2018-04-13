@@ -38,7 +38,7 @@ setup(
                      'argon2-cffi>=18.1.0',
                      'passlib>=1.7.1',
                      'APScheduler>=3.5.1',
-                     'phonenumber>=8.9.3'
+                     'phonenumbers>=8.9.3'
                      ],
     setup_requires=[
         'pytest-runner',
