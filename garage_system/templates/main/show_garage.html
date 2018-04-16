@@ -14,10 +14,10 @@
     $(`td[class!=event_type_${event_type}]`).hide();
   }
 
-  function show_all()
-  {
+  function show_all(){
     $("td").show()
   }
+
   </script>
 </head>
 
@@ -30,10 +30,10 @@
         <li class=menu_item><button class='menu_button' onclick='location.reload()'>Obnovit</button></li>
         <li class=menu_item>
             <div class=tooltip>
-            <form method="POST" action="/revoke_key/{{ garage.id }}">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <input type="submit" class=menu_button value="Zneplatnit API klíč">
-                </form>
+            <form method="POST" action="/revoke_key/{{ garage.id }}" onsubmit="return confirm('Opravdu chcete zneplatnit API klíč?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="submit" class=menu_button value="Zneplatnit API klíč">
+            </form>
             <span class=tooltiptext>
             <p>
             Po zneplatnění klíče nebude moci příslušný podřízený systém odesílat nové události.
@@ -46,7 +46,7 @@
         </li>
         <li class=menu_item>
             <div class=tooltip>
-            <form method="POST" action="/delete_garage/{{ garage.id }}">
+            <form method="POST" action="/delete_garage/{{ garage.id }}" onsubmit="return confirm('Opravdu chcete smazat tuto garáž?');">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <input type="submit" class=menu_button value="Smazat garáž">
                 </form>
