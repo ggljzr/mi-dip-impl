@@ -45,7 +45,11 @@ class Garage(Base):
             Garage.reg_mode = False
 
         quit_time = datetime.now() + timedelta(minutes=Garage.REG_MODE_TIMER)
-        scheduler.add_job(quit_req_mode, run_date=quit_time)
+        scheduler.add_job(quit_req_mode, run_date=quit_time, id='reg_job')
+
+    def quit_reg_mode():
+        scheduler.remove_job('reg_job')
+        Garage.reg_mode = False
 
     def add_garage():
         new_garage = Garage()

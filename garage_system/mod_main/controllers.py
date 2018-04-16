@@ -114,7 +114,8 @@ def delete_garage(id):
 @login_required
 def reg_mode():
     if Garage.reg_mode:
-        flash('Registrační mód už běží', 'warning')
+        Garage.quit_reg_mode()
+        flash('Registrační mód vypnut')
         return redirect('/')
 
     Garage.start_reg_mode()
