@@ -9,9 +9,16 @@
   url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
 
   <script type="text/javascript">
+  function on_add_success(data, status, xhr){
+    var systemForm = document.getElementById('system-form')
+    systemForm['api-key'].value = data['api_key']
+
+    on_success(data, status, xhr)
+  }
+
   function on_success(data, status, xhr) {
     document.getElementById('return-code').innerHTML = xhr.status
-    document.getElementById('return-value').innerHTML = data
+    document.getElementById('return-value').innerHTML = JSON.stringify(data)
   }
 
   function on_error(xhr, status, error) {
@@ -25,8 +32,8 @@
     $.ajax({
       url : url,
       type : 'post',
-      dataType : 'text',
-      success : on_success,
+      dataType : 'json',
+      success : on_add_success,
       error : on_error
     })
   }
@@ -42,7 +49,7 @@
   		url : url,
   		type : 'post',
   		headers : {'apikey' : apiKey},
-  		dataType : 'text',
+  		dataType : 'json',
   		success: on_success,
   		error: on_error
   	})
@@ -60,7 +67,7 @@
 
 	<h2>Podřízený systém</h2>
 	<form id=system-form>
-		API klíč:<br> <input type="text" name="api-key" value=><br>
+		API klíč:<br> <input type="text" name="api-key" size='35' value=><br>
 	</form>
 
 	<h2>Zaslání události</h2>
