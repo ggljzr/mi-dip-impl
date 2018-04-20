@@ -4,21 +4,6 @@
 <head>
   <title>Správa garáží</title>
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
-
-  <script type=text/javascript src="{{
-  url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
-
-  <script>
-  function show_events(event_type) {
-    $(`td[class=event_type_${event_type}]`).show();
-    $(`td[class!=event_type_${event_type}]`).hide();
-  }
-
-  function show_all(){
-    $("td").show()
-  }
-
-  </script>
 </head>
 
 <body>
@@ -91,13 +76,13 @@
     </div>
 
     <div class=filter_buttons>
-        <button onclick="show_all()" class=form_button>Vše</button>
-        <button onclick="show_events(0)" class=form_button>Kontrolní hlášení</button>
-        <button onclick="show_events(1)" class=form_button>Otevření dveří</button>
-        <button onclick="show_events(2)" class=form_button>Zavření dveří</button>
-        <button onclick="show_events(3)" class=form_button>Detekce pohybu</button>
-        <button onclick="show_events(4)" class=form_button>Detekce kouře</button>
-        <button onclick="show_events(5)" class=form_button>Chybová hlášení</button>
+        <a href='/garage/{{ garage.id }}' class=form_button>Vše</a>
+        <a href='/garage/{{ garage.id }}?event_type=0' class=form_button>Kontrolní hlášení</a>
+        <a href='/garage/{{ garage.id }}?event_type=1' class=form_button>Otevření dveří</a>
+        <a href='/garage/{{ garage.id }}?event_type=2' class=form_button>Zavření dveří</a>
+        <a href='/garage/{{ garage.id }}?event_type=3' class=form_button>Pohyb</a>
+        <a href='/garage/{{ garage.id }}?event_type=4' class=form_button>Kouř</a>
+        <a href='/garage/{{ garage.id }}?event_type=5' class=form_button>Chyba zařízení</a>
     </div>
 
 
@@ -105,7 +90,7 @@
         <tr>
         <th>Seznam událostí</th>
         </tr>
-        {% for event in garage.events %}
+        {% for event in events[index: index + page_size] %}
             <tr>
                 <td class=event_type_{{event.type}}>{{ event | event_filter }}</td>
             </tr>
@@ -115,6 +100,16 @@
         </tr>
         {% endfor %}
     </table>
+
+    <div class=pages>
+        {% for p in range(0, pages) %}
+            {% if event_type %}
+            <a href='/garage/{{ garage.id }}?index={{ p * page_size }}&event_type={{ event_type }}'>[ {{ p }} ]</a>
+            {% else %}
+            <a href='/garage/{{ garage.id }}?index={{ p * page_size }}'>[{{ p }}]</a>
+            {% endif %}
+        {% endfor %}
+    </div>
 
     </div>
 

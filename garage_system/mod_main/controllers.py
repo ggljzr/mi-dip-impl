@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from math import ceil
 
 from jinja2 import Markup
 
@@ -11,6 +12,8 @@ from garage_system.mod_auth.auth_utils import login_required
 from garage_system import config_manager
 
 mod_main = Blueprint('main', __name__)
+
+PAGE_SIZE = 10
 
 
 @mod_main.app_template_filter('date_filter')
@@ -37,6 +40,7 @@ def event_filter(event):
 def reg_mode_filter(reg_mode):
     return Filters.reg_mode_filter(reg_mode)
 
+
 @mod_main.route('/')
 @login_required
 def index():
@@ -53,11 +57,24 @@ def show_garage(id):
     if garage is None:
         return render_template('404.html'), 404
 
+    try:
+        page_index = int(request.args.get('index'))
+    except TypeError:
+        page_index = 0
+
+    event_type = request.args.get('event_type')
+    filtered_events = garage.get_events(event_type)
+
+    pages = ceil((len(filtered_events) / PAGE_SIZE))
     garage.check_report()
     garage_form = GarageFormBuilder.build_form(garage)
 
     return render_template('main/show_garage.html',
-                           garage=garage, form=garage_form)
+                           garage=garage, 
+                           event_type=event_type, events=filtered_events,
+                           form=garage_form,
+                           index=page_index, 
+                           page_size=PAGE_SIZE, pages=pages)
 
 
 @mod_main.route('/garage/<id>', methods=['POST'])
@@ -67,13 +84,19 @@ def edit_garage(id):
 
     if garage is not None:
         garage_form = GarageForm(request.form)
+        events = garage.get_events()
         if garage_form.validate_on_submit():
             garage.update(request.form.to_dict())
             flash('Garáž upravena')
         else:
             flash('Chyba ve formuláři', 'error')
+            pages = ceil((len(events) / PAGE_SIZE))
             return render_template('main/show_garage.html',
-                           garage=garage, form=garage_form), 400
+                                   garage=garage, 
+                                   event_type=0, events=events,
+                                   form=garage_form,
+                                   index=0, 
+                                   page_size=PAGE_SIZE, pages=pages), 400
 
     return redirect('/garage/{}'.format(id))
 
@@ -131,11 +154,12 @@ def user_settings():
 
     return render_template('main/user_settings.html', form=form)
 
+
 @mod_main.route('/user_settings', methods=['POST'])
 @login_required
 def edit_user_settings():
     form = UserSettingsForm(request.form)
-    
+
     if form.validate_on_submit():
         config_manager.save_phone(form.notification_phone.data)
         flash('Nastavení uloženo')
