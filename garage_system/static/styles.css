@@ -30,7 +30,7 @@ h1, h2 {text-align: center; font-family: helvetica}
 }
 
 .flash_error {
-    color: #000;
+    color: #fff;
     background: #D81B60; 
 }
 
@@ -177,6 +177,7 @@ input[type=text], input[type=password], textarea {
 }
 
 td.event_type_3, td.event_type_4 {
+    color: #fff;
     background-color: #D81B60;
 }
 
