@@ -81,6 +81,9 @@ def test_movemenent_doors_open(garage):
     new_garage.add_movement_event()
 
     assert new_garage.state == garage.STATE_OK
+    # added event signalize subsystem error
+    from garage_system.mod_main.models.event import Event
+    assert new_garage.events[0].type == Event.TYPE_DEVICE_ERROR
 
 def test_movement_event(garage):
     new_garage = garage.add_garage()
