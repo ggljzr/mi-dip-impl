@@ -125,6 +125,12 @@ class Garage(Base):
 
         self.add_event(Event.TYPE_SMOKE)
 
+    def get_events(self, event_type=None):
+        if event_type is None:
+            return self.events
+
+        return Event.query.filter_by(type=event_type, garage_id=self.id).all()
+
     def check_report(self):
         if self.next_report is None:
             return True

@@ -115,3 +115,15 @@ def test_delete_garage(garage):
     new_garage.delete_garage()
 
     assert old_garage_num == len(garage.query.all())
+
+def test_get_events(garage):
+    new_garage = garage.add_garage()
+    new_garage.add_report_event()
+    new_garage.add_report_event()
+    new_garage.add_smoke_event()
+
+    from garage_system.mod_main.models.event import Event
+
+    assert len(new_garage.get_events()) == 3
+    assert len(new_garage.get_events(Event.TYPE_REPORT)) == 2
+    assert len(new_garage.get_events(Event.TYPE_SMOKE)) == 1 
