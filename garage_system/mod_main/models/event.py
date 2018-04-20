@@ -10,6 +10,7 @@ class Event(Base):
     TYPE_DOOR_CLOSE = 2
     TYPE_MOVEMENT = 3
     TYPE_SMOKE = 4
+    TYPE_DEVICE_ERROR = 5
 
     timestamp = db.Column(db.DateTime)
 

@@ -110,6 +110,8 @@ class Garage(Base):
         # deactivated subsystem, 
         # meaning something strange is happening
         if self.doors == Garage.DOORS_OPEN:
+            # add event siganlizing subsystem error
+            self.add_event(Event.TYPE_DEVICE_ERROR)
             return
 
         if self.state == Garage.STATE_OK:

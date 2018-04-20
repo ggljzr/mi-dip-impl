@@ -36,21 +36,24 @@ class Filters():
     def event_filter(event):
 
         if event.type == Event.TYPE_REPORT:
-            text = 'Kontrolní hlášení'
-        elif event.type == Event.TYPE_DOOR_OPEN:
-            text = 'Otevření dveří'
-        elif event.type == Event.TYPE_DOOR_CLOSE:
-            text = 'Zavření dveří'
-        elif event.type == Event.TYPE_MOVEMENT:
-            text = 'Detekce pohybu!'
-        elif event.type == Event.TYPE_SMOKE:
-            text = 'Detekce kouře!'
-        else:
-            text = 'Nedefinováno'
+            return '[{}] Kontrolní hlášení'.format(event.timestamp)
+        
+        if event.type == Event.TYPE_DOOR_OPEN:
+            return '[{}] Otevření dveří'.format(event.timestamp)
 
-        ret = '[{}] {}'.format(event.timestamp, text)
+        if event.type == Event.TYPE_DOOR_CLOSE:
+            return '[{}] Zavření dveří'.format(event.timestamp)
+        
+        if event.type == Event.TYPE_MOVEMENT:
+            return '[{}] Detekce pohybu!'.format(event.timestamp)
 
-        return ret
+        if event.type == Event.TYPE_SMOKE:
+            return '[{}] Detekce kouře!'.format(event.timestamp)
+
+        if event.type == Event.TYPE_DEVICE_ERROR:
+            return '[{}] Chyba podřízeného systému'.format(event.timestamp)
+
+        return '[{}] Nedefinováno'.format(event.timestamp, text)
 
     def reg_mode_filter(reg_mode):
         if reg_mode:
