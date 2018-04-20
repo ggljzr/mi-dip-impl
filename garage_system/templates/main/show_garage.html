@@ -90,7 +90,7 @@
         <tr>
         <th>Seznam událostí</th>
         </tr>
-        {% for event in events[index: index + page_size] %}
+        {% for event in events %}
             <tr>
                 <td class=event_type_{{event.type}}>{{ event | event_filter }}</td>
             </tr>

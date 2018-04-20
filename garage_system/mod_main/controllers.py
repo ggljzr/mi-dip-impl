@@ -63,17 +63,17 @@ def show_garage(id):
         page_index = 0
 
     event_type = request.args.get('event_type')
-    filtered_events = garage.get_events(event_type)
-
-    pages = ceil((len(filtered_events) / PAGE_SIZE))
+    events = garage.get_events(event_type)
+    pages = ceil((len(events) / PAGE_SIZE))
+    events = events[page_index:page_index+PAGE_SIZE]
+    
     garage.check_report()
     garage_form = GarageFormBuilder.build_form(garage)
 
     return render_template('main/show_garage.html',
                            garage=garage, 
-                           event_type=event_type, events=filtered_events,
+                           event_type=event_type, events=events,
                            form=garage_form,
-                           index=page_index, 
                            page_size=PAGE_SIZE, pages=pages)
 
 
@@ -84,18 +84,18 @@ def edit_garage(id):
 
     if garage is not None:
         garage_form = GarageForm(request.form)
-        events = garage.get_events()
         if garage_form.validate_on_submit():
             garage.update(request.form.to_dict())
             flash('Garáž upravena')
         else:
             flash('Chyba ve formuláři', 'error')
+            events = garage.get_events()
             pages = ceil((len(events) / PAGE_SIZE))
+            events = events[0:PAGE_SIZE]
             return render_template('main/show_garage.html',
                                    garage=garage, 
                                    event_type=0, events=events,
                                    form=garage_form,
-                                   index=0, 
                                    page_size=PAGE_SIZE, pages=pages), 400
 
     return redirect('/garage/{}'.format(id))
