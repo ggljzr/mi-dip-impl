@@ -38,7 +38,7 @@ def test_event_display(app_client, log_in_out):
     response = app_client.get('/garage/1')
 
     # we can see report event added in fixture
-    assert 'Kontrolní hlášení' in response.data.decode('utf-8')
+    assert 'Kontrolní hlášení</td>' in response.data.decode('utf-8')
 
 def test_edit_garage(app_client, log_in_out):
     # edit first garage data
@@ -85,3 +85,41 @@ def test_fake_phone(app_client, log_in_out):
         # we follow redirect to settings page with our phone displayerd
 
     assert response.status == '400 BAD REQUEST'
+
+def test_paging(app_client, log_in_out):
+    response = app_client.get('/garage/1')
+    data = response.data.decode('utf-8')
+
+    # we can see page links
+    assert '[0]' in data
+    assert '[1]' in data
+
+    # we can flip to other page
+    response = app_client.get('/garage/1?index=1')
+    data = response.data.decode('utf-8')
+
+    assert response.status == '200 OK'
+    assert 'Kontrolní hlášení</td>' in data
+
+def test_filtering(app_client, log_in_out):
+    # get all events
+    response = app_client.get('/garage/1')
+    data = response.data.decode('utf-8')
+
+    # we see report events and smoke events
+    assert 'Kontrolní hlášení</td>' in data
+    assert 'Detekce kouře!</td>' in data
+
+    # get only report events
+    response = app_client.get('/garage/1?event_type=0')
+    data = response.data.decode('utf-8')
+
+    assert 'Kontrolní hlášení</td>' in data
+    assert 'Detekce kouře!</td>' not in data
+
+    # get only smoke events
+    response = app_client.get('/garage/1?event_type=4')
+    data = response.data.decode('utf-8')
+
+    assert 'Kontrolní hlášení</td>' not in data
+    assert 'Detekce kouře!</td>' in data
