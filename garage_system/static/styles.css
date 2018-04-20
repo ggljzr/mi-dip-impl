@@ -170,5 +170,9 @@ input[type=text], input[type=password], textarea {
 }
 
 td.event_type_3, td.event_type_4 {
+    background-color: #D81B60;
+}
+
+td.event_type_5 {
     background-color: #FF9800;
 }
