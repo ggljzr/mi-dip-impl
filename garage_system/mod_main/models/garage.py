@@ -126,10 +126,14 @@ class Garage(Base):
         self.add_event(Event.TYPE_SMOKE)
 
     def get_events(self, event_type=None):
+        # return all events if no type is specified
         if event_type is None:
             return self.events
 
-        return Event.query.filter_by(type=event_type, garage_id=self.id).all()
+        return Event.query \
+        .filter_by(type=event_type, garage_id=self.id) \
+        .order_by(Event.timestamp.desc()) \
+        .all()
 
     def check_report(self):
         if self.next_report is None:
