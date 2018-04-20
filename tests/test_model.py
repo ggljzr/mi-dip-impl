@@ -71,6 +71,13 @@ def test_smoke_event(garage):
     new_garage.add_smoke_event()
     assert new_garage.state == garage.STATE_SMOKE
 
+def test_report_resets_state(garage):
+    new_garage = garage.add_garage()
+    new_garage.add_smoke_event()
+    new_garage.add_report_event()
+
+    assert new_garage.state == garage.STATE_OK
+
 def test_movemenent_doors_open(garage):
     new_garage = garage.add_garage()
     new_garage.add_door_open_event() # open doors
