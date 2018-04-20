@@ -71,8 +71,23 @@ def test_smoke_event(garage):
     new_garage.add_smoke_event()
     assert new_garage.state == garage.STATE_SMOKE
 
+def test_movemenent_doors_open(garage):
+    new_garage = garage.add_garage()
+    new_garage.add_door_open_event() # open doors
+
+    # now we should not register movement events
+    # so garage state should not change after adding one
+    # this apply only for movement event
+    new_garage.add_movement_event()
+
+    assert new_garage.state == garage.STATE_OK
+
 def test_movement_event(garage):
     new_garage = garage.add_garage()
+
+    # close garage doors so we register movement events
+    new_garage.add_door_close_event()
+
     new_garage.add_movement_event()
     assert new_garage.state == garage.STATE_MOVEMENT
 

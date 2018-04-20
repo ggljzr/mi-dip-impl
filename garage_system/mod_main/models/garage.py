@@ -105,6 +105,13 @@ class Garage(Base):
         self.add_event(Event.TYPE_DOOR_CLOSE)
 
     def add_movement_event(self):
+        # door are opened so we should not
+        # recieve any movement events from
+        # deactivated subsystem, 
+        # meaning something strange is happening
+        if self.doors == Garage.DOORS_OPEN:
+            return
+
         if self.state == Garage.STATE_OK:
             self.state = Garage.STATE_MOVEMENT
 
