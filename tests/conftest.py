@@ -21,12 +21,16 @@ def app_client():
     db.session.commit() # commit new key
 
     # add some event we can check
-    for i in range(0, 6):
-        test_garage.add_smoke_event()
+    # make sure we get more than one page of events
+    from garage_system.mod_main.controllers import PAGE_SIZE
+    for i in range(0, PAGE_SIZE * 2):
+        if i % 2 == 0:
+            test_garage.add_smoke_event()
+        else:
+            test_garage.add_report_event()
 
-    # 12 events so we get two pages
-    for i in range(0, 6):
-        test_garage.add_report_event()
+    # to make sure garage is in ok state
+    test_garage.add_report_event()
 
     from garage_system import app
     # set logged in flag to be true for all tests
