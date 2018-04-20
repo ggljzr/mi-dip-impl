@@ -94,7 +94,7 @@ def edit_garage(id):
             events = events[0:PAGE_SIZE]
             return render_template('main/show_garage.html',
                                    garage=garage, 
-                                   event_type=0, events=events,
+                                   event_type=None, events=events,
                                    form=garage_form,
                                    page_size=PAGE_SIZE, pages=pages), 400
 

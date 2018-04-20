@@ -103,7 +103,7 @@
 
     <div class=pages>
         {% for p in range(0, pages) %}
-            {% if event_type %}
+            {% if event_type != None %}
             <a href='/garage/{{ garage.id }}?index={{ p * page_size }}&event_type={{ event_type }}'>[ {{ p }} ]</a>
             {% else %}
             <a href='/garage/{{ garage.id }}?index={{ p * page_size }}'>[{{ p }}]</a>
