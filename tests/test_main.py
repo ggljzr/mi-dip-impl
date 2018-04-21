@@ -91,7 +91,7 @@ def test_paging(app_client, log_in_out):
     data = response.data.decode('utf-8')
 
     # we can see page links
-    assert '[0]' in data
+    assert '&gt;0&lt;' in data # page zero is selected
     assert '[1]' in data
 
     # we can flip to other page
