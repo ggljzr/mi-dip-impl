@@ -4,6 +4,10 @@
 <head>
   <title>Správa garáží</title>
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+  <script type=text/javascript src="{{url_for('static', filename='utils.js') }}"></script>
+  <script type='text/javascript'>
+    window.onload = setRefresh(25000);
+  </script>
 </head>
 
 <body>
