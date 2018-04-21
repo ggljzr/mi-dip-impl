@@ -104,17 +104,21 @@
     <div class=pages>
         {% for p in range(0, pages) %}
             {% if event_type != None %}
-            <a href='/garage/{{ garage.id }}?page={{ p }}&event_type={{ event_type }}'>[ {{ p }} ]</a>
+            <a href='/garage/{{ garage.id }}?page={{ p }}&event_type={{ event_type }}'>
             {% else %}
-            <a href='/garage/{{ garage.id }}?page={{ p }}'>[{{ p }}]</a>
+            <a href='/garage/{{ garage.id }}?page={{ p }}'>
             {% endif %}
+            {% if p == page %}
+            &gt;{{ p }}&lt;
+            {% else %}
+            [{{ p }}]
+            {% endif %}</a>
         {% endfor %}
     </div>
 
     </div>
 
 
-    </div>
 </div>
 
 </body>
