@@ -58,14 +58,14 @@ def show_garage(id):
         return render_template('404.html'), 404
 
     try:
-        page_index = int(request.args.get('index'))
+        page = int(request.args.get('page'))
     except TypeError:
-        page_index = 0
+        page = 0
 
     event_type = request.args.get('event_type')
     events = garage.get_events(event_type)
     pages = ceil((len(events) / PAGE_SIZE))
-    events = events[page_index:page_index+PAGE_SIZE]
+    events = events[page * PAGE_SIZE: (page * PAGE_SIZE) + PAGE_SIZE]
     
     garage.check_report()
     garage_form = GarageFormBuilder.build_form(garage)
@@ -74,7 +74,7 @@ def show_garage(id):
                            garage=garage, 
                            event_type=event_type, events=events,
                            form=garage_form,
-                           page_size=PAGE_SIZE, pages=pages)
+                           page=page, pages=pages)
 
 
 @mod_main.route('/garage/<id>', methods=['POST'])
@@ -96,7 +96,7 @@ def edit_garage(id):
                                    garage=garage, 
                                    event_type=None, events=events,
                                    form=garage_form,
-                                   page_size=PAGE_SIZE, pages=pages), 400
+                                   page=0, pages=pages), 400
 
     return redirect('/garage/{}'.format(id))
 
