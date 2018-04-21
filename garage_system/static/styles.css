@@ -70,7 +70,8 @@ input[type=text], input[type=password], textarea {
 .menu_box {
     background-color: #455A64;
     text-align: center;
-    height: 1080px;
+    min-height: 1080px;
+    height: 100%;
 }
 
 .menu_item {
