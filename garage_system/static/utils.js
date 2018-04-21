@@ -1,7 +1,3 @@
 function setRefresh(milis) {
-    setTimeout("refresh();", milis)
-}
-
-function refresh() {
-    location.reload()
+    setTimeout(function () { location.reload(); }, milis);
 }
