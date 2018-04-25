@@ -50,7 +50,7 @@ def test_add_report(garage):
     assert new_garage.last_report == now
     assert new_garage.next_report == next
     assert new_garage.state == garage.STATE_OK
-    assert len(new_garage.events) == 1
+    assert len(new_garage.get_events()) == 1
 
 @freeze_time("2011-01-01 00:00:00")
 def test_check_report(garage):
