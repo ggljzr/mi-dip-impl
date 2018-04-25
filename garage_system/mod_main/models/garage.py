@@ -33,7 +33,7 @@ class Garage(Base):
     phone = db.Column(db.String(64))
 
     events = db.relationship('Event', backref='Garage',
-                             lazy=True, cascade='all, delete-orphan', order_by='desc(Event.timestamp)')
+                             lazy='dynamic', cascade='all, delete-orphan', order_by='desc(Event.timestamp)')
 
     def start_reg_mode():
         if Garage.reg_mode:
@@ -128,13 +128,12 @@ class Garage(Base):
     def get_events(self, event_type=None):
         # return all events if no type is specified
         if event_type is None:
-            return self.events
+            return self.events.all()
 
-        return Event.query \
-        .filter_by(type=event_type, garage_id=self.id) \
-        .order_by(Event.timestamp.desc()) \
+        return self.events \
+        .filter(Event.type == event_type) \
         .all()
-
+        
     def check_report(self):
         if self.next_report is None:
             return True
