@@ -32,6 +32,10 @@ class Garage(Base):
     state = db.Column(db.SmallInteger, default=STATE_OK)
     phone = db.Column(db.String(64))
 
+    # because event collection can be somewhat large
+    # we use dynamic lazy loading
+    # this speeds up adding new events
+    # for more info see http://docs.sqlalchemy.org/en/latest/orm/collections.html
     events = db.relationship('Event', backref='Garage',
                              lazy='dynamic', cascade='all, delete-orphan', order_by='desc(Event.timestamp)')
 
@@ -133,7 +137,7 @@ class Garage(Base):
         return self.events \
         .filter(Event.type == event_type) \
         .all()
-        
+
     def check_report(self):
         if self.next_report is None:
             return True
