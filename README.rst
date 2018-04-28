@@ -6,7 +6,7 @@ Implementation part of my `thesis <https://github.com/ggljzr/mi-dip>`__ (in Czec
 Installation
 ============
 
-Requires Python 3. Other packages are collected via pip. For sending SMS notifications, you'll need to install and configure `Gammu SMSD <https://wammu.eu/smsd/>`__.
+Requires Python 3. Other packages are collected via pip. For sending SMS notifications, you'll need to install and configure `Gammu SMSD <https://wammu.eu/smsd/>`__ (optional).
 
 Create virtual environment (optional):
 
