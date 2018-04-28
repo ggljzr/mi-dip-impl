@@ -1,7 +1,11 @@
 from .models.event import Event
 from .models.garage import Garage
 
-
+"""
+Class for transfering various integer
+types to strings that are displayed
+in web ui.
+"""
 class Filters():
     def date_filter(date):
         if date is None:

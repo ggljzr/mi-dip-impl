@@ -5,6 +5,10 @@ from datetime import datetime, timedelta
 from .base import Base
 from .event import Event
 
+"""
+Garage class represents garage subsystem
+and implements event logging logic.
+"""
 class Garage(Base):
     __tablename__ = 'garage'
 
@@ -16,9 +20,9 @@ class Garage(Base):
     STATE_SMOKE = 2
     STATE_MOVEMENT = 3
 
-    REPORT_TOLERANCE = 60
+    REPORT_TOLERANCE = 60 # see check_report() method
 
-    REG_MODE_TIMER = 3
+    REG_MODE_TIMER = 3 # see start_reg_mode() method
 
     reg_mode = False
 
@@ -39,6 +43,10 @@ class Garage(Base):
     events = db.relationship('Event', backref='Garage',
                              lazy='dynamic', cascade='all, delete-orphan', order_by='desc(Event.timestamp)')
 
+    """
+    Method to start reg mode. Method sets reg_mode flag to True and schedules
+    job to to set it to false after REG_MODE_TIMER minutes.
+    """
     def start_reg_mode():
         if Garage.reg_mode:
             return
@@ -51,6 +59,9 @@ class Garage(Base):
         quit_time = datetime.now() + timedelta(minutes=Garage.REG_MODE_TIMER)
         scheduler.add_job(quit_req_mode, run_date=quit_time, id='reg_job')
 
+    """
+    Method that sets reg_mode flag to false and removes eventual scheduled quit.
+    """
     def quit_reg_mode():
         scheduler.remove_job('reg_job')
         Garage.reg_mode = False
@@ -61,12 +72,17 @@ class Garage(Base):
         db.session.commit()
         return new_garage
 
-    # api_key uniquely identifies garage within database (same as id)
-    # returns none when no matching garage is found
+    """
+    Api_key uniquely identifies garage within database (same as id).
+    Returns none when no matching garage is found.
+    """
     def get_garage_by_key(api_key):
         garage = Garage.query.filter_by(api_key=api_key).first()
         return garage
 
+    """
+    See check_report().
+    """
     def check_reports():
         garages = Garage.query.all()
         for garage in garages:
@@ -75,7 +91,9 @@ class Garage(Base):
     def __init__(self):
         self.api_key = uuid.uuid4().hex
 
-    # updates specific columns with corresponding dict
+    """
+    Updates specific columns with corresponding dict.
+    """
     def update(self, update_data):
         self.tag = update_data['tag']
         self.period = update_data['period']
@@ -83,12 +101,19 @@ class Garage(Base):
         self.phone = update_data['phone']
         db.session.commit()
 
+    """
+    Method used internaly by other add_ methods.
+    """
     def add_event(self, type):
         now = datetime.now()
         event = Event(garage_id=self.id, timestamp=now, type=type)
         self.events.append(event)
         db.session.commit()
 
+    """
+    Methods for adding events. Each event has its own method,
+    so we dont need to check valid event type.
+    """
     def add_report_event(self):
         now = datetime.now()
         next_report = now + timedelta(minutes=self.period)
@@ -129,8 +154,15 @@ class Garage(Base):
 
         self.add_event(Event.TYPE_SMOKE)
 
+    """
+    Wraper for SQLAlchemy Query object that is events.
+    Returns events with specified type or all events if
+    event_type == None.
+
+    Returns None if no events with given type exists in
+    the database (default SQLAlchemy query behavior). 
+    """
     def get_events(self, event_type=None):
-        # return all events if no type is specified
         if event_type is None:
             return self.events.all()
 
@@ -138,6 +170,14 @@ class Garage(Base):
         .filter(Event.type == event_type) \
         .all()
 
+    """
+    Checks if subsystem (garage) is past due with its report
+    (if its past next_report time + REPORT_TOLERANCE).
+
+    If report was missed, sets garage state to NOT_RESPONDING.
+
+    Returns True if report was not missed yet, False otherwise.
+    """
     def check_report(self):
         if self.next_report is None:
             return True
@@ -152,7 +192,9 @@ class Garage(Base):
 
         return True
 
-    # revokes garage api key by generating a new one
+    """
+    Revokes garage api key by generating a new one.
+    """
     def revoke_key(self):
         self.api_key = uuid.uuid4().hex
         db.session.commit()

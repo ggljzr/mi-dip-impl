@@ -5,7 +5,9 @@ from wtforms.validators import NumberRange
 from phonenumbers import parse, is_valid_number
 from phonenumbers.phonenumberutil import NumberParseException
 
-
+"""
+Validator for phone number used in user settings and garage form.
+"""
 def validate_phone_number(form, field):
     if field.data is '':
         return
@@ -33,7 +35,9 @@ class GarageForm(FlaskForm):
     phone = StringField('Telefonní číslo', validators=[validate_phone_number])
     note = TextAreaField('Poznámka')
 
-
+"""
+Class to build GarageForm from given garage class instance.
+"""
 class GarageFormBuilder:
 
     def build_form(garage):

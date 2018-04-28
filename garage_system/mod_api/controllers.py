@@ -5,7 +5,7 @@ from garage_system.mod_main.models.garage import Garage
 
 mod_api = Blueprint('api', __name__)
 
-
+# wraps given status code into json format
 def wrap_status_code(code):
     ret = {'status': code}
     return json.dumps(ret), code

@@ -3,7 +3,10 @@ import configparser
 
 DEFAULT_PASSWORD = 'password'
 
-
+"""
+Class for managing user_config.ini. 
+Allows checking and updating password and phone number.
+"""
 class ConfigManager():
 
     def __init__(self, config_path):
