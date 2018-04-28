@@ -1,6 +1,16 @@
 import subprocess
 import unicodedata
+from sys import stderr
 
+"""
+Function wrapping gammu-smsd-inject command, used to send SMS.
+Function fails silently when Gammu SMSD is not installed.
+
+If clear_unicode is True, non-ascii characters are replaced
+with their closest ascii equivalents, e.g. š -> s.
+
+Returns True if sms was added to SMSD queue, False otherwise.
+"""
 def send_sms(phone, text, clear_unicode=True, debug_print=False):
     if debug_print:
         print('Sending SMS to: {}'.format(phone))
@@ -23,6 +33,7 @@ def send_sms(phone, text, clear_unicode=True, debug_print=False):
         subprocess.call(['gammu-smsd-inject', 'TEXT',
                          phone, '-text', ascii_txt])
     except FileNotFoundError:
+        print('gammu-smsd-inject was not found', file=stderr)
         return False
 
     return True
