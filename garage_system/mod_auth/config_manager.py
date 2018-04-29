@@ -50,7 +50,7 @@ class ConfigManager():
             phone = self.user_config['settings']['phone']
         except KeyError:
             pass
-        return phone
+        return phone # return None when no phone is filled out
 
     """
     Method to reload given config file. File is created if it
