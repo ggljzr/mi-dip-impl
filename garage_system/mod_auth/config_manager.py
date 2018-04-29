@@ -52,7 +52,12 @@ class ConfigManager():
             pass
         return phone
 
-    # used only for loading clean config in tests
+    """
+    Method to reload given config file. File is created if it
+    does not exists. In the same way section 'settings' is created.
+
+    Method can be used when config file is changed outside config manager.
+    """
     def reload_config(self):
         self.user_config = configparser.ConfigParser()
         self.user_config.read(self.config_path)
