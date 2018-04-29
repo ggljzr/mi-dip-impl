@@ -29,6 +29,10 @@ class ConfigManager():
         return argon2.verify(password, pw_hash)
 
     # checks if password in user_config.ini is default password
+    # this could be refactored if needed so we dont need to calculate
+    # hash every time we check for default password 
+    # (mantain self.default_password flag or something)
+    # but this seems fast enough and slightly more readable
     def check_default_password(self):
         return self.check_password(DEFAULT_PASSWORD)
 
