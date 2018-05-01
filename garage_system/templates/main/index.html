@@ -15,7 +15,7 @@
     <div class=menu_box>
         <h2>Menu</h2>
         <ul class=menu_list>
-            <li class=menu_item><button class='menu_button' onclick='location.reload()'>Obnovit</button></li>
+            <li class=menu_item><button type='button' class='menu_button' onclick='location.reload()'>Obnovit</button></li>
             <li class=menu_item>
                 <form method="POST" action="/add_garage">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
