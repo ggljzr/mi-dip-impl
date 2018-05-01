@@ -5,6 +5,28 @@
   <meta charset="UTF-8" />
   <title>Simulátor podřízeného systému</title>
 
+  <style>
+    .run-animation-error {
+      animation-name: 'error-anim';
+      animation-duration: 1s;
+      width: 400px;
+    }
+
+    .run-animation-ok {
+      animation-name: 'ok-anim';
+      animation-duration: 1s;
+      width: 400px;
+    }
+
+    @keyframes error-anim {
+    from {background-color: red;}
+    to {background-color: white;}}
+
+    @keyframes ok-anim {
+    from {background-color: green;}
+    to {background-color: white;}}
+  </style>
+
   <script type=text/javascript src="{{
   url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
 
@@ -16,14 +38,25 @@
     on_success(data, status, xhr)
   }
 
+  function play_anim(class_name){
+    var ret_div = document.getElementById('ret')
+    ret_div.classList = ""
+    ret_div.classList.add(class_name)
+    //https://css-tricks.com/restart-css-animation/
+    var newone = ret_div.cloneNode(true);
+    ret_div.parentNode.replaceChild(newone, ret_div);
+  }
+
   function on_success(data, status, xhr) {
     document.getElementById('return-code').innerHTML = xhr.status
     document.getElementById('return-value').innerHTML = JSON.stringify(data)
+    play_anim('run-animation-ok')
   }
 
   function on_error(xhr, status, error) {
     document.getElementById('return-code').innerHTML = xhr.status
     document.getElementById('return-value').innerHTML = 'Došlo k chybě'
+    play_anim('run-animation-error')
   }
 
   function add_garage() {
@@ -62,8 +95,10 @@
 
 	<h2>Odpověď nadřazeného systému</h2>
 
+  <div id='ret'>
 	Návratový kód: <span id=return-code></span><br>
 	Návratová hodnota: <span id=return-value></span>
+  </div>
 
 	<h2>Podřízený systém</h2>
 	<form id=system-form>
