@@ -1,4 +1,4 @@
-mi-dip-impl
+Garage Security System
 ===========
 
 Implementation part of my `thesis <https://github.com/ggljzr/mi-dip>`__ (in Czech).
