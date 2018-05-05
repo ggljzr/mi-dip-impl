@@ -1,3 +1,10 @@
 * nakej zakladni pentesting?
 
 * BUG: na rpi to nenajde ten default config, je potreba nastavit tu env var GARAGE_SYSTEM_CONFIG (u me na pocitaci to ten default normalne najde)
+
+* v ty funkci add_report_event je potreba posunout cas dalsiho ocekavanyho hlaseni vo hodinu dal, pokud to posledni hlaseni prislo pred zmenou casu na letni a to dalsi ocekavany hlaseni je po zmene casu na letni (zimni cas asi neni potreba vosetrovat). Tj:
+
+if(posledni hlaseni < zmena casu na letni && dalsi hlaseni > zmena casu na letni)
+  dalsi hlaseni = dalsi hlaseni + 1 hodina
+  
+neni ani snad potreba to vosetrovat kdyz ten system zmenu casu nepouziva, akorat jednou za rok tam bude v noci vo hodinu rozdil no
